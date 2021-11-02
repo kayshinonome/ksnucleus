@@ -1,0 +1,6 @@
+build/
+**.directory
+.sconsign.dblite
+.cache
+*compile_commands.json
+docs/

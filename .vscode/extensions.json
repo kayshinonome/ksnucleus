@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "webfreak.debug",
+        "cschlosser.doxdocgen",
+        "coenraads.bracket-pair-colorizer-2",
+        "mads-hartmann.bash-ide-vscode",
+        "zixuanwang.linkerscript",
+        "fabiospampinato.vscode-todo-plus",
+        "maziac.asm-code-lens"
+    ]
+}

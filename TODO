@@ -1,0 +1,4 @@
+Make device files
+Make loadable and deloadable quarks
+Add memory allocation
+Add a event engine

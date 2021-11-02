@@ -1,0 +1,11 @@
+{
+    "editor.largeFileOptimizations": true,
+    "editor.detectIndentation": false,
+    "explorer.sortOrder": "type",
+    "files.associations": {
+        "*.json": "json",
+        "*.inc": "makefile",
+        "*.anim": "yaml",
+        "cstring": "cpp"
+    },
+}
