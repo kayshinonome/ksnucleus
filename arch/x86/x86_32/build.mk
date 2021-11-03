@@ -1,5 +1,4 @@
 CPPFLAGS 		+=					\
--m32								\
 -target i686-unknown-unknown-elf	\
 -march=i686
 

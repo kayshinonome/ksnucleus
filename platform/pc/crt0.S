@@ -1,12 +1,6 @@
 #include <boot/multiboot.hpp>
 #define ALIGNMENT 4096
 
-.section .multiboot
-.align 4
-.long MULTIBOOT_HEADER_MAGIC
-.long 0
-.long -(MULTIBOOT_HEADER_MAGIC)
-
 // Reserve a stack for the initial thread.
 .section .bss
 .align ALIGNMENT
