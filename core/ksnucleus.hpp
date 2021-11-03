@@ -10,7 +10,7 @@
  */
 #pragma once
 
-#include <utils.hpp>
+#include <types.hpp>
 
 #define SYSCALL extern "C" __attribute__((used, hot, noinline)) void
 

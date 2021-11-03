@@ -9,7 +9,8 @@
 
 #pragma once
 
-#include <utils.hpp>
+#include <array.hpp>
+#include <types.hpp>
 
 class GDT
 {

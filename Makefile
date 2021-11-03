@@ -12,7 +12,13 @@ endif
 .PHONY: clean run inspect debug
 .DEFAULT_GOAL := all
 
-include config.mk
+CUSTOM_CONFIG_SET := false
+
+-include config.mk
+
+ifeq ($(CUSTOM_CONFIG_SET),false)
+    include config/x86-pc-32-little.mk
+endif
 
 BUILD_DIR     		= 								\
 build/$(CONFIG_KSNUCLEUS_ARCH)-$(CONFIG_KSNUCLEUS_PLATFORM)-$(CONFIG_KSNUCLEUS_WORD_WIDTH)-$(CONFIG_KSNUCLEUS_ENDIAN)
@@ -93,18 +99,18 @@ NUCLEUS_OBJS		= $(NUCLEUS_SRCS:%=$(BUILD_DIR)/%.o)
 OBJS 				+= $(NUCLEUS_OBJS)
 
 $(BUILD_DIR)/nucleus: $(NUCLEUS_OBJS) $(LIBS)
->	mkdir -p $(dir $@)
+>	mkdir -pv $(dir $@)
 >	$(LD) -o $@ $(NUCLEUS_OBJS) $(LDFLAGS) $(CPPFLAGS) 
 
 all: $(BUILD_DIR)/nucleus inspect
 > @echo "Compiling complete"
 
 $(BUILD_DIR)/%.cpp.o: %.cpp
->	mkdir -p $(dir $@)
+>	mkdir -pv $(dir $@)
 >	$(CXX) -c $< -o $@ $(INCLUDE_FLAGS) $(CPPFLAGS) $(CXXFLAGS) 
 
 $(BUILD_DIR)/%.S.o: %.S
->	mkdir -p $(dir $@)
+>	mkdir -pv $(dir $@)
 >	$(AS) -c $< -o $@ $(INCLUDE_FLAGS) $(CPPFLAGS) $(ASFLAGS)
 
 debug: $(BUILD_DIR)/nucleus
@@ -117,6 +123,9 @@ run: $(BUILD_DIR)/nucleus
 
 clean:
 >	rm -rfv build docs compile_commands.json
+
+distclean: clean
+>	rm -rfv .cache config.mk
 
 docs:
 >	doxygen

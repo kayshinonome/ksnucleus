@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include <utils.hpp>
+#include <types.hpp>
 
 /**
  * @brief Get a uint8_t from the io ports

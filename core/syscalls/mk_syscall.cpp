@@ -1,5 +1,6 @@
+#include <array.hpp>
 #include <core/ksnucleus.hpp>
-#include <utils.hpp>
+#include <types.hpp>
 
 // trying to convert non-type safe to type safe here... watch out
 SYSCALL mk_syscall(void **args, KsSyscallID syscall_id)

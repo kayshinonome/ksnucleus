@@ -1,5 +1,3 @@
-#include <utils.hpp>
-
 class Quark
 {
   public:

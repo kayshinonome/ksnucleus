@@ -5,7 +5,8 @@
         "coenraads.bracket-pair-colorizer-2",
         "mads-hartmann.bash-ide-vscode",
         "zixuanwang.linkerscript",
-        "fabiospampinato.vscode-todo-plus",
-        "maziac.asm-code-lens"
+        "maziac.asm-code-lens",
+        "usernamehw.todo-md",
+        "streetsidesoftware.code-spell-checker"
     ]
 }

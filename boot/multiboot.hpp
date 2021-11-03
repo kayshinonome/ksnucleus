@@ -157,7 +157,7 @@
 
 #ifdef __cplusplus
 
-#include <utils.hpp>
+#include <types.hpp>
 
 struct multiboot_header
 {

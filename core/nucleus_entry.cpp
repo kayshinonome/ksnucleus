@@ -1,6 +1,7 @@
+#include <array.hpp>
 #include <core/ksnucleus.hpp>
-#include <utils.hpp>
-#include <video/rendering.hpp>
+#include <types.hpp>
+#include <video/framebuffer.hpp>
 
 extern "C"
 {
@@ -19,6 +20,9 @@ extern "C"
         // This isn't how this should be used, but this is for testing
         mk_syscall(reinterpret_cast<void **>(&arg_array), KsSyscallID::RANDOM);
 
-        Framebuffer<uint8_t, 8, 8> a;
+        // Make a simple buffer
+        // Framebuffer<Atomic<uint8_t>, 8, 8> framebuffer;
+
+        // framebuffer.draw_rect(1, {{0, 0}, {0, 0}});
     }
 }

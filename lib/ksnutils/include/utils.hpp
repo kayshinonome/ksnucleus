@@ -1,70 +1,7 @@
 #pragma once
-
-#if defined(__SIZE_TYPE__)
-using size_t = __SIZE_TYPE__;
-#endif
-
-#if defined(__PTRDIFF_TYPE__)
-using ptrdiff_t = __PTRDIFF_TYPE__;
-#endif
-
-#if defined(__UINTPTR_TYPE__)
-using uintptr_t = __UINTPTR_TYPE__;
-#endif
-
-#if defined(__INT8_TYPE__)
-using int8_t = __INT8_TYPE__;
-#endif
-
-#if defined(__INT16_TYPE__)
-using int16_t = __INT16_TYPE__;
-#endif
-
-#if defined(__INT32_TYPE__)
-using int32_t = __INT32_TYPE__;
-#endif
-
-#if defined(__INT64_TYPE__)
-using int64_t = __INT64_TYPE__;
-#endif
-
-#if defined(__UINT8_TYPE__)
-using uint8_t = __UINT8_TYPE__;
-#endif
-
-#if defined(__UINT16_TYPE__)
-using uint16_t = __UINT16_TYPE__;
-#endif
-
-#if defined(__UINT32_TYPE__)
-using uint32_t = __UINT32_TYPE__;
-#endif
-
-#if defined(__UINT64_TYPE__)
-using uint64_t = __UINT64_TYPE__;
-#endif
+#include <types.hpp>
 
 constexpr auto M_PI = 3.14159265358979311600;
-
-/**
- * @brief memcpy that copies using native words sizes when possible
- *
- * @tparam T The type of the block to be copied
- * @param src Source data
- * @param dest Destination data
- * @param count Number of blocks to copy
- */
-template <typename T> void copy_memory(const T src[], T dest[], size_t count);
-
-/**
- * @brief memset that copies using native words sizes when possible
- *
- * @tparam T
- * @param dest
- * @param value
- * @param count
- */
-template <typename T> void set_memory(T dest[], uint8_t value, size_t count);
 
 /**
  * @brief Get the absolute value of a function
@@ -73,7 +10,10 @@ template <typename T> void set_memory(T dest[], uint8_t value, size_t count);
  * @param x
  * @return T
  */
-template <typename T> T abs(T x);
+template <typename T> T abs(T x)
+{
+    return (x < 0) ? (-x) : (x);
+}
 
 /**
  * @brief Get a approximate for sin
@@ -82,158 +22,123 @@ template <typename T> T abs(T x);
  * @param x
  * @return T
  */
-template <typename T> T sin(T x);
-
-/**
- * @brief A safe array type that represents as many arrays as possible in ksnucleus
- *
- * @tparam ARRAY_TYPE
- * @tparam SIZE
- */
-template <typename ARRAY_TYPE, size_t SIZE> class Array
+template <typename T> T sin(T x)
 {
-    /**
-     * @brief Internal array
-     *
-     */
-  public:
-    /**
-     * @brief Internal array to store data
-     *
-     */
-    ARRAY_TYPE _internal_buffer[SIZE];
+    constexpr auto B = 4 / M_PI;
+    constexpr auto C = -4 / (M_PI * M_PI);
+    constexpr auto P = 0.225;
 
-    /**
-     * @brief Read a element
-     *
-     * @param index
-     * @return ARRAY_TYPE
-     */
-    ARRAY_TYPE operator[](size_t index) const;
+    auto y = B * x + C * x * abs(x);
 
-    /**
-     * @brief Write to a element
-     *
-     * @param index
-     * @return ARRAY_TYPE&
-     */
-    ARRAY_TYPE &operator[](size_t index);
+    y = P * (y * abs(y) - y) + y;
 
-    /**
-     * @brief Get the length of the array, calculated at compile time
-     *
-     * @return constexpr size_t
-     */
-    [[nodiscard]] constexpr size_t length() const;
+    return y;
+}
 
-    /**
-     * @brief Get the raw, underlying array
-     *
-     * @return ARRAY_TYPE*
-     */
-    constexpr ARRAY_TYPE *raw();
-
-    /**
-     * @brief Get the raw, underlying const array
-     *
-     * @return ARRAY_TYPE*
-     */
-    constexpr const ARRAY_TYPE *raw() const;
-
-    /**
-     * @brief Sort the array (Bubble sort for now)
-     *
-     * @param cmp
-     */
-    void sort(bool (*cmp)(const ARRAY_TYPE &, const ARRAY_TYPE &));
-
-    /**
-     * @brief Copy contructor
-     *
-     * @param data
-     * @return ksArray&
-     */
-    Array &operator=(const Array &data);
-
-    /**
-     * @brief Copy contructor (for raw ARRAY_TYPE)
-     *
-     * @param data
-     * @return ksArray&
-     */
-    Array &operator=(const ARRAY_TYPE data[]);
-
-    /**
-     * @brief Function to check if equals
-     *
-     * @param data
-     * @return bool
-     */
-    bool operator==(const Array &data);
-
-    /**
-     * @brief Inequality operator
-     *
-     * @param data
-     * @return bool
-     */
-    bool operator!=(const Array &data);
-
-    /**
-     * @brief Fill this array with elements from a raw array passed in
-     *
-     * @param data
-     */
-    void from(const ARRAY_TYPE data[]);
-};
-
-template <typename ARRAY_TYPE, size_t WIDTH, size_t HEIGHT>
-class Array2D : public Array<Array<ARRAY_TYPE, HEIGHT>, WIDTH>
+template <typename T> bool compare_memory(const T src[], const T dest[], size_t count)
 {
-  public:
-    /**
-     * @brief Return this as a flat array
-     *
-     * @return Array<ARRAY_TYPE, WIDTH * HEIGHT>&
-     */
-    Array<ARRAY_TYPE, WIDTH * HEIGHT> &as_flat_array();
+    // No operation needs to happen here
+    if (count == 0 || src == dest)
+    {
+        return true;
+    }
 
-    /**
-     * @brief Return this as a flat const array
-     *
-     * @return const Array<ARRAY_TYPE, WIDTH * HEIGHT>&
-     */
-    const Array<ARRAY_TYPE, WIDTH * HEIGHT> &as_flat_array() const;
+    const size_t total_elements = sizeof(T) * count;
+    const size_t left_over = total_elements % sizeof(size_t);
+    const size_t mem_to_cpy = total_elements - left_over;
 
-    /**
-     * @brief Get the width of the array, calculated at compile time
-     *
-     * @return constexpr int
-     */
-    [[nodiscard]] constexpr size_t width() const;
+    for (size_t x = 0, len = mem_to_cpy / sizeof(size_t); x < len; x++)
+    {
+        if (*(reinterpret_cast<const size_t *>(dest) + x) != *(reinterpret_cast<const size_t *>(src) + x))
+        {
+            return false;
+        }
+    }
 
-    /**
-     * @brief Get the height of the array, calculated at compile time
-     *
-     * @return constexpr int
-     */
-    [[nodiscard]] constexpr size_t height() const;
-};
+    if (left_over > 0)
+    {
+        for (size_t x = mem_to_cpy; x < total_elements; x++)
+        {
+            if (*(reinterpret_cast<const uint8_t *>(dest) + x) != *(reinterpret_cast<const uint8_t *>(src) + x))
+            {
+                return false;
+            }
+        }
+    }
 
-template <typename T> class Future
+    return true;
+}
+
+template <typename T> void copy_memory(const T src[], T dest[], size_t count)
 {
-    T (*callback)(Future<T> &future);
+    // No operation needs to happen here
+    if (count == 0 || src == dest)
+    {
+        return;
+    }
 
-  public:
-    explicit Future(T (*callback)(Future<T> &future));
+    const size_t total_elements = sizeof(T) * count;
+    const size_t left_over = total_elements % sizeof(size_t);
+    const size_t mem_to_cpy = total_elements - left_over;
 
-    T get();
-};
+    for (size_t x = 0, len = mem_to_cpy / sizeof(size_t); x < len; x++)
+    {
+        *(reinterpret_cast<size_t *>(dest) + x) = *(reinterpret_cast<const size_t *>(src) + x);
+    }
 
-#include <lib/ksnutils/src/math/abs.inl>
-#include <lib/ksnutils/src/math/sin.inl>
-#include <lib/ksnutils/src/memops/copy_memory.inl>
-#include <lib/ksnutils/src/memops/set_memory.inl>
-#include <lib/ksnutils/src/structures/array.inl>
-#include <lib/ksnutils/src/structures/array2d.inl>
-#include <lib/ksnutils/src/structures/future.inl>
+    if (left_over > 0)
+    {
+        for (size_t x = mem_to_cpy; x < total_elements; x++)
+        {
+            *(reinterpret_cast<uint8_t *>(dest) + x) = *(reinterpret_cast<const uint8_t *>(src) + x);
+        }
+    }
+}
+
+template <typename T> void set_memory(T dest[], uint8_t value, size_t count)
+{
+
+    /**
+     * @brief If count equals zero, no operation needs to happen
+     *
+     */
+    if (count == 0)
+    {
+        return;
+    }
+
+    size_t expanded_value = 0;
+    const size_t total_elements = sizeof(T) * count;
+    const size_t left_over = total_elements % sizeof(size_t);
+    const size_t mem_to_cpy = total_elements - left_over;
+
+    /**
+     * @brief Using this function to zero out data is common, so we will directly assign expanded_value and skip the
+     * loop
+     *
+     */
+    if (value != 0)
+    {
+        expanded_value = value;
+
+        // Make a size_t filled with here the value
+        for (size_t x = 0, len = sizeof(size_t); x < len; x++)
+        {
+            expanded_value <<= sizeof(value) * 8;
+            expanded_value |= value;
+        }
+    }
+
+    for (size_t x = 0, len = mem_to_cpy / sizeof(size_t); x < len; x++)
+    {
+        *(reinterpret_cast<size_t *>(dest) + x) = expanded_value;
+    }
+
+    if (left_over > 0)
+    {
+        for (size_t x = mem_to_cpy; x < total_elements; x++)
+        {
+            *(reinterpret_cast<uint8_t *>(dest) + x) = value;
+        }
+    }
+}

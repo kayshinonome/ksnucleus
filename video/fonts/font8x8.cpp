@@ -7,7 +7,8 @@
  *
  */
 
-#include <utils.hpp>
+#include <array2d.hpp>
+#include <types.hpp>
 
 /**
  * @brief Contains an 8x8 font map for unicode points U+0000 - U+007F (basic latin)

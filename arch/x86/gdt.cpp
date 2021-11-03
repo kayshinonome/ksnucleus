@@ -1,4 +1,5 @@
 #include <arch/x86/gdt.hpp>
+#include <types.hpp>
 #include <utils.hpp>
 
 extern "C"

@@ -1,5 +1,6 @@
+#include <array.hpp>
 #include <core/ksnucleus.hpp>
-#include <utils.hpp>
+#include <types.hpp>
 
 SYSCALL ks_random(void *buffer, size_t length)
 {

@@ -1,4 +1,28 @@
-Make device files
-Make loadable and deloadable quarks
-Add memory allocation
-Add a event engine
+Data Types:
+    Array:
+        Allow for implicit conversion for array types of different sizes
+        Allow for full implicit conversion between the raw array type without losing the ability to use some kind of initializer list
+        Add stack operations to the array
+    Future:
+        Make a future type that calls back to retrieve the initial value from a callback function pointers
+        Make the type async proof
+        Make the type multiprocessor proof
+        Make the type completely transparent so that it is interchangeable with other types that it wraps
+    String:
+        Make a string type (based on char[]) so that safe and effective string operations can be made
+    SpinLock:
+        Make a spinlock type to control how locking works
+Build system:
+    Makefile:
+        Clean them up. They look like garbage
+    Libraries:
+        Merge libksnutils into the main nucleus source. Most of it is header so there is no point in keeping it separate
+        Give each ksnutils data type its own header
+Platform and Arch support:
+    Quarks:
+        Write a VESA quark that can, at the least, commit a framebuffer to video memory (at 640x480 with a depth of 16)
+        Write a 8250 quark that can, at the least, push a byte out, and pull a byte in (this will require a good implementation of the Future class)
+    Boot:
+        Figure out why booting multiboot kernels in QEMU isn't setting the requested video mode
+    Runtime:
+        Add a v86 bios wrapper for x86-pc-32-little, for things such as changing video mode, or reading the disk (risky, but may work for early drivers
