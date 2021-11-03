@@ -7,7 +7,8 @@ LDFLAGS 	+= 								\
 
 NUCLEUS_SRCS += 							\
 platform/pc/crt0.S							\
-platform/pc/init_platform.cpp
+platform/pc/init_platform.cpp				\
+platform/pc/vesa.cpp
 
 CPPFLAGS	+=								\
 -D__CONFIG_KSNUCLEUS_PLATFORM_PC__

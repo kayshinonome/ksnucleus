@@ -8,7 +8,6 @@
  */
 #include <utils.hpp>
 
-
 constexpr auto BIOS_DATA_AREA_BASE = 0x00000400;
 
 /**
@@ -99,7 +98,7 @@ class BiosDataArea
      * 2    =   color 80x25
      * 3    =   monochrome 80x25
      */
-    uint8_t VIDEO_MODE : 2;
+    uint8_t CURRENT_VIDEO_MODE : 2;
 
   private:
     uint8_t UNUSED_3 : 1;
@@ -246,4 +245,4 @@ class BiosDataArea
 
 } __attribute__((packed));
 
-const static inline BiosDataArea *bios_data_area = reinterpret_cast<const BiosDataArea *>(BIOS_DATA_AREA_BASE);
+volatile inline BiosDataArea *bios_data_area = reinterpret_cast<volatile BiosDataArea *>(BIOS_DATA_AREA_BASE);

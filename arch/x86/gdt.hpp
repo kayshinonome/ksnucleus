@@ -120,9 +120,17 @@ class GDT
 
     } __attribute__((packed));
 
-    Array<Entry, 5> entries{};
+    /**
+     * @brief The actual data for the GDT
+     *
+     */
+    Array<Entry, 5> entries;
 
   public:
+    /**
+     * @brief Init the GDT and load it
+     *
+     */
     static void init();
 };
 
