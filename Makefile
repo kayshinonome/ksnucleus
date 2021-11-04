@@ -25,7 +25,7 @@ build/$(CONFIG_KSNUCLEUS_ARCH)-$(CONFIG_KSNUCLEUS_PLATFORM)-$(CONFIG_KSNUCLEUS_W
 
 INCLUDE_DIRS  		+=								\
 $(PWD)												\
-lib/ksnutils/include								\
+$(PWD)/lib/ksnutils/include							\
 
 INCLUDE_FLAGS 		+=								\
 $(addprefix -I,$(INCLUDE_DIRS))

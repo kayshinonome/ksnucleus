@@ -62,10 +62,10 @@ extern "C"
                 if (__atexit_funcs[i].destructor_func != nullptr)
                 {
                     (*__atexit_funcs[i].destructor_func)(__atexit_funcs[i].obj_ptr);
-                };
-            };
+                }
+            }
             return;
-        };
+        }
 
         while ((i--) != 0)
         {
@@ -73,7 +73,7 @@ extern "C"
             {
                 (*__atexit_funcs[i].destructor_func)(__atexit_funcs[i].obj_ptr);
                 __atexit_funcs[i].destructor_func = nullptr;
-            };
-        };
+            }
+        }
     }
 }

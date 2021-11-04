@@ -1,4 +1,5 @@
 #pragma once
+#include <atomic.hpp>
 #include <types.hpp>
 
 constexpr auto M_PI = 3.14159265358979311600;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array2d.hpp>
 #include <utils.hpp>
 
 /**

@@ -2,14 +2,14 @@
 
 extern "C"
 {
-    __attribute__((noreturn)) void __stack_chk_fail(void)
+    __attribute__((noreturn)) void __stack_chk_fail()
     {
         while (true)
         {
         }
     }
 
-    __attribute__((noreturn)) void __stack_chk_fail_local(void)
+    __attribute__((noreturn)) void __stack_chk_fail_local()
     {
         __stack_chk_fail();
     }

@@ -9,7 +9,7 @@
             "compilerPath": "/usr/lib/ccache/bin/clang",
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "clang-x86",
+            "intelliSenseMode": "clang-x86"
         }
     ],
     "version": 4
