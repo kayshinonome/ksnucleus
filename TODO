@@ -12,6 +12,8 @@ Data Types:
         Make a string type (based on char[]) so that safe and effective string operations can be made
     SpinLock:
         Make a spinlock type to control how locking works
+    Atomic:
+        Finish overriding all the operators in the Atomic operator
 Build system:
     Makefile:
         Clean them up. They look like garbage

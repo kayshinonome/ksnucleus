@@ -7,7 +7,8 @@ extern "C"
 {
     void _init(void)
     {
-        for (func_ptr *func = _init_array_start; func != _init_array_end; func++)
+        for (auto *func = reinterpret_cast<func_ptr *>(_init_array_start);
+             func != reinterpret_cast<func_ptr *>(_init_array_end); func++)
         {
             (*func)();
         }

@@ -34,7 +34,7 @@ class GDT
          * @brief Descriptor type (0 for system, 1 for code/data)
          *
          */
-        static constexpr uint16_t SEG_TYPE(uint16_t x)
+        constexpr static uint16_t SEG_TYPE(uint16_t x)
         {
             return ((x) << 0x04);
         }
@@ -43,7 +43,7 @@ class GDT
          * @brief Present
          *
          */
-        static constexpr uint16_t SEG_PRES(uint16_t x)
+        constexpr static uint16_t SEG_PRES(uint16_t x)
         {
             return ((x) << 0x07);
         }
@@ -52,7 +52,7 @@ class GDT
          * @brief Available for system use
          *
          */
-        static constexpr uint16_t SEG_SAVL(uint16_t x)
+        constexpr static uint16_t SEG_SAVL(uint16_t x)
         {
             return ((x) << 0x0c);
         }
@@ -61,7 +61,7 @@ class GDT
          * @brief Long mode
          *
          */
-        static constexpr uint16_t SEG_LONG(uint16_t x)
+        constexpr static uint16_t SEG_LONG(uint16_t x)
         {
             return ((x) << 0x0d);
         }
@@ -70,7 +70,7 @@ class GDT
          * @brief Size (0 for 16-bit, 1 for 32)
          *
          */
-        static constexpr uint16_t SEG_SIZE(uint16_t x)
+        constexpr static uint16_t SEG_SIZE(uint16_t x)
         {
             return ((x) << 0x0e);
         }
@@ -79,7 +79,7 @@ class GDT
          * @brief Granularity (0 for 1B - 1MB, 1 for 4KB - 4GB)
          *
          */
-        static constexpr uint16_t SEG_GRAN(uint16_t x)
+        constexpr static uint16_t SEG_GRAN(uint16_t x)
         {
             return ((x) << 0x0f);
         }
@@ -88,7 +88,7 @@ class GDT
          * @brief Set privilege level (0 - 3)
          *
          */
-        static constexpr uint16_t SEG_PRIV(uint16_t x)
+        constexpr static uint16_t SEG_PRIV(uint16_t x)
         {
             return (((x)&0x03) << 0x05);
         }

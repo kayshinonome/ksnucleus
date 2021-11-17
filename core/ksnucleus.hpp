@@ -12,13 +12,14 @@
 
 #include <types.hpp>
 
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define SYSCALL extern "C" __attribute__((used, hot, noinline)) void
 
 enum class KsSyscallID : uint8_t
 {
     RANDOM = 0,
     GETTIME = 1,
-    WRITE = 2
+    FISSION = 2
 };
 
 /**
@@ -26,12 +27,19 @@ enum class KsSyscallID : uint8_t
  *
  * @param args Arguments for the function
  * The arguments are containing in a array of void pointers, each one pointing to the desired data
+ * The nucleus will interpret these pointers as their correct data based upon the syscall you called
  * @param syscall_id
  * @return void
  */
 SYSCALL mk_syscall(void **args, KsSyscallID syscall_id);
 
-// Subsyscalls
+/**
+ * @brief Fill a buffer with random bytes
+ *
+ * @param buffer
+ * @param length
+ * @return SYSCALL
+ */
 SYSCALL ks_random(void *buffer, size_t length);
 SYSCALL ks_gettime(uint64_t *time);
-SYSCALL ks_write(void *buffer, size_t length, uint8_t fileid);
+SYSCALL ks_fission(void *, void *stack_position);

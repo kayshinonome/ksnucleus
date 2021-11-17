@@ -37,10 +37,15 @@ CPPFLAGS      		+=								\
 -Wextra	                							\
 -Wpedantic											\
 -Wabi												\
+-Werror												\
 -Wno-unused-parameter				                \
 -Wno-write-strings					                \
 -Wno-unused-variable				                \
 -Wno-unused-function				                \
+-Wno-c++20-designator								\
+-Wno-nested-anon-types								\
+-Wno-gnu-anonymous-struct							\
+-Wno-gnu-array-member-paren-init					\
 -fstack-protector-strong				            \
 -fno-common											\
 -fno-builtin										\
@@ -93,7 +98,8 @@ arch/build.mk										\
 boot/build.mk										\
 core/build.mk										\
 lib/build.mk										\
-platform/build.mk
+platform/build.mk									\
+video/build.mk
 
 NUCLEUS_OBJS		= $(NUCLEUS_SRCS:%=$(BUILD_DIR)/%.o)
 OBJS 				+= $(NUCLEUS_OBJS)

@@ -1,7 +1,8 @@
 /**
  * @file bios.hpp
  * @author Kay Shinonome (kayshinonome@protonmail.com)
- * @brief Bios tools set, derived from http://www.bioscentral.com/misc/bda.htm
+ * @brief Bios tools set, derived from http://www.bioscentral.com/misc/bda.htm and
+ * https://stanislavs.org/helppc/bios_data_area.html
  *
  * @copyright Copyright (c) 2021
  *
@@ -18,6 +19,7 @@ class BiosDataArea
 {
   public:
     /**
+     *
      * @brief Base address for serial port 1
      *
      */
@@ -240,9 +242,11 @@ class BiosDataArea
     /**
      * @brief The selected drive
      *
+     *
      */
     uint8_t FLOPPY_MOTOR_DRIVE_SELECT : 2;
 
 } __attribute__((packed));
 
-volatile inline BiosDataArea *bios_data_area = reinterpret_cast<volatile BiosDataArea *>(BIOS_DATA_AREA_BASE);
+// NOLINTNEXTLINE(performance-no-int-to-ptr)
+const volatile inline BiosDataArea *bios_data_area = reinterpret_cast<volatile BiosDataArea *>(BIOS_DATA_AREA_BASE);

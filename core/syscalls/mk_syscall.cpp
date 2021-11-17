@@ -9,13 +9,13 @@ SYSCALL mk_syscall(void **args, KsSyscallID syscall_id)
      * @brief Contains the number of args each syscall has
      *
      */
-    Array<uint8_t, 3> syscall_arg_count{2, 1, 3};
+    Array<size_t, 3> syscall_arg_count = {2u, 1u, 2u};
 
     /**
      * @brief A array to hold the intermediate of the syscalls
      *
      */
-    Array<void *, 3> arg_array{};
+    Array<void *, 3> arg_array = {};
 
     // Ensure than the syscall id is within range
     if (static_cast<size_t>(syscall_id) > syscall_arg_count.length())
@@ -47,7 +47,7 @@ SYSCALL mk_syscall(void **args, KsSyscallID syscall_id)
             // ks_gettime(*reinterpret_cast<uint64_t **>(arg_array[0]));
         }
 
-        case KsSyscallID::WRITE:
+        case KsSyscallID::FISSION:
         {
         }
     }

@@ -5,13 +5,13 @@
 constexpr auto M_PI = 3.14159265358979311600;
 
 /**
- * @brief Get the absolute value of a function
+ * @brief Get the absolute value of a value
  *
  * @tparam T
  * @param x
  * @return T
  */
-template <typename T> T abs(T x)
+template <typename T> T constexpr abs(T x)
 {
     return (x < 0) ? (-x) : (x);
 }
@@ -23,7 +23,7 @@ template <typename T> T abs(T x)
  * @param x
  * @return T
  */
-template <typename T> T sin(T x)
+template <typename T> constexpr T sin(T x)
 {
     constexpr auto B = 4 / M_PI;
     constexpr auto C = -4 / (M_PI * M_PI);
@@ -36,6 +36,16 @@ template <typename T> T sin(T x)
     return y;
 }
 
+/**
+ * @brief Compare two blocks of memory
+ *
+ * @tparam T
+ * @param src
+ * @param dest
+ * @param count
+ * @return true
+ * @return false
+ */
 template <typename T> bool compare_memory(const T src[], const T dest[], size_t count)
 {
     // No operation needs to happen here
@@ -45,31 +55,56 @@ template <typename T> bool compare_memory(const T src[], const T dest[], size_t 
     }
 
     const size_t total_elements = sizeof(T) * count;
-    const size_t left_over = total_elements % sizeof(size_t);
-    const size_t mem_to_cpy = total_elements - left_over;
 
-    for (size_t x = 0, len = mem_to_cpy / sizeof(size_t); x < len; x++)
+    for (size_t x = 0; x < total_elements; x++)
     {
-        if (*(reinterpret_cast<const size_t *>(dest) + x) != *(reinterpret_cast<const size_t *>(src) + x))
+        if (*(reinterpret_cast<const uint8_t *>(dest) + x) != *(reinterpret_cast<const uint8_t *>(src) + x))
         {
             return false;
         }
     }
-
-    if (left_over > 0)
-    {
-        for (size_t x = mem_to_cpy; x < total_elements; x++)
-        {
-            if (*(reinterpret_cast<const uint8_t *>(dest) + x) != *(reinterpret_cast<const uint8_t *>(src) + x))
-            {
-                return false;
-            }
-        }
-    }
-
-    return true;
+    return false;
 }
 
+/**
+ * @brief Compare two volatile blocks of memory
+ *
+ * @tparam T
+ * @param src
+ * @param dest
+ * @param count
+ * @return true
+ * @return false
+ */
+template <typename T> bool compare_memory(const volatile T src[], const volatile T dest[], size_t count)
+{
+    // No operation needs to happen here
+    if (count == 0 || src == dest)
+    {
+        return true;
+    }
+
+    const size_t total_elements = sizeof(T) * count;
+
+    for (size_t x = 0; x < total_elements; x++)
+    {
+        if (*(reinterpret_cast<const volatile uint8_t *>(dest) + x) !=
+            *(reinterpret_cast<const volatile uint8_t *>(src) + x))
+        {
+            return false;
+        }
+    }
+    return false;
+}
+
+/**
+ * @brief Copy memory from one location to another
+ *
+ * @tparam T
+ * @param src
+ * @param dest
+ * @param count
+ */
 template <typename T> void copy_memory(const T src[], T dest[], size_t count)
 {
     // No operation needs to happen here
@@ -79,23 +114,45 @@ template <typename T> void copy_memory(const T src[], T dest[], size_t count)
     }
 
     const size_t total_elements = sizeof(T) * count;
-    const size_t left_over = total_elements % sizeof(size_t);
-    const size_t mem_to_cpy = total_elements - left_over;
 
-    for (size_t x = 0, len = mem_to_cpy / sizeof(size_t); x < len; x++)
+    for (size_t x = 0; x < total_elements; x++)
     {
-        *(reinterpret_cast<size_t *>(dest) + x) = *(reinterpret_cast<const size_t *>(src) + x);
-    }
-
-    if (left_over > 0)
-    {
-        for (size_t x = mem_to_cpy; x < total_elements; x++)
-        {
-            *(reinterpret_cast<uint8_t *>(dest) + x) = *(reinterpret_cast<const uint8_t *>(src) + x);
-        }
+        *(reinterpret_cast<uint8_t *>(dest) + x) = *(reinterpret_cast<const uint8_t *>(src) + x);
     }
 }
 
+/**
+ * @brief Copy volatile memory from one location to another
+ *
+ * @tparam T
+ * @param src
+ * @param dest
+ * @param count
+ */
+template <typename T> void copy_memory(const volatile T src[], volatile T dest[], size_t count)
+{
+    // No operation needs to happen here
+    if (count == 0 || src == dest)
+    {
+        return;
+    }
+
+    const size_t total_elements = sizeof(T) * count;
+
+    for (size_t x = 0; x < total_elements; x++)
+    {
+        *(reinterpret_cast<volatile uint8_t *>(dest) + x) = *(reinterpret_cast<const volatile uint8_t *>(src) + x);
+    }
+}
+
+/**
+ * @brief Set all memory specified to a value
+ *
+ * @tparam T
+ * @param dest
+ * @param value
+ * @param count
+ */
 template <typename T> void set_memory(T dest[], uint8_t value, size_t count)
 {
 
@@ -108,38 +165,38 @@ template <typename T> void set_memory(T dest[], uint8_t value, size_t count)
         return;
     }
 
-    size_t expanded_value = 0;
     const size_t total_elements = sizeof(T) * count;
-    const size_t left_over = total_elements % sizeof(size_t);
-    const size_t mem_to_cpy = total_elements - left_over;
+
+    for (size_t x = 0, len = total_elements; x < len; x++)
+    {
+        *(reinterpret_cast<uint8_t *>(dest) + x) = value;
+    }
+}
+
+/**
+ * @brief Set all volatile memory to the value specified
+ *
+ * @tparam T
+ * @param dest
+ * @param value
+ * @param count
+ */
+template <typename T> void set_memory(volatile T dest[], uint8_t value, size_t count)
+{
 
     /**
-     * @brief Using this function to zero out data is common, so we will directly assign expanded_value and skip the
-     * loop
+     * @brief If count equals zero, no operation needs to happen
      *
      */
-    if (value != 0)
+    if (count == 0)
     {
-        expanded_value = value;
-
-        // Make a size_t filled with here the value
-        for (size_t x = 0, len = sizeof(size_t); x < len; x++)
-        {
-            expanded_value <<= sizeof(value) * 8;
-            expanded_value |= value;
-        }
+        return;
     }
 
-    for (size_t x = 0, len = mem_to_cpy / sizeof(size_t); x < len; x++)
-    {
-        *(reinterpret_cast<size_t *>(dest) + x) = expanded_value;
-    }
+    const size_t total_elements = sizeof(T) * count;
 
-    if (left_over > 0)
+    for (size_t x = 0, len = total_elements; x < len; x++)
     {
-        for (size_t x = mem_to_cpy; x < total_elements; x++)
-        {
-            *(reinterpret_cast<uint8_t *>(dest) + x) = value;
-        }
+        *(reinterpret_cast<volatile uint8_t *>(dest) + x) = value;
     }
 }

@@ -11,16 +11,20 @@
  */
 template <typename ARRAY_TYPE, size_t SIZE> class Array
 {
-    /**
-     * @brief Internal array
-     *
-     */
-  public:
+  private:
     /**
      * @brief Internal array to store data
      *
      */
     ARRAY_TYPE _internal_buffer[SIZE];
+
+  public:
+    Array() = default;
+
+    template <typename... Ts>
+    Array(ARRAY_TYPE array_element, Ts... array_element_pack) : _internal_buffer({array_element, array_element_pack...})
+    {
+    }
 
     /**
      * @brief Read a element
@@ -28,7 +32,7 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
      * @param index
      * @return ARRAY_TYPE
      */
-    ARRAY_TYPE operator[](size_t index) const
+    constexpr ARRAY_TYPE operator[](size_t index) const
     {
         if (index >= SIZE)
         {
@@ -46,7 +50,7 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
      * @param index
      * @return ARRAY_TYPE&
      */
-    ARRAY_TYPE &operator[](size_t index)
+    constexpr ARRAY_TYPE &operator[](size_t index)
     {
         if (index >= SIZE)
         {
@@ -95,19 +99,19 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
      */
     void sort(bool (*cmp)(const ARRAY_TYPE &, const ARRAY_TYPE &))
     {
-        auto raw_array = raw();
         auto swapped = false;
+        auto &array = (*this);
 
         for (size_t x = 0, len = length(); x < len - 1; x++)
         {
             swapped = false;
             for (size_t y = 0; y < len - x - 2; y++)
             {
-                if (cmp(raw_array[y], raw_array[y + 1]))
+                if (cmp(array[y], array[y + 1]))
                 {
-                    auto tmp = raw_array[y];
-                    raw_array[y] = raw_array[y + 1];
-                    raw_array[y + 1] = tmp;
+                    auto tmp = array[y];
+                    array[y] = array[y + 1];
+                    array[y + 1] = tmp;
                     swapped = true;
                 }
             }

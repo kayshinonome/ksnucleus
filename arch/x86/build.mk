@@ -13,8 +13,9 @@ else
 endif
 
 CPPFLAGS	+=							\
--D__CONFIG_KSNUCLEUS_ARCH_X86__		\
--mno-red-zone
+-D__CONFIG_KSNUCLEUS_ARCH_X86__			\
+-mno-red-zone							\
+-msoft-float
 
 QEMUFLAGS	+=							\
 -M smm=off
