@@ -1,7 +1,6 @@
 Data Types:
     Array:
         Allow for implicit conversion for array types of different sizes
-        Allow for full implicit conversion between the raw array type without losing the ability to use some kind of initializer list
         Add stack operations to the array
     Future:
         Make a future type that calls back to retrieve the initial value from a callback function pointers
