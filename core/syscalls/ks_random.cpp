@@ -17,6 +17,7 @@ SYSCALL ks_random(void *buffer, size_t length)
 
         size_t pos = gen * length % rand_buffer_size;
         rand_buffer[pos % rand_buffer_size] ^= gen;
+        rand_buffer[pos % rand_buffer_size] += gen;
 
         reinterpret_cast<uint8_t *>(buffer)[i] = rand_buffer[pos];
     }

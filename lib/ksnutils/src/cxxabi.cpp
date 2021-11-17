@@ -36,9 +36,9 @@ extern "C"
         void *dso_handle;
     };
 
-    static atexit_func_entry_t __atexit_funcs[ATEXIT_MAX_FUNCS];
-    static uarch_t __atexit_func_count = 0;
-    static void *__dso_handle = nullptr;
+    atexit_func_entry_t __atexit_funcs[ATEXIT_MAX_FUNCS];
+    uarch_t __atexit_func_count = 0;
+    void *__dso_handle = nullptr;
 
     /**
      * @brief A pure virtual has been called (which is unusual), so the system has to die

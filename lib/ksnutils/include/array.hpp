@@ -19,11 +19,21 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
     ARRAY_TYPE _internal_buffer[SIZE];
 
   public:
-    Array() = default;
+    constexpr Array() = default;
 
     template <typename... Ts>
-    Array(ARRAY_TYPE array_element, Ts... array_element_pack) : _internal_buffer({array_element, array_element_pack...})
+    constexpr Array(ARRAY_TYPE array_element, Ts... array_element_pack)
+        : _internal_buffer({array_element, array_element_pack...})
     {
+    }
+
+    /**
+     * @brief Conversion operator / Constructor for using a raw array
+     * Please, let me find a way to do this without having to copy thing
+     */
+    constexpr Array(ARRAY_TYPE array[SIZE])
+    {
+        *this = array;
     }
 
     /**
@@ -133,7 +143,7 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
     {
         if (this != reinterpret_cast<const Array<ARRAY_TYPE, SIZE> *>(data))
         {
-            from(data.raw());
+            copy_memory(data.raw(), raw(), length());
         }
         return *this;
     }
@@ -148,7 +158,7 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
     {
         if (this != reinterpret_cast<const Array<ARRAY_TYPE, SIZE> *>(data))
         {
-            from(data);
+            copy_memory(data, raw(), length());
         }
         return *this;
     }
@@ -173,15 +183,5 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
     bool operator!=(const Array &data) const
     {
         return !compare_memory(raw(), data.raw(), SIZE);
-    }
-
-    /**
-     * @brief Fill this array with elements from a raw array passed in
-     *
-     * @param data
-     */
-    void from(const ARRAY_TYPE data[])
-    {
-        copy_memory(data, raw(), length());
     }
 };

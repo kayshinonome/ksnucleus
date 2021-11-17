@@ -10,7 +10,10 @@ extern "C"
         for (auto *func = reinterpret_cast<func_ptr *>(_init_array_start);
              func != reinterpret_cast<func_ptr *>(_init_array_end); func++)
         {
-            (*func)();
+            if (func != nullptr)
+            {
+                (*func)();
+            }
         }
     }
 }

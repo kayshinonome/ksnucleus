@@ -26,7 +26,7 @@ uint32_t inline highest_function_parameter()
  *
  * @param buffer
  */
-void inline manufacturer_id(Array<char, 12> &buffer)
+void inline manufacturer_id(Array<char, 12> buffer)
 {
     size_t eax = 0;
     constexpr auto word_size = sizeof(size_t);

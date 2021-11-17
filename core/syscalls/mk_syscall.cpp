@@ -24,7 +24,7 @@ SYSCALL mk_syscall(void **args, KsSyscallID syscall_id)
     }
 
     // Copy the args over
-    arg_array.from(args);
+    arg_array = args;
 
     // Verify that the array contains no nullptrs where valid pointers should be
     for (uint8_t x = 0, len = syscall_arg_count[static_cast<size_t>(syscall_id)]; x < len; x++)
