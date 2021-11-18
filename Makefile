@@ -9,7 +9,7 @@ ifeq ($(origin .RECIPEPREFIX), undefined)
   $(error This Make does not support .RECIPEPREFIX. Please use GNU Make 4.0 or later)
 endif
 .RECIPEPREFIX = >
-.PHONY: clean run inspect debug
+.PHONY: clean run inspect debug all docs distclean
 .DEFAULT_GOAL := all
 
 CUSTOM_CONFIG_SET := false

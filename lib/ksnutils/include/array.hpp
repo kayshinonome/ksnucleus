@@ -19,11 +19,7 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
     ARRAY_TYPE _internal_buffer[SIZE];
 
   public:
-    constexpr Array() = default;
-
-    template <typename... Ts>
-    constexpr Array(ARRAY_TYPE array_element, Ts... array_element_pack)
-        : _internal_buffer({array_element, array_element_pack...})
+    template <typename... Ts> constexpr Array(Ts... array_element_pack) : _internal_buffer({array_element_pack...})
     {
     }
 
@@ -73,7 +69,7 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
     }
 
     /**
-     * @brief Get the length of the array, calculated at compile time
+     * @brief Returns the length at runtime
      *
      * @return constexpr size_t
      */
@@ -141,7 +137,7 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
      */
     Array &operator=(const Array &data)
     {
-        if (this != reinterpret_cast<const Array<ARRAY_TYPE, SIZE> *>(data))
+        if (this != &data)
         {
             copy_memory(data.raw(), raw(), length());
         }

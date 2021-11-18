@@ -7,7 +7,8 @@
         "*.inc": "makefile",
         "*.anim": "yaml",
         "cstring": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "complex": "cpp"
     },
     "cSpell.customDictionaries": {
         "custom-dictionary-workspace": {

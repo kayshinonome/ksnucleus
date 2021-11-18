@@ -10,6 +10,10 @@ using ptrdiff_t = __PTRDIFF_TYPE__;
 using uintptr_t = __UINTPTR_TYPE__;
 #endif
 
+#if defined(__INTPTR_TYPE__)
+using intptr_t = __INTPTR_TYPE__;
+#endif
+
 #if defined(__INT8_TYPE__)
 using int8_t = __INT8_TYPE__;
 #endif
@@ -40,4 +44,8 @@ using uint32_t = __UINT32_TYPE__;
 
 #if defined(__UINT64_TYPE__)
 using uint64_t = __UINT64_TYPE__;
+#endif
+
+#if defined(__WINT_TYPE__)
+using wint_t = __WINT_TYPE__;
 #endif

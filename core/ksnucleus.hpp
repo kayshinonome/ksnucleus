@@ -10,6 +10,8 @@
  */
 #pragma once
 
+#include <core/runtime.hpp>
+#include <string.hpp>
 #include <types.hpp>
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
@@ -19,7 +21,8 @@ enum class KsSyscallID : uint8_t
 {
     RANDOM = 0,
     GETTIME = 1,
-    FISSION = 2
+    FISSION = 2,
+    SETSYSTEMSTATE = 3
 };
 
 /**
@@ -43,3 +46,4 @@ SYSCALL mk_syscall(void **args, KsSyscallID syscall_id);
 SYSCALL ks_random(void *buffer, size_t length);
 SYSCALL ks_gettime(uint64_t *time);
 SYSCALL ks_fission(void *, void *stack_position);
+SYSCALL ks_setsystemstate(SystemState system_state);

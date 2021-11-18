@@ -7,4 +7,6 @@ class Quark
     void (*init)() = nullptr;
     void (*fini)() = nullptr;
     void (*commit_framebuffer)(volatile void *data) = nullptr;
+    void (*reboot)() = nullptr;
+    void (*shutdown)() = nullptr;
 };

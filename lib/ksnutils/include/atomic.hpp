@@ -2,24 +2,24 @@
 
 #include <types.hpp>
 
-template <typename T> class Atomic
+template <typename ATOMIC_TYPE> class Atomic
 {
   private:
-    T _internal_data;
+    ATOMIC_TYPE _internal_data;
 
   public:
     Atomic() = default;
 
-    Atomic(const T &data)
+    Atomic(const ATOMIC_TYPE &data)
     {
         // NOTE: We shouldn't have to cast away constness, but we have no choice
         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
-        __atomic_store(&_internal_data, const_cast<T *>(&data), __ATOMIC_SEQ_CST);
+        __atomic_store(&_internal_data, const_cast<ATOMIC_TYPE *>(&data), __ATOMIC_SEQ_CST);
     }
 
-    operator T()
+    operator ATOMIC_TYPE()
     {
-        T tmp;
+        ATOMIC_TYPE tmp;
         __atomic_load(&_internal_data, &tmp, __ATOMIC_SEQ_CST);
         return tmp;
     }
@@ -57,27 +57,33 @@ template <typename T> class Atomic
 
         // NOTE: We shouldn't have to cast away constness, but we have no choice
         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
-        __atomic_store(&_internal_data, const_cast<T *>(&data._internal_data), __ATOMIC_SEQ_CST);
+        __atomic_store(&_internal_data, const_cast<ATOMIC_TYPE *>(&data._internal_data), __ATOMIC_SEQ_CST);
         return *this;
     }
 
-    Atomic operator+=(const T &data)
+    Atomic operator+=(const ATOMIC_TYPE &data)
     {
         __atomic_fetch_add(&_internal_data, data, __ATOMIC_SEQ_CST);
         return *this;
     }
 
-    Atomic operator-=(const T &data)
+    Atomic operator-=(const ATOMIC_TYPE &data)
     {
         __atomic_fetch_sub(&_internal_data, data, __ATOMIC_SEQ_CST);
         return *this;
     }
 
-    Atomic operator^=(const T &data)
+    Atomic operator^=(const ATOMIC_TYPE &data)
     {
         __atomic_fetch_xor(&_internal_data, data, __ATOMIC_SEQ_CST);
         return *this;
     }
 
+    Atomic operator|=(const ATOMIC_TYPE &data)
+    {
+        __atomic_fetch_or(&_internal_data, data, __ATOMIC_SEQ_CST);
+        return *this;
+    }
+
     // We have to set the alignment otherwise we will get a massive penalty from the atomic operations
-} __attribute__((aligned(sizeof(T))));
+} __attribute__((aligned(sizeof(ATOMIC_TYPE))));
