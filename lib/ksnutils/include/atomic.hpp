@@ -9,6 +9,7 @@ template <typename ATOMIC_TYPE> class Atomic
 
   public:
     Atomic() = default;
+    ~Atomic() = default;
 
     Atomic(const ATOMIC_TYPE &data)
     {

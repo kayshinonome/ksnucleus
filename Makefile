@@ -39,15 +39,12 @@ CPPFLAGS      		+=								\
 -Wabi												\
 -Werror												\
 -Wno-unused-parameter				                \
--Wno-write-strings					                \
 -Wno-unused-variable				                \
 -Wno-unused-function				                \
--Wno-c++20-designator								\
 -Wno-nested-anon-types								\
 -Wno-gnu-anonymous-struct							\
 -Wno-gnu-array-member-paren-init					\
 -fstack-protector-strong				            \
--fno-common											\
 -fno-builtin										\
 -ffunction-sections									\
 -fdata-sections
@@ -59,7 +56,6 @@ CXXFLAGS      		+=								\
 -fno-unwind-tables					                \
 -fno-non-call-exceptions							\
 -Wno-unused-private-field			              	\
--Wno-deprecated-copy								\
 -nostdinc
 
 LDFLAGS      		+=								\
