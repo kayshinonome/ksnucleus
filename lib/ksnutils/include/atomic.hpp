@@ -17,7 +17,7 @@ template <typename ATOMIC_TYPE> class Atomic
         __atomic_store(&_internal_data, const_cast<ATOMIC_TYPE *>(&data), __ATOMIC_SEQ_CST);
     }
 
-    operator ATOMIC_TYPE()
+    operator ATOMIC_TYPE() const
     {
         ATOMIC_TYPE tmp;
         __atomic_load(&_internal_data, &tmp, __ATOMIC_SEQ_CST);
@@ -83,6 +83,10 @@ template <typename ATOMIC_TYPE> class Atomic
     {
         __atomic_fetch_or(&_internal_data, data, __ATOMIC_SEQ_CST);
         return *this;
+    }
+
+    Atomic operator<=>(const ATOMIC_TYPE &data) const
+    {
     }
 
     // We have to set the alignment otherwise we will get a massive penalty from the atomic operations

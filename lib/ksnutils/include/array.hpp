@@ -162,4 +162,54 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
     {
         return !compare_memory(raw(), data.raw(), SIZE);
     }
+
+    /**
+     * @brief Get the smallest value in the array (calculated using <)
+     *
+     * @return ARRAY_TYPE
+     */
+    ARRAY_TYPE smallest() const
+    {
+        ARRAY_TYPE possible_element = (*this)[0];
+
+        if (length() == 1)
+        {
+            return possible_element;
+        }
+
+        for (size_t x = 0; x < length(); x++)
+        {
+            if ((*this)[x] < possible_element)
+            {
+                possible_element = (*this)[x];
+            }
+        }
+
+        return possible_element;
+    }
+
+    /**
+     * @brief Get the biggest value in the array (calculated using >)
+     *
+     * @return ARRAY_TYPE
+     */
+    ARRAY_TYPE largest() const
+    {
+        ARRAY_TYPE possible_element = (*this)[0];
+
+        if (length() == 1)
+        {
+            return possible_element;
+        }
+
+        for (size_t x = 0; x < length(); x++)
+        {
+            if ((*this)[x] > possible_element)
+            {
+                possible_element = (*this)[x];
+            }
+        }
+
+        return possible_element;
+    }
 };

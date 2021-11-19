@@ -4,7 +4,7 @@
 #include <utils.hpp>
 #include <video/framebuffer.hpp>
 
-volatile void *get_vesa_framebuffer_location()
+void *get_vesa_framebuffer_location()
 {
     return nullptr;
 }

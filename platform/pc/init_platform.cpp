@@ -6,6 +6,6 @@ extern Quark pc_vesa;
 
 bool ksinit::platform()
 {
-    // pc_vesa.commit_framebuffer(nullptr);
+    pc_vesa.commit_framebuffer(nullptr);
     return true;
 }

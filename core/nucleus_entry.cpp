@@ -22,7 +22,6 @@ extern "C"
         // Make the syscall to fill the buffer with random numbers
         mk_syscall(reinterpret_cast<void **>(&arg_list), KsSyscallID::RANDOM);
 
-        // Sort the buffer
-        buffer.sort([](const uint8_t &x, const uint8_t &y) { return x > y; });
+        buffer.sort([](auto &x, auto &y) { return x > y; });
     }
 }

@@ -53,7 +53,7 @@ CPPFLAGS      		+=								\
 -fdata-sections
 
 CXXFLAGS      		+=								\
--std=c++17											\
+-std=c++20											\
 -fno-exceptions						               	\
 -fno-rtti											\
 -fno-unwind-tables					                \
