@@ -1,4 +1,5 @@
 #pragma once
+#include <array.hpp>
 
 class Quark
 {
@@ -9,4 +10,8 @@ class Quark
     void (*commit_framebuffer)(volatile void *data) = nullptr;
     void (*reboot)() = nullptr;
     void (*shutdown)() = nullptr;
+};
+
+template <size_t SIZE> class Quark_Collection : public Array<Quark, SIZE>
+{
 };

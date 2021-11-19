@@ -11,23 +11,8 @@
  */
 template <typename ARRAY_TYPE, size_t SIZE> class Array
 {
-  private:
-    /**
-     * @brief Internal array to store data
-     *
-     */
-    ARRAY_TYPE _internal_buffer[SIZE];
-
   public:
-    /**
-     * @brief Constructor that allows normal array initialization
-     *
-     * @tparam Ts
-     */
-    template <typename... Ts>
-    constexpr Array(const Ts &...array_element_pack) : _internal_buffer({array_element_pack...})
-    {
-    }
+    ARRAY_TYPE _internal_buffer[SIZE];
 
     /**
      * @brief Read a element

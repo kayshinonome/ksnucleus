@@ -7,12 +7,6 @@ template <typename ARRAY_TYPE, size_t WIDTH, size_t HEIGHT>
 class Array2D : public Array<Array<ARRAY_TYPE, HEIGHT>, WIDTH>
 {
   public:
-    Array2D() = default;
-
-    template <typename... Ts> constexpr Array2D(Array<ARRAY_TYPE, WIDTH> array_element, Ts... array_element_pack)
-    {
-    }
-
     /**
      * @brief Return this as a flat array
      *
