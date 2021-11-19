@@ -19,17 +19,14 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
     ARRAY_TYPE _internal_buffer[SIZE];
 
   public:
-    template <typename... Ts> constexpr Array(Ts... array_element_pack) : _internal_buffer({array_element_pack...})
-    {
-    }
-
     /**
-     * @brief Conversion operator / Constructor for using a raw array
-     * Please, let me find a way to do this without having to copy thing
+     * @brief Constructor that allows normal array initialization
+     *
+     * @tparam Ts
      */
-    constexpr Array(ARRAY_TYPE array[SIZE])
+    template <typename... Ts>
+    constexpr Array(const Ts &...array_element_pack) : _internal_buffer({array_element_pack...})
     {
-        *this = array;
     }
 
     /**
