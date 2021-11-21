@@ -9,7 +9,18 @@ ifeq ($(origin .RECIPEPREFIX), undefined)
   $(error This Make does not support .RECIPEPREFIX. Please use GNU Make 4.0 or later)
 endif
 .RECIPEPREFIX = >
-.PHONY: clean run inspect debug all docs distclean
+.PHONY: clean 										\
+		run											\
+		inspect										\
+		debug										\
+		all											\
+		docs										\
+		distclean									\
+		package										\
+		package_run									\
+		package_debug								\
+		help
+
 .DEFAULT_GOAL := all
 
 CUSTOM_CONFIG_SET := false
@@ -43,7 +54,6 @@ CPPFLAGS      		+=								\
 -Wno-unused-function				                \
 -Wno-nested-anon-types								\
 -Wno-gnu-anonymous-struct							\
--Wno-gnu-array-member-paren-init					\
 -fstack-protector-strong				            \
 -fno-builtin										\
 -ffunction-sections									\
@@ -99,6 +109,20 @@ video/build.mk
 
 NUCLEUS_OBJS		= $(NUCLEUS_SRCS:%=$(BUILD_DIR)/%.o)
 OBJS 				+= $(NUCLEUS_OBJS)
+
+help:
+> @printf "Ksnucleus build system\n"
+> @printf "Options\n"
+> @printf "\t clean \t\t - Clean the tree of all binaries\n"
+> @printf "\t distclean \t - Prepare the source tree for distribution\n"
+> @printf "\t run \t\t - Run the kernel in a emulator (target defined)\n"
+> @printf "\t debug \t\t - Debug the kernel in a emulator (target defined)\n"
+> @printf "\t inspect \t - Ensure the kernel is valid (target defined)\n"
+> @printf "\t docs \t\t - Generate doxygen documentation at /docs\n"
+> @printf "\t package \t - Generate the package required for normal runtime on the target system (target defined)\n"
+> @printf "\t package_run \t - Generate the package and run it in the emulator (target defined)\n"
+> @printf "\t package_debug \t - Generate the package and debug it in the emulator (target defined)\n"
+> @printf "\t help \t\t - Print this help message\n"
 
 $(BUILD_DIR)/nucleus: $(NUCLEUS_OBJS) $(LIBS)
 >	mkdir -pv $(dir $@)
