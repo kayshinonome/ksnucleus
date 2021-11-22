@@ -9,13 +9,13 @@ SYSCALL mk_syscall(void **args, KsSyscallID syscall_id)
      * @brief Contains the number of args each syscall has
      *
      */
-    constexpr Array<int, 4> syscall_arg_count{2, 1, 2, 1};
+    constexpr Array<uint8_t, 5> syscall_arg_count{2, 1, 2, 1, 4};
 
     /**
      * @brief A array to hold the intermediate of the syscalls
      *
      */
-    Array<void *, 3> arg_array{};
+    Array<void *, 5> arg_array{};
 
     // Ensure than the syscall id is within range
     if (static_cast<size_t>(syscall_id) > syscall_arg_count.length())
@@ -57,6 +57,13 @@ SYSCALL mk_syscall(void **args, KsSyscallID syscall_id)
         case KsSyscallID::SETSYSTEMSTATE:
         {
             ks_setsystemstate(*reinterpret_cast<SystemState *>(arg_array[0]));
+            break;
+        }
+
+        case KsSyscallID::COMMITFRAMEBUFFER:
+        {
+            ks_commitframebuffer(arg_array[0], *reinterpret_cast<size_t *>(arg_array[1]),
+                                 *reinterpret_cast<size_t *>(arg_array[2]), *reinterpret_cast<uint8_t *>(arg_array[3]));
             break;
         }
     }

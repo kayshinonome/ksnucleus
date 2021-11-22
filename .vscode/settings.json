@@ -2,6 +2,7 @@
     "editor.largeFileOptimizations": true,
     "editor.detectIndentation": false,
     "explorer.sortOrder": "type",
+    "c-cpp-flylint.clang.enable": false,
     "files.associations": {
         "*.json": "json",
         "*.inc": "makefile",

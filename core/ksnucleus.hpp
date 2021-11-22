@@ -15,14 +15,18 @@
 #include <types.hpp>
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
-#define SYSCALL extern "C" __attribute__((used, hot, noinline)) void
+#define SYSCALL extern "C" __attribute__((used, noinline)) void
+
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
+#define SUBSYSCALL extern "C" __attribute__((used, noinline)) void
 
 enum class KsSyscallID : uint8_t
 {
     RANDOM = 0,
     GETTIME = 1,
     FISSION = 2,
-    SETSYSTEMSTATE = 3
+    SETSYSTEMSTATE = 3,
+    COMMITFRAMEBUFFER = 4
 };
 
 /**
@@ -41,9 +45,10 @@ SYSCALL mk_syscall(void **args, KsSyscallID syscall_id);
  *
  * @param buffer
  * @param length
- * @return SYSCALL
+ * @return void
  */
-SYSCALL ks_random(void *buffer, size_t length);
-SYSCALL ks_gettime(uint64_t *time);
-SYSCALL ks_fission(void *, void *stack_position);
-SYSCALL ks_setsystemstate(SystemState system_state);
+SUBSYSCALL ks_random(void *buffer, size_t length);
+SUBSYSCALL ks_gettime(uint64_t *time);
+SUBSYSCALL ks_fission(void *, void *stack_position);
+SUBSYSCALL ks_setsystemstate(SystemState system_state);
+SUBSYSCALL ks_commitframebuffer(void *buffer, size_t width, size_t height, uint8_t depth);

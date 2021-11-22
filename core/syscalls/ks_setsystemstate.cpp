@@ -3,7 +3,7 @@
 #include <core/ksnucleus.hpp>
 #include <types.hpp>
 
-SYSCALL ks_setsystemstate(SystemState system_state)
+SUBSYSCALL ks_setsystemstate(SystemState system_state)
 {
     switch (system_state)
     {

@@ -12,6 +12,22 @@ class Quark
     void (*shutdown)() = nullptr;
 };
 
-template <size_t SIZE> class Quark_Collection : public Array<Quark, SIZE>
+class Quark_Collection : public Array<Quark *, 0xff>
 {
+  public:
+    bool add_quark(Quark &quark)
+    {
+
+        for (size_t x = 0, len = length(); x < len; x++)
+        {
+            if ((*this)[x] == nullptr)
+            {
+                (*this)[x] = &quark;
+                return true;
+            }
+        }
+        return false;
+    }
 };
+
+inline Quark_Collection quark_collection{};

@@ -8,6 +8,7 @@
         "maziac.asm-code-lens",
         "usernamehw.todo-md",
         "streetsidesoftware.code-spell-checker",
-        "davidanson.vscode-markdownlint"
+        "davidanson.vscode-markdownlint",
+        "jbenden.c-cpp-flylint"
     ]
 }

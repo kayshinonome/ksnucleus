@@ -3,6 +3,6 @@
 #include <core/ksnucleus.hpp>
 #include <types.hpp>
 
-SYSCALL ks_gettime(uint64_t *time)
+SUBSYSCALL ks_gettime(uint64_t *time)
 {
 }

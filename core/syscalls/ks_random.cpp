@@ -3,7 +3,7 @@
 #include <core/ksnucleus.hpp>
 #include <types.hpp>
 
-SYSCALL ks_random(void *buffer, size_t length)
+SUBSYSCALL ks_random(void *buffer, size_t length)
 {
     constexpr auto rand_buffer_size = 0xff;
     constexpr auto gen =

@@ -141,11 +141,9 @@ $(BUILD_DIR)/%.S.o: %.S
 
 debug: $(BUILD_DIR)/nucleus
 >	$(QEMU) $(QEMUFLAGS) -s -S -kernel $^
->
 
 run: $(BUILD_DIR)/nucleus
 >	$(QEMU) $(QEMUFLAGS) -kernel $^
->
 
 clean:
 >	rm -rfv build docs compile_commands.json

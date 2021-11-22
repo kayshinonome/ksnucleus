@@ -30,8 +30,9 @@ void inline manufacturer_id(Array<char, 12> buffer)
 {
     size_t eax = 0;
     constexpr auto word_size = sizeof(size_t);
+    auto *const raw_buffer = buffer.raw();
 
-    // Load directly into the buffer from the cpuid helper function
-    cpuid(&eax, reinterpret_cast<size_t *>(buffer.raw()), reinterpret_cast<size_t *>(buffer.raw() + (word_size * 2)),
-          reinterpret_cast<size_t *>(buffer.raw() + word_size));
+    // Load directly into the buffer from the cpuid helper function, which requires pointer arithmetic
+    cpuid(&eax, reinterpret_cast<size_t *>(raw_buffer), reinterpret_cast<size_t *>(raw_buffer + (word_size * 2)),
+          reinterpret_cast<size_t *>(raw_buffer + word_size));
 }

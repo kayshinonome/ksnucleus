@@ -6,12 +6,14 @@
 
 void *get_vesa_framebuffer_location()
 {
-    return nullptr;
+    // FIXME: Quick hack, should be read from bios instead
+    return reinterpret_cast<void *>(0xa0000);
 }
 
 size_t get_vesa_framebuffer_size()
 {
-    return 0;
+    // Another quick hack
+    return 320 * 200 * 1;
 }
 
 Quark pc_vesa{.is_viable = []() { return bios_data_area->CURRENT_VIDEO_MODE == 0; },

@@ -112,21 +112,6 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
     }
 
     /**
-     * @brief Copy contructor
-     *
-     * @param data
-     * @return ksArray&
-     */
-    Array &operator=(const Array &data)
-    {
-        if (this != &data)
-        {
-            copy_memory(data.raw(), raw(), length());
-        }
-        return *this;
-    }
-
-    /**
      * @brief Copy contructor (for raw ARRAY_TYPE)
      *
      * @param data
@@ -211,5 +196,15 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
         }
 
         return possible_element;
+    }
+
+    /**
+     * @brief Get the size of the underlying array type
+     *
+     * @return constexpr size_t
+     */
+    [[nodiscard]] constexpr size_t sizeof_type() const
+    {
+        return sizeof(ARRAY_TYPE);
     }
 };

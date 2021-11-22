@@ -28,6 +28,7 @@ class Framebuffer : public Array2D<COLOR_TYPE, WIDTH, HEIGHT>
         {
             for (size_t y = p.y, leny = font.height(); y < leny; y++)
             {
+                const auto character = font[c];
             }
         }
     }

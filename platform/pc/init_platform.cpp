@@ -6,6 +6,6 @@ extern Quark pc_vesa;
 
 bool ksinit::platform()
 {
-    pc_vesa.commit_framebuffer(nullptr);
+    quark_collection.add_quark(pc_vesa);
     return true;
 }

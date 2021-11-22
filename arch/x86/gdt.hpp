@@ -12,7 +12,9 @@
 #include <array.hpp>
 #include <types.hpp>
 
-class GDT : public Array<uint64_t, 5>
+constexpr auto GDT_LENGTH = 5;
+
+class GDT : public Array<uint64_t, GDT_LENGTH>
 {
   private:
     /**
