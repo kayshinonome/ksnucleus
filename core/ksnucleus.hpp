@@ -49,6 +49,6 @@ SYSCALL mk_syscall(void **args, KsSyscallID syscall_id);
  */
 SUBSYSCALL ks_random(void *buffer, size_t length);
 SUBSYSCALL ks_gettime(uint64_t *time);
-SUBSYSCALL ks_fission(void *, void *stack_position);
+SUBSYSCALL ks_fission(size_t error_code, void *stack_position);
 SUBSYSCALL ks_setsystemstate(SystemState system_state);
 SUBSYSCALL ks_commitframebuffer(void *buffer, size_t width, size_t height, uint8_t depth);

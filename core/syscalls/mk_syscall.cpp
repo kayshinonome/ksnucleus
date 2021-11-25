@@ -51,6 +51,7 @@ SYSCALL mk_syscall(void **args, KsSyscallID syscall_id)
 
         case KsSyscallID::FISSION:
         {
+            ks_fission(*reinterpret_cast<size_t *>(arg_array[0]), arg_array[1]);
             break;
         }
 

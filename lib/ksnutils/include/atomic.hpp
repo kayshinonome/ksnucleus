@@ -11,6 +11,13 @@ template <typename ATOMIC_TYPE> class Atomic
     Atomic() = default;
     ~Atomic() = default;
 
+    Atomic(const Atomic &data)
+    {
+        // NOTE: We shouldn't have to cast away constness, but we have no choice
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
+        __atomic_store(&_internal_data, const_cast<ATOMIC_TYPE *>(&data._internal_data), __ATOMIC_SEQ_CST);
+    }
+
     Atomic(const ATOMIC_TYPE &data)
     {
         // NOTE: We shouldn't have to cast away constness, but we have no choice
