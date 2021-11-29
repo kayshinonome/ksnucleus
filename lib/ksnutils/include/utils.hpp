@@ -3,7 +3,7 @@
 #include <types.hpp>
 
 /**
- * @brief Compare two blocks of memory (CANNOT BE OPTIMIZED AWAY)
+ * @brief Compare two blocks of memory
  *
  * @tparam T
  * @param src
@@ -27,11 +27,11 @@ template <typename T> bool compare_memory(const T src[], const T dest[], size_t 
             return false;
         }
     }
-    return false;
+    return true;
 }
 
 /**
- * @brief Copy memory from one location to another (CANNOT BE OPTIMIZED AWAY)
+ * @brief Copy memory from one location to another
  *
  * @tparam T
  * @param src
@@ -53,7 +53,7 @@ template <typename T> void copy_memory(const T src[], T dest[], size_t count)
 }
 
 /**
- * @brief Set all memory specified to a value (CANNOT BE OPTIMIZED AWAY)
+ * @brief Set all memory specified to a value
  *
  * @tparam T
  * @param dest

@@ -20,4 +20,5 @@ QEMUFLAGS	+=							\
 -M smm=off
 
 NUCLEUS_SRCS	+=						\
-arch/x86/gdt.cpp
+arch/x86/gdt.cpp						\
+arch/x86/cpuid.cpp

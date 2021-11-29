@@ -10,11 +10,14 @@ extern "C"
 {
     __attribute__((used)) void nucleus_entry()
     {
+        // Get the cpuid vendor (2 equals intel)
+        auto cpuid_vendor = static_cast<uint8_t>(cpuid_get_vendor());
+
         // Create a framebuffer
         Framebuffer<uint8_t, 320, 200> vga_framebuffer{};
 
         // Draw a square
-        vga_framebuffer.draw_rect(static_cast<uint8_t>(cpuid_get_vendor()), {{0, 0}, {100, 100}});
+        vga_framebuffer.draw_rect(cpuid_vendor * 10, {{0, 0}, {100, 100}});
 
         // Get the framebuffer width
         size_t width = vga_framebuffer.width();
