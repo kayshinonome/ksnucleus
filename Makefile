@@ -54,6 +54,7 @@ CPPFLAGS      		+=								\
 -Wno-unused-function				                \
 -Wno-nested-anon-types								\
 -Wno-gnu-anonymous-struct							\
+-Wno-writable-strings								\
 -fstack-protector-strong				            \
 -fno-builtin										\
 -ffunction-sections									\
@@ -88,13 +89,12 @@ QEMUFLAGS			+=								\
 ifeq ($(CONFIG_KSNUCLEUS_DEBUG),true)
 
 CPPFLAGS		  	+=								\
--DDEBUG												\
+-D__CONFIG_KSNUCLEUS_DEBUG__						\
 -Og													\
 -g
 else
 
 CPPFLAGS		  	+=								\
--DNDEBUG											\
 -O2													\
 -flto
 endif

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <answer.hpp>
 #include <types.hpp>
 #include <utils.hpp>
 
@@ -9,7 +10,7 @@
  * @tparam ARRAY_TYPE
  * @tparam SIZE
  */
-template <typename ARRAY_TYPE, size_t SIZE> class Array
+template <typename ARRAY_TYPE, uint32_t SIZE> class Array
 {
   public:
     ARRAY_TYPE _internal_buffer[SIZE];
@@ -20,17 +21,7 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
      * @param index
      * @return ARRAY_TYPE
      */
-    constexpr ARRAY_TYPE operator[](size_t index) const
-    {
-        if (index >= SIZE)
-        {
-            while (true)
-            {
-            }
-        }
-
-        return raw()[index];
-    }
+    constexpr ARRAY_TYPE operator[](uint32_t index) const;
 
     /**
      * @brief Write to a element
@@ -38,93 +29,43 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
      * @param index
      * @return ARRAY_TYPE&
      */
-    constexpr ARRAY_TYPE &operator[](size_t index)
-    {
-        if (index >= SIZE)
-        {
-            while (true)
-            {
-            }
-        }
-
-        return raw()[index];
-    }
+    constexpr ARRAY_TYPE &operator[](uint32_t index);
 
     /**
      * @brief Returns the length at runtime
      *
      * @return constexpr size_t
      */
-    [[nodiscard]] constexpr size_t length() const
-    {
-        return SIZE;
-    }
+    [[nodiscard]] constexpr uint32_t length() const;
 
     /**
      * @brief Get the raw, underlying array
      *
      * @return ARRAY_TYPE*
      */
-    constexpr ARRAY_TYPE *raw()
-    {
-        return _internal_buffer;
-    }
+    constexpr ARRAY_TYPE *raw();
 
     /**
      * @brief Get the raw, underlying const array
      *
      * @return ARRAY_TYPE*
      */
-    constexpr const ARRAY_TYPE *raw() const
-    {
-        return _internal_buffer;
-    }
+    constexpr const ARRAY_TYPE *raw() const;
 
     /**
      * @brief Sort the array (Bubble sort for now)
      *
      * @param cmp
      */
-    void sort(bool (*cmp)(const ARRAY_TYPE &, const ARRAY_TYPE &))
-    {
-        auto swapped = false;
-        auto &array = (*this);
-
-        for (size_t x = 0, len = length(); x < len - 1; x++)
-        {
-            swapped = false;
-            for (size_t y = 0; y < len - x - 2; y++)
-            {
-                if (cmp(array[y], array[y + 1]))
-                {
-                    auto tmp = array[y];
-                    array[y] = array[y + 1];
-                    array[y + 1] = tmp;
-                    swapped = true;
-                }
-            }
-
-            if (!swapped)
-            {
-                break;
-            }
-        }
-    }
+    Array &sort(bool (*cmp)(const ARRAY_TYPE &, const ARRAY_TYPE &));
 
     /**
      * @brief Copy contructor (for raw ARRAY_TYPE)
      *
      * @param data
-     * @return ksArray&
+     * @return Array&
      */
-    Array &operator=(const ARRAY_TYPE data[])
-    {
-        if (this != reinterpret_cast<const Array<ARRAY_TYPE, SIZE> *>(data))
-        {
-            copy_memory(data, raw(), length());
-        }
-        return *this;
-    }
+    Array &operator=(const ARRAY_TYPE data[]);
 
     /**
      * @brief Function to check if equals
@@ -132,79 +73,30 @@ template <typename ARRAY_TYPE, size_t SIZE> class Array
      * @param data
      * @return bool
      */
-    bool operator==(const Array &data)
-    {
-        return compare_memory(raw(), data.raw(), SIZE);
-    }
-
-    /**
-     * @brief Inequality operator
-     *
-     * @param data
-     * @return bool
-     */
-    bool operator!=(const Array &data) const
-    {
-        return !compare_memory(raw(), data.raw(), SIZE);
-    }
-
-    /**
-     * @brief Get the smallest value in the array (calculated using <)
-     *
-     * @return ARRAY_TYPE
-     */
-    ARRAY_TYPE smallest() const
-    {
-        ARRAY_TYPE possible_element = (*this)[0];
-
-        if (length() == 1)
-        {
-            return possible_element;
-        }
-
-        for (size_t x = 0; x < length(); x++)
-        {
-            if ((*this)[x] < possible_element)
-            {
-                possible_element = (*this)[x];
-            }
-        }
-
-        return possible_element;
-    }
-
-    /**
-     * @brief Get the biggest value in the array (calculated using >)
-     *
-     * @return ARRAY_TYPE
-     */
-    ARRAY_TYPE largest() const
-    {
-        ARRAY_TYPE possible_element = (*this)[0];
-
-        if (length() == 1)
-        {
-            return possible_element;
-        }
-
-        for (size_t x = 0; x < length(); x++)
-        {
-            if ((*this)[x] > possible_element)
-            {
-                possible_element = (*this)[x];
-            }
-        }
-
-        return possible_element;
-    }
+    bool operator==(const Array &data) const;
 
     /**
      * @brief Get the size of the underlying array type
      *
      * @return constexpr size_t
      */
-    [[nodiscard]] constexpr size_t sizeof_type() const
-    {
-        return sizeof(ARRAY_TYPE);
-    }
+    [[nodiscard]] constexpr size_t sizeof_type() const;
+
+    /**
+     * @brief Copy data into the array
+     *
+     * @param data
+     * @return Array&
+     */
+    Array &copy_into(const ARRAY_TYPE data[]);
+
+    /**
+     * @brief Get the position of the first element matching search
+     *
+     * @param search Element to search for
+     * @return Answer<uint32_t>
+     */
+    Answer<uint32_t> pos_of(ARRAY_TYPE search) const;
 };
+
+#include <lib/ksnutils/src/array.inl>

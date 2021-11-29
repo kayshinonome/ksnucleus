@@ -9,7 +9,7 @@ SYSCALL mk_syscall(void **args, KsSyscallID syscall_id)
      * @brief Contains the number of args each syscall has
      *
      */
-    constexpr Array<uint8_t, 5> syscall_arg_count{2, 1, 2, 1, 4};
+    constexpr Array<uint8_t, 5> syscall_arg_count{2, 1, 1, 1, 4};
 
     /**
      * @brief A array to hold the intermediate of the syscalls
@@ -20,7 +20,7 @@ SYSCALL mk_syscall(void **args, KsSyscallID syscall_id)
     // Ensure than the syscall id is within range
     if (static_cast<size_t>(syscall_id) > syscall_arg_count.length())
     {
-        // A error occurs here
+        ks_fission("Invalid syscall called");
     }
 
     // Copy the args over
@@ -51,7 +51,7 @@ SYSCALL mk_syscall(void **args, KsSyscallID syscall_id)
 
         case KsSyscallID::FISSION:
         {
-            ks_fission(*reinterpret_cast<size_t *>(arg_array[0]), arg_array[1]);
+            ks_fission(reinterpret_cast<char *>(arg_array[0]));
             break;
         }
 

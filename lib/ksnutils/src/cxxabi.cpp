@@ -1,3 +1,4 @@
+#include <atomic.hpp>
 #include <utils.hpp>
 
 namespace __cxxabiv1

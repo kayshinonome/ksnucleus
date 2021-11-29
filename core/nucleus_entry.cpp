@@ -1,3 +1,4 @@
+#include <arch/x86/cpuid.hpp>
 #include <array.hpp>
 #include <atomic.hpp>
 #include <core/ksnucleus.hpp>
@@ -9,26 +10,11 @@ extern "C"
 {
     __attribute__((used)) void nucleus_entry()
     {
-        // Create buffer, filled with zero
-        Array<uint8_t, 10> buffer = {};
-
-        // Get the buffer length
-        size_t length = buffer.length();
-
-        // Construct a array to hold the syscall arguments
-        Array<void *, 2> arg_list_random = {&buffer, &length};
-
-        // Make the syscall to fill the buffer with random numbers
-        mk_syscall(reinterpret_cast<void **>(&arg_list_random), KsSyscallID::RANDOM);
-
-        // Sort the buffer
-        buffer.sort([](auto &x, auto &y) { return x > y; });
-
         // Create a framebuffer
         Framebuffer<uint8_t, 320, 200> vga_framebuffer{};
 
         // Draw a square
-        vga_framebuffer.draw_rect(0xff, {{0, 0}, {100, 100}});
+        vga_framebuffer.draw_rect(static_cast<uint8_t>(cpuid_get_vendor()), {{0, 0}, {100, 100}});
 
         // Get the framebuffer width
         size_t width = vga_framebuffer.width();

@@ -28,7 +28,7 @@ extern "C"
  * @brief Init and load the gdt
  *
  */
-void GDT::init()
+bool GDT::init()
 {
 
     constexpr uint16_t GDT_CODE_PL0 =
@@ -63,4 +63,5 @@ void GDT::init()
      */
 
     flush_gdt(&gdt_ptr);
+    return true;
 }

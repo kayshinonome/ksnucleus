@@ -129,5 +129,5 @@ class GDT : public Array<uint64_t, GDT_LENGTH>
     }
 
   public:
-    static void init();
+    static bool init();
 };

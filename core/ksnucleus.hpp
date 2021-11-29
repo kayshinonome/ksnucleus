@@ -48,7 +48,21 @@ SYSCALL mk_syscall(void **args, KsSyscallID syscall_id);
  * @return void
  */
 SUBSYSCALL ks_random(void *buffer, size_t length);
+
+/**
+ * @brief Get the current time in seconds
+ *
+ * @param time Pointer to a 64 bit unsigned integer to put the time
+ * @return void
+ */
 SUBSYSCALL ks_gettime(uint64_t *time);
-SUBSYSCALL ks_fission(size_t error_code, void *stack_position);
+
+/**
+ * @brief Prints a error message, and kills the system
+ *
+ * @param error_string The error string, 127 bytes, not including the null terminator
+ * @return void
+ */
+[[noreturn]] SUBSYSCALL ks_fission(const char error_string[128]);
 SUBSYSCALL ks_setsystemstate(SystemState system_state);
 SUBSYSCALL ks_commitframebuffer(void *buffer, size_t width, size_t height, uint8_t depth);

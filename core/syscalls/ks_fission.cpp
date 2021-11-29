@@ -3,6 +3,10 @@
 #include <core/ksnucleus.hpp>
 #include <types.hpp>
 
-SUBSYSCALL ks_fission(size_t error_code, void *stack_position)
+[[noreturn]] SUBSYSCALL ks_fission(const char error_code[128])
 {
+    ks_setsystemstate(SystemState::REBOOT);
+    while (true)
+    {
+    }
 }

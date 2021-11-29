@@ -38,7 +38,7 @@ template <typename ATOMIC_TYPE> class Atomic
         return *this;
     }
 
-    Atomic operator++(int data) &
+    Atomic operator++(int /* unused */) &
     {
         __atomic_fetch_add(&_internal_data, 1, __ATOMIC_SEQ_CST);
         return *this;
@@ -50,7 +50,7 @@ template <typename ATOMIC_TYPE> class Atomic
         return *this;
     }
 
-    Atomic operator--(int data) &
+    Atomic operator--(int /* unused */) &
     {
         __atomic_fetch_sub(&_internal_data, 1, __ATOMIC_SEQ_CST);
         return *this;

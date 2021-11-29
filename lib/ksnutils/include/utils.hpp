@@ -3,7 +3,7 @@
 #include <types.hpp>
 
 /**
- * @brief Compare two blocks of memory
+ * @brief Compare two blocks of memory (CANNOT BE OPTIMIZED AWAY)
  *
  * @tparam T
  * @param src
@@ -20,12 +20,9 @@ template <typename T> bool compare_memory(const T src[], const T dest[], size_t 
         return true;
     }
 
-    const size_t total_elements = sizeof(T) * count;
-
-    for (size_t x = 0; x < total_elements; x++)
+    for (size_t x = 0; x < count; x++)
     {
-        if (*(reinterpret_cast<const volatile uint8_t *>(dest) + x) !=
-            *(reinterpret_cast<const volatile uint8_t *>(src) + x))
+        if (*(reinterpret_cast<const T *>(dest) + x) != *(reinterpret_cast<const T *>(src) + x))
         {
             return false;
         }
@@ -34,7 +31,7 @@ template <typename T> bool compare_memory(const T src[], const T dest[], size_t 
 }
 
 /**
- * @brief Copy memory from one location to another
+ * @brief Copy memory from one location to another (CANNOT BE OPTIMIZED AWAY)
  *
  * @tparam T
  * @param src
@@ -49,23 +46,21 @@ template <typename T> void copy_memory(const T src[], T dest[], size_t count)
         return;
     }
 
-    const size_t total_elements = sizeof(T) * count;
-
-    for (size_t x = 0; x < total_elements; x++)
+    for (size_t x = 0; x < count; x++)
     {
-        *(reinterpret_cast<volatile uint8_t *>(dest) + x) = *(reinterpret_cast<const volatile uint8_t *>(src) + x);
+        *(reinterpret_cast<T *>(dest) + x) = *(reinterpret_cast<const T *>(src) + x);
     }
 }
 
 /**
- * @brief Set all memory specified to a value
+ * @brief Set all memory specified to a value (CANNOT BE OPTIMIZED AWAY)
  *
  * @tparam T
  * @param dest
  * @param value
  * @param count
  */
-template <typename T> void set_memory(T dest[], uint8_t value, size_t count)
+template <typename T> void set_memory(T dest[], T value, size_t count)
 {
 
     /**
@@ -77,10 +72,8 @@ template <typename T> void set_memory(T dest[], uint8_t value, size_t count)
         return;
     }
 
-    const size_t total_elements = sizeof(T) * count;
-
-    for (size_t x = 0, len = total_elements; x < len; x++)
+    for (size_t x = 0, len = count; x < len; x++)
     {
-        *(reinterpret_cast<volatile uint8_t *>(dest) + x) = value;
+        *(reinterpret_cast<T *>(dest) + x) = value;
     }
 }
