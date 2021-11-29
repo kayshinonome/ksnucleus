@@ -13,6 +13,11 @@ bool ksinit::arch()
         ks_fission("CPUID support is not available");
     }
 
+    if (cpuid_get_vendor() != CPU_Vendor::INTEL)
+    {
+        ks_fission("Only INTEL CPUs are supported for now");
+    }
+
     if (!GDT::init())
     {
         ks_fission("GDT init failed");
