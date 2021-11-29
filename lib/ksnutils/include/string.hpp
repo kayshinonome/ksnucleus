@@ -19,7 +19,6 @@ class String
 
     constexpr char *raw()
     {
-
         return _internal_string;
     }
 

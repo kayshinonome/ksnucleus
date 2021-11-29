@@ -16,4 +16,4 @@ QEMU			:=							\
 qemu-system-i386
 
 QEMUFLAGS 		+=							\
--cpu 486
+-cpu 486-v1

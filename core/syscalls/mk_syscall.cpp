@@ -31,7 +31,7 @@ SYSCALL mk_syscall(void **args, KsSyscallID syscall_id)
     {
         if (arg_array[x] == nullptr)
         {
-            // handler error of sorts
+            ks_fission("Nullptr detected in syscall where actual data should have been");
         }
     }
 

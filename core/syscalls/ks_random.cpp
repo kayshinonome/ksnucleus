@@ -17,8 +17,8 @@ SUBSYSCALL ks_random(void *buffer, size_t length)
     {
 
         auto pos = gen * length % rand_buffer_size;
-        rand_buffer[pos % rand_buffer_size] ^= sin(gen | i);
-        rand_buffer[pos % rand_buffer_size] += sin(gen | i);
+        rand_buffer[pos % rand_buffer_size] ^= sin(gen * i);
+        rand_buffer[pos % rand_buffer_size] += sin(gen * i);
 
         reinterpret_cast<Atomic<uint8_t> *>(buffer)[i] = rand_buffer[pos];
     }

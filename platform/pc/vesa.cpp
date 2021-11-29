@@ -16,11 +16,24 @@ size_t get_vesa_framebuffer_size()
     return 320 * 200 * 1;
 }
 
-Quark pc_vesa{.is_viable = []() { return bios_data_area->CURRENT_VIDEO_MODE == 0; },
+Quark pc_vesa{.is_viable =
+                  [](Quark_Services quark_service) {
+                      switch (quark_service)
+                      {
+                          case Quark_Services::COMMIT_FRAMEBUFFER:
+                          {
+                              return bios_data_area->CURRENT_VIDEO_MODE == 0;
+                          }
+                          default:
+                          {
+                              return false;
+                          }
+                      }
+                  },
               .init = []() {},
               .fini = []() {},
               .commit_framebuffer =
-                  [](volatile void *data) {
+                  [](void *data) {
                       auto *vesa_video_memory = reinterpret_cast<volatile uint8_t *>(get_vesa_framebuffer_location());
                       auto *framebuffer = reinterpret_cast<volatile uint8_t *>(data);
                       auto length = get_vesa_framebuffer_size();
