@@ -1,7 +1,6 @@
 #pragma once
 
 #include <answer.hpp>
-#include <array.hpp>
 #include <types.hpp>
 
 constexpr auto MAX_STRING_LENGTH = 1024;

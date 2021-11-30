@@ -1,4 +1,5 @@
 #include <atomic.hpp>
+#include <core/ksnucleus.hpp>
 #include <utils.hpp>
 
 namespace __cxxabiv1
@@ -47,10 +48,7 @@ extern "C"
      */
     __attribute__((noreturn)) void __cxa_pure_virtual()
     {
-        // Copeland::Api::Neutronium::fission("Pure virtual called");
-        while (true)
-        {
-        }
+        ks_fission("Pure virtual called!");
     }
 
     void __cxa_finalize(void *f)

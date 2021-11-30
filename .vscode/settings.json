@@ -1,6 +1,4 @@
 {
-    "editor.largeFileOptimizations": true,
-    "editor.detectIndentation": false,
     "explorer.sortOrder": "type",
     "c-cpp-flylint.clang.enable": false,
     "files.associations": {
@@ -9,7 +7,8 @@
         "*.anim": "yaml",
         "cstring": "cpp",
         "tuple": "cpp",
-        "complex": "cpp"
+        "complex": "cpp",
+        "*.ipp": "cpp"
     },
     "cSpell.customDictionaries": {
         "custom-dictionary-workspace": {

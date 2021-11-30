@@ -7,20 +7,25 @@
 template <typename ARRAY_TYPE, uint32_t SIZE>
 constexpr ARRAY_TYPE Array<ARRAY_TYPE, SIZE>::operator[](uint32_t index) const
 {
+
+#if defined(__CONFIG_KSNUCLEUS_DEBUG__)
     if (index >= length())
     {
         ks_fission("Buffer overflow detected");
     }
+#endif
 
     return raw()[index];
 }
 
 template <typename ARRAY_TYPE, uint32_t SIZE> constexpr ARRAY_TYPE &Array<ARRAY_TYPE, SIZE>::operator[](uint32_t index)
 {
+#if defined(__CONFIG_KSNUCLEUS_DEBUG__)
     if (index >= length())
     {
         ks_fission("Buffer overflow detected");
     }
+#endif
 
     return raw()[index];
 }
