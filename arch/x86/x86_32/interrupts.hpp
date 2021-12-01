@@ -4,7 +4,7 @@
 
 constexpr auto INTERRUPT_COUNT = 256;
 
-class ISR_Data
+class Interrupt_Data
 {
   public:
     // Data segment selector
@@ -32,6 +32,5 @@ class ISR_Data
     uint32_t ss;
 } __attribute__((packed));
 
-inline Event_Engine<ISR_Data, INTERRUPT_COUNT> isr_event_engine;
-
-constexpr auto a = sizeof(isr_event_engine);
+inline Event_Engine<Interrupt_Data, 16> irq_event_engine;
+inline Event_Engine<Interrupt_Data, 32> isr_event_engine;
