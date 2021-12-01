@@ -3,6 +3,13 @@
 #include <video/point.hpp>
 #include <video/rect.hpp>
 
+/**
+ * @brief Framebuffer type to be used internally
+ *
+ * @tparam COLOR_TYPE
+ * @tparam WIDTH
+ * @tparam HEIGHT
+ */
 template <typename COLOR_TYPE, size_t WIDTH, size_t HEIGHT>
 class Framebuffer : public Array2D<COLOR_TYPE, WIDTH, HEIGHT>
 {

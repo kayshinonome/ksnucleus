@@ -8,12 +8,6 @@
 
 bool ksinit::arch()
 {
-
-    if (!GDT::init())
-    {
-        ks_fission("GDT init failed");
-    }
-
     if (!cpuid_check_support())
     {
         ks_fission("CPUID support is not available");
@@ -24,14 +18,20 @@ bool ksinit::arch()
         ks_fission("Only INTEL CPUs are supported for now");
     }
 
+    if (!GDT::init())
+    {
+        ks_fission("GDT init failed");
+    }
+
+    if (!IDT::init())
+    {
+        ks_fission("IDT init failed");
+    }
+
     if (!FPU::init())
     {
         ks_fission("FPU init failed");
     }
-
-    // Some quick hacky stuff for interrupts
-    irq_event_engine = {};
-    isr_event_engine = {};
 
     static auto handler = [](uint16_t id, Interrupt_Data data) {
         static Array<String, 32> error_messages = {"Division By Zero",
@@ -72,7 +72,7 @@ bool ksinit::arch()
 
     for (auto x = 0; x < 32; x++)
     {
-        isr_event_engine.add_event_handler(x, handler);
+        x86_interrupt_event_engine.add_event_handler(x, handler);
     }
 
     return true;

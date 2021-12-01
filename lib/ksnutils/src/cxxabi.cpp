@@ -5,7 +5,7 @@
 namespace __cxxabiv1
 {
 
-    using __guard = int64_t __attribute__((mode(__DI__)));
+    using __guard = Atomic<int64_t>;
 
     extern "C"
     {
@@ -20,6 +20,7 @@ namespace __cxxabiv1
         }
         void __cxa_guard_abort(__guard *)
         {
+            ks_fission("Static initialization aborted!");
         }
     }
 
@@ -27,7 +28,7 @@ namespace __cxxabiv1
 
 extern "C"
 {
-    constexpr int ATEXIT_MAX_FUNCS = 0xff;
+    constexpr auto ATEXIT_MAX_FUNCS = 0xff;
 
     using uarch_t = unsigned int;
 

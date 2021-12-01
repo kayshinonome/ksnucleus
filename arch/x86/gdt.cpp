@@ -13,7 +13,7 @@ class GDT_Ptr
     const GDT *base;
 
   public:
-    explicit GDT_Ptr(const GDT *gdt) : base(gdt)
+    explicit GDT_Ptr(const GDT &gdt) : base(&gdt)
     {
     }
 
@@ -43,11 +43,12 @@ bool GDT::init()
     constexpr uint16_t GDT_DATA_PL3 =
         SEG_TYPE(1) | SEG_PRES(1) | SEG_SAVL(0) | SEG_LONG(0) | SEG_SIZE(1) | SEG_GRAN(1) | SEG_PRIV(3) | SEG_DATA_RDWR;
 
-    const GDT gdt{{GDT::get_descriptor(0, 0, 0), GDT::get_descriptor(0, 0x000fffff, GDT_CODE_PL0),
-                   GDT::get_descriptor(0, 0x000fffff, GDT_DATA_PL0), GDT::get_descriptor(0, 0x000fffff, GDT_CODE_PL3),
-                   GDT::get_descriptor(0, 0x000fffff, GDT_DATA_PL3)}};
+    const static GDT gdt{{GDT::get_descriptor(0, 0, 0), GDT::get_descriptor(0, 0x000fffff, GDT_CODE_PL0),
+                          GDT::get_descriptor(0, 0x000fffff, GDT_DATA_PL0),
+                          GDT::get_descriptor(0, 0x000fffff, GDT_CODE_PL3),
+                          GDT::get_descriptor(0, 0x000fffff, GDT_DATA_PL3)}};
 
-    GDT_Ptr gdt_ptr(&gdt);
+    GDT_Ptr gdt_ptr(gdt);
 
     /**
      * @brief Generated GDT is

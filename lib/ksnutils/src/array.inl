@@ -30,7 +30,7 @@ template <typename ARRAY_TYPE, uint32_t SIZE> constexpr ARRAY_TYPE &Array<ARRAY_
     return raw()[index];
 }
 
-template <typename ARRAY_TYPE, uint32_t SIZE> [[nodiscard]] constexpr uint32_t Array<ARRAY_TYPE, SIZE>::length() const
+template <typename ARRAY_TYPE, uint32_t SIZE> [[nodiscard]] constexpr uint32_t Array<ARRAY_TYPE, SIZE>::length()
 {
     return SIZE;
 }
@@ -86,8 +86,7 @@ bool Array<ARRAY_TYPE, SIZE>::operator==(const Array<ARRAY_TYPE, SIZE> &data) co
     return compare_memory(raw(), data.raw(), SIZE);
 }
 
-template <typename ARRAY_TYPE, uint32_t SIZE>
-[[nodiscard]] constexpr size_t Array<ARRAY_TYPE, SIZE>::sizeof_type() const
+template <typename ARRAY_TYPE, uint32_t SIZE> [[nodiscard]] constexpr size_t Array<ARRAY_TYPE, SIZE>::sizeof_type()
 {
     return sizeof(ARRAY_TYPE);
 }

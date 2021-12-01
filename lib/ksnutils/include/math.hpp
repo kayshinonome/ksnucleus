@@ -77,6 +77,7 @@ template <typename T> constexpr T min(T x, T y)
  * @param y
  * @return constexpr T
  */
+
 template <typename T> constexpr T pow(T x, T y)
 {
     for (auto a = 0U; a < y; a++)

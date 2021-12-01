@@ -17,7 +17,7 @@
  * @param port
  * @return uint8_t
  */
-uint8_t inline in8(uint16_t port)
+inline uint8_t in8(uint16_t port)
 {
     uint8_t ret = 0;
     asm volatile("inb %1, %0" : "=a"(ret) : "Nd"(port));
@@ -30,7 +30,7 @@ uint8_t inline in8(uint16_t port)
  * @param port
  * @param value
  */
-void inline out8(uint16_t port, uint8_t value)
+inline void out8(uint16_t port, uint8_t value)
 {
     asm volatile("outb %0, %1" : : "a"(value), "Nd"(port));
 }
@@ -41,7 +41,7 @@ void inline out8(uint16_t port, uint8_t value)
  * @param port
  * @return uint16_t
  */
-uint16_t inline in16(uint16_t port)
+inline uint16_t in16(uint16_t port)
 {
     uint16_t ret = 0;
     asm volatile("inw %1, %0" : "=a"(ret) : "dN"(port));
@@ -54,7 +54,7 @@ uint16_t inline in16(uint16_t port)
  * @param port
  * @param value
  */
-void inline out16(uint16_t port, uint16_t value)
+inline void out16(uint16_t port, uint16_t value)
 {
     asm volatile("outw %1, %0" : : "dN"(port), "a"(value));
 }
@@ -65,7 +65,7 @@ void inline out16(uint16_t port, uint16_t value)
  * @param port
  * @return uint32_t
  */
-uint32_t inline in32(uint16_t port)
+inline uint32_t in32(uint16_t port)
 {
     uint32_t ret = 0;
     asm volatile("inl %1, %0" : "=a"(ret) : "dN"(port));

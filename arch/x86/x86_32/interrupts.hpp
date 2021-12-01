@@ -1,29 +1,14 @@
 #pragma once
+
+#include <array.hpp>
 #include <event.hpp>
 #include <types.hpp>
 
-constexpr auto INTERRUPT_COUNT = 256;
+constexpr auto IDT_SIZE = 256;
 
 class Interrupt_Data
 {
   public:
-    // Data segment selector
-    uint32_t ds;
-
-    // Pushed by pusha.
-    uint32_t edi;
-    uint32_t esi;
-    uint32_t ebp;
-    uint32_t useless;
-    uint32_t ebx;
-    uint32_t edx;
-    uint32_t ecx;
-    uint32_t eax;
-
-    // Interrupt number and error code (if applicable)
-    uint32_t int_no;
-    uint32_t err_code;
-
     // Pushed by the processor automatically
     uint32_t eip;
     uint32_t cs;
@@ -32,5 +17,13 @@ class Interrupt_Data
     uint32_t ss;
 } __attribute__((packed));
 
-inline Event_Engine<Interrupt_Data, 16> irq_event_engine;
-inline Event_Engine<Interrupt_Data, 32> isr_event_engine;
+class IDT : public Array<uint64_t, IDT_SIZE>
+{
+  private:
+    static uint64_t get_descriptor(void *handler);
+
+  public:
+    static bool init();
+} __attribute__((packed));
+
+inline Event_Engine<Interrupt_Data, IDT_SIZE> x86_interrupt_event_engine{};
