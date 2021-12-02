@@ -1,4 +1,3 @@
-#include <boot/multiboot.hpp>
 #define ALIGNMENT 4096
 
 // Reserve a stack for the initial thread.
@@ -17,6 +16,11 @@ _start:
 
   // Disable interrupts
   cli
+
+  // Move the multiboot magic to a place that our code can read it (defined in boot/multiboot.cpp)
+  mov %eax, passed_in_multiboot_magic
+  // Move the pointer to the the multiboot info to a place that the code can read it (defined in boot/multiboot.cpp)
+  mov %ebx, passed_in_multiboot_info
 
   mov $stack_top, %esp
 

@@ -9,4 +9,8 @@ __attribute__((used, constructor)) void nucleus_init()
     if (!ksinit::platform())
     {
     }
+
+    if (!ksinit::boot())
+    {
+    }
 }

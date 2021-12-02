@@ -119,11 +119,13 @@ bool IDT::init()
     // Set all of the IDT table I care about at the moment
     __attribute__((aligned(0x10))) static IDT idt{};
 
+    // Set the isrs
     for (auto x = 0; x < 32; x++)
     {
         idt[x] = IDT::get_descriptor(reinterpret_cast<void *>(isr_handler));
     }
 
+    // Set the irqs
     for (auto x = 0; x < 16; x++)
     {
         idt[x + 32] = IDT::get_descriptor(reinterpret_cast<void *>(irq_handler));
@@ -132,6 +134,7 @@ bool IDT::init()
     // Produce the idt register
     IDT_Register idt_reg(idt);
 
+    // Remap the PIC
     PIC::remap(0x20, 0x28);
 
     // Load the IDT
