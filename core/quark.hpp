@@ -1,9 +1,10 @@
 #pragma once
 #include <array.hpp>
+#include <atomic.hpp>
 #include <types.hpp>
 
 constexpr auto MAX_QUARK_ARG_COUNT = 1;
-constexpr auto QUARK_SERVICE_COUNT = 3;
+constexpr auto QUARK_SERVICE_COUNT = 5;
 
 enum class Quark_Services : uint8_t
 {
@@ -15,6 +16,8 @@ enum class Quark_Services : uint8_t
 class Quark
 {
   public:
+    Atomic<bool> has_been_initialized = false;
+
     bool (*is_viable)(Quark_Services quark_service) = nullptr;
     void (*init)() = nullptr;
     void (*fini)() = nullptr;
@@ -26,10 +29,15 @@ class Quark
     void (*commit_framebuffer)(void *data) = nullptr;
     void (*reboot)() = nullptr;
     void (*shutdown)() = nullptr;
+    void (*randseed)() = nullptr;
 };
 
 class Quark_Collection : public Array<Quark *, 0xff>
 {
+
+  private:
+    constexpr static Array<uint8_t, QUARK_SERVICE_COUNT> quark_arg_counts{1, 0, 0};
+
   public:
     bool add_quark(Quark &quark);
 

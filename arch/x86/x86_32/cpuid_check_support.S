@@ -2,6 +2,7 @@
 .global check_support
 .type check_support, @function
 
+.code32
 check_support:
     // Save old stack base pointer
     push    %ebp

@@ -3,6 +3,8 @@
 .type flush_gdt, @function
 
 #define VM_FLAGS $0x20000
+
+.code32
 enter_v86:
     mov    %ebp,%esp
     push   0x4(%ebp)

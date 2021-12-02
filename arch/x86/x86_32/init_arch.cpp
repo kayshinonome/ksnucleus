@@ -8,16 +8,6 @@
 
 bool ksinit::arch()
 {
-    if (!cpuid::check_support())
-    {
-        ks_fission("CPUID support is not available, which is a requirement");
-    }
-
-    if (cpuid::get_vendor() != cpuid::CPU_Vendor::INTEL)
-    {
-        ks_fission("Only INTEL CPUs are supported for now");
-    }
-
     if (!GDT::init())
     {
         ks_fission("GDT init failed");
@@ -33,46 +23,14 @@ bool ksinit::arch()
         ks_fission("FPU init failed");
     }
 
-    static auto handler = [](uint16_t id, Interrupt_Data data) {
-        static Array<String, 32> error_messages = {"Division By Zero",
-                                                   "Debug",
-                                                   "Non Maskable Interrupt",
-                                                   "Breakpoint",
-                                                   "Into Detected Overflow",
-                                                   "Out of Bounds",
-                                                   "Invalid Opcode",
-                                                   "No Coprocessor",
-                                                   "Double Fault",
-                                                   "Coprocessor Segment Overrun",
-                                                   "Bad TSS",
-                                                   "Segment Not Present",
-                                                   "Stack Fault",
-                                                   "General Protection Fault",
-                                                   "Page Fault",
-                                                   "Unknown Interrupt",
-                                                   "Coprocessor Fault",
-                                                   "Alignment Check",
-                                                   "Machine Check",
-                                                   "SIMD Floating-Point Exception",
-                                                   "Virtualization Exception",
-                                                   "Reserved",
-                                                   "Reserved",
-                                                   "Reserved",
-                                                   "Reserved",
-                                                   "Reserved",
-                                                   "Reserved",
-                                                   "Reserved",
-                                                   "Reserved",
-                                                   "Reserved",
-                                                   "Security Exception",
-                                                   "Reserved"};
-
-        ks_fission(error_messages[id].raw());
-    };
-
-    for (auto x = 0; x < 32; x++)
+    if (!cpuid::check_support())
     {
-        x86_interrupt_event_engine.add_event_handler(x, handler);
+        ks_fission("CPUID support is not available, which is a requirement");
+    }
+
+    if (cpuid::get_vendor() != cpuid::CPU_Vendor::INTEL)
+    {
+        ks_fission("Only INTEL CPUs are supported for now");
     }
 
     return true;

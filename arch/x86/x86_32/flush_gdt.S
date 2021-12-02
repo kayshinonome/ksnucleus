@@ -1,8 +1,8 @@
 .section .text
 .global flush_gdt
-
 .type flush_gdt, @function
-    // void flush_gdt(GDT::GDT_Ptr * gdt_ptr)
+
+.code32
 flush_gdt:
     movl    4(%esp), %eax
     lgdt	(%eax)

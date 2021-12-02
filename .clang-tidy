@@ -1,5 +1,5 @@
 ---
-Checks: "*,-cert-dcl51-cpp,-cert-dcl37-c,-bugprone-reserved-identifier, -fuchsia-statically-constructed-objects ,-clang-diagnostic-writable-strings, -altera-id-dependent-backward-branch,-bugprone-easily-swappable-parameters,-altera-unroll-loops, -cppcoreguidelines-avoid-non-const-global-variables, -llvm-header-guard, -llvmlibc-implementation-in-namespace, -llvmlibc-restrict-system-libc-headers, -llvmlibc-callee-namespace, -cppcoreguidelines-avoid-magic-numbers, -readability-magic-numbers, -modernize-use-trailing-return-type, -cppcoreguidelines-pro-bounds-pointer-arithmetic, -cppcoreguidelines-pro-bounds-constant-array-index, -cppcoreguidelines-pro-type-reinterpret-cast, -hicpp-avoid-c-arrays, -hicpp-signed-bitwise, -modernize-avoid-c-arrays, -cppcoreguidelines-avoid-c-arrays, -fuchsia-overloaded-operator, -hicpp-no-assembler, -misc-non-private-member-variables-in-classes, -cppcoreguidelines-pro-type-vararg, -hicpp-vararg"
+Checks: "*,-readability-static-accessed-through-instance,-cert-dcl51-cpp,-cert-dcl37-c,-bugprone-reserved-identifier, -fuchsia-statically-constructed-objects ,-clang-diagnostic-writable-strings, -altera-id-dependent-backward-branch,-bugprone-easily-swappable-parameters,-altera-unroll-loops, -cppcoreguidelines-avoid-non-const-global-variables, -llvm-header-guard, -llvmlibc-implementation-in-namespace, -llvmlibc-restrict-system-libc-headers, -llvmlibc-callee-namespace, -cppcoreguidelines-avoid-magic-numbers, -readability-magic-numbers, -modernize-use-trailing-return-type, -cppcoreguidelines-pro-bounds-pointer-arithmetic, -cppcoreguidelines-pro-bounds-constant-array-index, -cppcoreguidelines-pro-type-reinterpret-cast, -hicpp-avoid-c-arrays, -hicpp-signed-bitwise, -modernize-avoid-c-arrays, -cppcoreguidelines-avoid-c-arrays, -fuchsia-overloaded-operator, -hicpp-no-assembler, -misc-non-private-member-variables-in-classes, -cppcoreguidelines-pro-type-vararg, -hicpp-vararg"
 WarningsAsErrors: ""
 HeaderFilterRegex: ".*"
 AnalyzeTemporaryDtors: false
@@ -485,7 +485,7 @@ CheckOptions:
   - key: modernize-use-noexcept.UseNoexceptFalse
     value: "true"
   - key: readability-function-cognitive-complexity.Threshold
-    value: "25"
+    value: "40"
   - key: cppcoreguidelines-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic
     value: "true"
   - key: bugprone-argument-comment.IgnoreSingleArgument

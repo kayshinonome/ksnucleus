@@ -1,8 +1,8 @@
 .section .text
-
-// Allows our code to call tss_flush().
 .global flush_tss
 .type flush_tss, @function
+
+.code32
 flush_tss:
     mov $0x2B, %ax  // Load the index of our TSS structure - The index is
                     // 0x28, as it is the 5th selector and each is 8 bytes

@@ -80,9 +80,11 @@ template <typename T> constexpr T min(T x, T y)
 
 template <typename T> constexpr T pow(T x, T y)
 {
+    auto init_value = x;
+
     for (auto a = 0U; a < y; a++)
     {
-        x *= x;
+        x *= init_value;
     }
     return x;
 }

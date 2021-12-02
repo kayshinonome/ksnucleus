@@ -55,4 +55,25 @@ template <typename EVENT_DATA_TYPE, uint16_t EVENT_COUNT> class Event_Engine
         }
         return false;
     }
+
+    bool remove_event_handler(uint16_t id, Event_Handler event_handler)
+    {
+        // Ensure the ID isnt too large
+        if (id >= EVENT_COUNT)
+        {
+            return false;
+        }
+
+        auto event_handler_slice = event_handlers[id];
+
+        for (uint16_t i = 0, len = event_handler_slice.length(); i < len; i++)
+        {
+            if (event_handler_slice[i] == event_handler)
+            {
+                event_handler_slice[i] = nullptr;
+                return true;
+            }
+        }
+        return false;
+    }
 };

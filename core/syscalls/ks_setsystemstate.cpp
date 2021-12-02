@@ -20,4 +20,8 @@ SUBSYSCALL ks_setsystemstate(SystemState system_state)
             break;
         }
     }
+
+    while (true)
+    {
+    }
 }

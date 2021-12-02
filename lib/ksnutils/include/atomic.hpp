@@ -93,5 +93,11 @@ template <typename ATOMIC_TYPE> class Atomic
         return *this;
     }
 
+    Atomic operator&=(const ATOMIC_TYPE &data)
+    {
+        __atomic_fetch_and(&_internal_data, data, __ATOMIC_SEQ_CST);
+        return *this;
+    }
+
     // We have to set the alignment otherwise we will get a massive penalty from the atomic operations
 } __attribute__((aligned(sizeof(ATOMIC_TYPE))));

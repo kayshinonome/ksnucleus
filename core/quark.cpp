@@ -16,9 +16,9 @@ bool Quark_Collection::add_quark(Quark &quark)
 
 bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<void *, MAX_QUARK_ARG_COUNT> args)
 {
-    constexpr Array<uint8_t, QUARK_SERVICE_COUNT> quark_arg_counts{1, 0, 0};
     const auto quark_arg_count_for_call = quark_arg_counts[static_cast<uint8_t>(quark_service)];
 
+    // Ensure that the args isn't null in its spot where it shouldn't
     for (uint8_t x = 0; x < quark_arg_count_for_call; x++)
     {
         if (args[x] == nullptr)
@@ -27,31 +27,57 @@ bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<vo
         }
     }
 
+    // Search for a viable quark and call it
     for (uint32_t x = 0, len = length(); x < len; x++)
     {
         auto *current_quark = (*this)[x];
 
-        if (current_quark != nullptr && current_quark->is_viable(quark_service))
+        if (current_quark != nullptr)
         {
-            switch (quark_service)
+            // Call the quarks init
+            if (!current_quark->has_been_initialized && current_quark->init != nullptr)
             {
-                case Quark_Services::COMMIT_FRAMEBUFFER:
+                current_quark->init();
+            }
+
+            if (current_quark->is_viable(quark_service))
+            {
+                switch (quark_service)
                 {
-                    current_quark->commit_framebuffer(args[0]);
-                    break;
-                }
-                case Quark_Services::REBOOT:
-                {
-                    current_quark->reboot();
-                    break;
-                }
-                case Quark_Services::SHUTDOWN:
-                {
-                    current_quark->shutdown();
-                    break;
+                    case Quark_Services::COMMIT_FRAMEBUFFER:
+                    {
+
+                        // Ensure the function doesn't lead to a nullptr
+                        if (current_quark->commit_framebuffer != nullptr)
+                        {
+                            current_quark->commit_framebuffer(args[0]);
+                            return true;
+                        }
+
+                        break;
+                    }
+                    case Quark_Services::REBOOT:
+                    {
+                        // Ensure the function doesn't lead to a nullptr
+                        if (current_quark->reboot != nullptr)
+                        {
+                            current_quark->reboot();
+                            return true;
+                        }
+                        break;
+                    }
+                    case Quark_Services::SHUTDOWN:
+                    {
+                        // Ensure the function doesn't lead to a nullptr
+                        if (current_quark->shutdown != nullptr)
+                        {
+                            current_quark->shutdown();
+                            return true;
+                        }
+                        break;
+                    }
                 }
             }
-            return true;
         }
     }
     return false;
