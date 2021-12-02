@@ -9,16 +9,16 @@ ifeq ($(origin .RECIPEPREFIX), undefined)
   $(error This Make does not support .RECIPEPREFIX. Please use GNU Make 4.0 or later)
 endif
 .RECIPEPREFIX = >
-.PHONY: clean 										\
-		run											\
+.PHONY: clean 											\
+		run										\
 		inspect										\
 		debug										\
-		all											\
+		all										\
 		docs										\
 		distclean									\
 		package										\
 		package_run									\
-		package_debug								\
+		package_debug									\
 		help
 
 .DEFAULT_GOAL := all
@@ -31,83 +31,81 @@ ifeq ($(CUSTOM_CONFIG_SET),false)
     include config/x86-pc-32-little.mk
 endif
 
-BUILD_DIR     		= 								\
+BUILD_DIR     		= 									\
 build/$(CONFIG_KSNUCLEUS_ARCH)-$(CONFIG_KSNUCLEUS_PLATFORM)-$(CONFIG_KSNUCLEUS_WORD_WIDTH)-$(CONFIG_KSNUCLEUS_ENDIAN)
 
-INCLUDE_DIRS  		+=								\
+INCLUDE_DIRS  		+=									\
 $(PWD)												\
-$(PWD)/lib/ksnutils/include							\
+$(PWD)/lib/ksnutils/include									\
 
-INCLUDE_FLAGS 		+=								\
+INCLUDE_FLAGS 		+=									\
 $(addprefix -I,$(INCLUDE_DIRS))
 
-CPPFLAGS      		+=								\
--MMD                    							\
--MP                     							\
--Wall	                							\
--Wextra	                							\
+CPPFLAGS      		+=									\
+-MMD                    									\
+-MP                     									\
+-Wall	                									\
+-Wextra	                									\
 -Wpedantic											\
 -Wabi												\
 -Werror												\
--Wno-unused-parameter				                \
--Wno-unused-variable				                \
--Wno-unused-function				                \
--Wno-nested-anon-types								\
--Wno-gnu-anonymous-struct							\
--Wno-writable-strings								\
--fstack-protector-strong				            \
--fno-builtin										\
--ffunction-sections									\
--fdata-sections
+-Wno-unused-parameter				                				\
+-Wno-unused-variable				                				\
+-Wno-unused-function				                				\
+-Wno-nested-anon-types										\
+-Wno-gnu-anonymous-struct									\
+-Wno-writable-strings										\
+-fstack-protector-strong				            				\
+-fno-builtin
 
-CXXFLAGS      		+=								\
+CXXFLAGS      		+=									\
 -std=c++20											\
--fno-exceptions						               	\
+-fno-exceptions						               				\
 -fno-rtti											\
--fno-unwind-tables					                \
--fno-non-call-exceptions							\
--Wno-unused-private-field			              	\
+-fno-unwind-tables					                			\
+-fno-non-call-exceptions									\
+-Wno-unused-private-field			              					\
 -nostdinc
 
-LDFLAGS      		+=								\
--L$(BUILD_DIR)          							\
--ffreestanding						                \
--nodefaultlibs						                \
--static                 							\
--nostartfiles										\
+LDFLAGS      		+=									\
+-L$(BUILD_DIR)          									\
+-ffreestanding						                			\
+-nodefaultlibs						                			\
+-static                 									\
+-nostartfiles											\
 -fuse-ld=lld
 
 ASFLAGS       		+=
-ARFLAGS       		+=								\
+ARFLAGS       		+=									\
 -crs
 
 QEMUFLAGS			+=								\
--d int,in_asm										\
+-d int,in_asm											\
 -no-reboot 											\
 -no-shutdown 
 
 ifeq ($(CONFIG_KSNUCLEUS_DEBUG),true)
 
 CPPFLAGS		  	+=								\
--D__CONFIG_KSNUCLEUS_DEBUG__						\
--Og													\
+-D__CONFIG_KSNUCLEUS_DEBUG__									\
+-Og												\
 -g
 else
 
 CPPFLAGS		  	+=								\
--O2													\
+-O2												\
 -flto
 endif
 
 include 											\
-arch/build.mk										\
-boot/build.mk										\
-core/build.mk										\
-lib/build.mk										\
-platform/build.mk									\
+arch/build.mk											\
+boot/build.mk											\
+core/build.mk											\
+lib/build.mk											\
+platform/build.mk										\
 video/build.mk
 
-NUCLEUS_OBJS		= $(NUCLEUS_SRCS:%=$(BUILD_DIR)/%.o)
+NUCLEUS_OBJS			=  $(NUCLEUS_SRCS:%=$(BUILD_DIR)/%.o)
 OBJS 				+= $(NUCLEUS_OBJS)
 
 help:

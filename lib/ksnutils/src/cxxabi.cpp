@@ -18,7 +18,8 @@ namespace __cxxabiv1
         {
             *reinterpret_cast<char *>(g) = 1;
         }
-        void __cxa_guard_abort(__guard *)
+
+	void __cxa_guard_abort(__guard *)
         {
             ks_fission("Static initialization aborted!");
         }

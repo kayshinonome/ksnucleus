@@ -11,8 +11,6 @@ Data Types:
         Make a string type (based on char[]) so that safe and effective string operations can be made
     SpinLock:
         Make a spinlock type to control how locking works
-    Atomic:
-        Finish overriding all the operators in the Atomic operator
 Build system:
     Makefile:
         Clean them up. They look like garbage
@@ -23,7 +21,5 @@ Platform and Arch support:
     Quarks:
         Write a VESA quark that can, at the least, commit a framebuffer to video memory (at 640x480 with a depth of 16)
         Write a 8250 quark that can, at the least, push a byte out, and pull a byte in (this will require a good implementation of the Future class)
-    Boot:
-        Figure out why booting multiboot kernels in QEMU isn't setting the requested video mode
     Runtime:
-        Add a v86 bios wrapper for x86-pc-32-little, for things such as changing video mode, or reading the disk (risky, but may work for early drivers
+        Add a v86 bios wrapper for x86-pc-32-little, for things such as changing video mode, or reading the disk

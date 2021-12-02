@@ -32,7 +32,7 @@ class Array2D : public Array<Array<ARRAY_TYPE, HEIGHT>, WIDTH>
      *
      * @return constexpr int
      */
-    [[nodiscard]] constexpr size_t width() const
+    [[nodiscard]] constexpr static size_t width()
     {
         return WIDTH;
     }
@@ -42,7 +42,7 @@ class Array2D : public Array<Array<ARRAY_TYPE, HEIGHT>, WIDTH>
      *
      * @return constexpr int
      */
-    [[nodiscard]] constexpr size_t height() const
+    [[nodiscard]] constexpr static size_t height()
     {
         return HEIGHT;
     }

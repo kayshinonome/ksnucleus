@@ -7,6 +7,7 @@
  *
  */
 #pragma once
+#include <core/ksnucleus.hpp>
 #include <types.hpp>
 
 constexpr auto M_PI = 3.14159265358979323846;
@@ -43,6 +44,18 @@ template <typename T> constexpr T sin(T x)
     return y;
 }
 
+template <typename T> constexpr T cos(T x)
+{
+	ks_fission("No implementation of cos");
+	return 0;
+}
+
+template <typename T> constexpr T sqrt(T x)
+{
+	ks_fission("No implementation of sqrt");
+	return 0;
+}
+
 /**
  * @brief Return the max value
  *
@@ -67,24 +80,4 @@ template <typename T> constexpr T max(T x, T y)
 template <typename T> constexpr T min(T x, T y)
 {
     return (x < y) ? x : y;
-}
-
-/**
- * @brief A hideous way to calculate pow, but its constexpr so that is useful
- *
- * @tparam T
- * @param x
- * @param y
- * @return constexpr T
- */
-
-template <typename T> constexpr T pow(T x, T y)
-{
-    auto init_value = x;
-
-    for (auto a = 0U; a < y; a++)
-    {
-        x *= init_value;
-    }
-    return x;
 }

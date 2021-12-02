@@ -30,8 +30,6 @@ Quark pc_vesa{.is_viable =
                           }
                       }
                   },
-              .init = []() {},
-              .fini = []() {},
               .commit_framebuffer =
                   [](void *data) {
                       auto *vesa_video_memory = reinterpret_cast<volatile uint8_t *>(get_vesa_framebuffer_location());

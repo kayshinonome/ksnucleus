@@ -9,6 +9,7 @@
         "usernamehw.todo-md",
         "streetsidesoftware.code-spell-checker",
         "davidanson.vscode-markdownlint",
-        "jbenden.c-cpp-flylint"
+        "jbenden.c-cpp-flylint",
+        "jeff-hykin.better-cpp-syntax"
     ]
 }
