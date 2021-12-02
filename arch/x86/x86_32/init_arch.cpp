@@ -8,12 +8,12 @@
 
 bool ksinit::arch()
 {
-    if (!cpuid_check_support())
+    if (!cpuid::check_support())
     {
-        ks_fission("CPUID support is not available");
+        ks_fission("CPUID support is not available, which is a requirement");
     }
 
-    if (cpuid_get_vendor() != CPU_Vendor::INTEL)
+    if (cpuid::get_vendor() != cpuid::CPU_Vendor::INTEL)
     {
         ks_fission("Only INTEL CPUs are supported for now");
     }

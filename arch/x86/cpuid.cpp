@@ -1,30 +1,30 @@
 #include <arch/x86/cpuid.hpp>
 
-void cpuid(size_t *eax, size_t *ebx, size_t *ecx, size_t *edx)
+void cpuid::cpuid(uint32_t *eax, uint32_t *ebx, uint32_t *ecx, uint32_t *edx)
 {
     // ecx is often an input as well as an output.
-    asm("cpuid" : "=a"(*eax), "=b"(*ebx), "=c"(*ecx), "=d"(*edx) : "0"(*eax), "2"(*ecx));
+    asm volatile("cpuid" : "=a"(*eax), "=b"(*ebx), "=c"(*ecx), "=d"(*edx) : "0"(*eax), "2"(*ecx));
 }
 
-uint32_t cpuid_highest_function_parameter()
+uint32_t cpuid::highest_function_parameter()
 {
-    size_t eax = 0;
-    size_t unused = 0;
+    uint32_t eax = 0;
+    uint32_t unused = 0;
     cpuid(&eax, &unused, &unused, &unused);
     return eax;
 }
 
-void cpuid_get_vendor_id(Array<char, 12> &buffer)
+void cpuid::get_vendor_id(Array<char, 12> &buffer)
 {
-    size_t eax = 0;
+    uint32_t eax = 0;
     auto *raw_buffer = buffer.raw();
 
     // Load directly into the buffer from the cpuid helper function, which requires pointer arithmetic
-    cpuid(&eax, reinterpret_cast<size_t *>(raw_buffer), reinterpret_cast<size_t *>(raw_buffer + 8),
-          reinterpret_cast<size_t *>(raw_buffer + 4));
+    cpuid(&eax, reinterpret_cast<uint32_t *>(raw_buffer), reinterpret_cast<uint32_t *>(raw_buffer + 8),
+          reinterpret_cast<uint32_t *>(raw_buffer + 4));
 }
 
-CPU_Vendor cpuid_get_vendor()
+cpuid::CPU_Vendor cpuid::get_vendor()
 {
 
     class CPU_String_Couple
@@ -52,7 +52,7 @@ CPU_Vendor cpuid_get_vendor()
          {" QNXQVMBSQG ", CPU_Vendor::QNX}}};
 
     Array<char, 12> buffer{};
-    cpuid_get_vendor_id(buffer);
+    get_vendor_id(buffer);
 
     for (uint32_t x = 0, len = cpu_vendor_string_table.length(); x < len; x++)
     {

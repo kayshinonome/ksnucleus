@@ -1,8 +1,8 @@
 .section .text
-.global cpuid_check_support
-.type cpuid_check_support, @function
+.global check_support
+.type check_support, @function
 
-cpuid_check_support:
+check_support:
     // Save old stack base pointer
     push    %ebp
     // Set the new value
@@ -28,11 +28,11 @@ cpuid_check_support:
     // %eax = zero if ID bit can't be changed, else non-zero
     and     $0x00200000, %eax
     // Branch if zero, indicating cpuid isn't supported
-    jz      cpuid_check_support_end
+    jz      check_support_end
     // Write true because cpuid is supported
     mov     $0x1, %eax
 
-cpuid_check_support_end:
+check_support_end:
     // Deallocate the stack space used for EFLAGS
     mov     %ebp, %esp
     // Restore the old stack
