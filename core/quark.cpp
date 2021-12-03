@@ -36,7 +36,7 @@ bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<vo
         if (current_quark != nullptr)
         {
             // Call the quarks init
-            if ((!current_quark->has_been_initialized) && current_quark->init != nullptr)
+            if (!current_quark->has_been_initialized)
             {
                 current_quark->init();
             }
@@ -48,34 +48,19 @@ bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<vo
                     case Quark_Services::COMMIT_FRAMEBUFFER:
                     {
 
-                        // Ensure the function doesn't lead to a nullptr
-                        if (current_quark->commit_framebuffer != nullptr)
-                        {
-                            current_quark->commit_framebuffer(args[0]);
-                            return true;
-                        }
-
-                        break;
+                        current_quark->commit_framebuffer(args[0]);
+                        return true;
                     }
                     case Quark_Services::REBOOT:
                     {
-                        // Ensure the function doesn't lead to a nullptr
-                        if (current_quark->reboot != nullptr)
-                        {
-                            current_quark->reboot();
-                            return true;
-                        }
-                        break;
+                        current_quark->reboot();
+                        return true;
                     }
                     case Quark_Services::SHUTDOWN:
                     {
-                        // Ensure the function doesn't lead to a nullptr
-                        if (current_quark->shutdown != nullptr)
-                        {
-                            current_quark->shutdown();
-                            return true;
-                        }
-                        break;
+
+                        current_quark->shutdown();
+                        return true;
                     }
                 }
             }

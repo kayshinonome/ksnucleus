@@ -13,23 +13,28 @@ enum class Quark_Services : uint8_t
     SHUTDOWN
 };
 
+/**
+ * @brief The base class that all quarks come from
+ *
+ * Default values are put here in order to ease the job on the quark_collection
+ */
 class Quark
 {
   public:
     Atomic<bool> has_been_initialized = false;
 
-    bool (*is_viable)(Quark_Services quark_service) = nullptr;
-    void (*init)() = nullptr;
-    void (*fini)() = nullptr;
+    bool (*is_viable)(Quark_Services quark_service) = [](Quark_Services quark_service) { return false; };
+    void (*init)() = []() {};
+    void (*fini)() = []() {};
 
     /**
      * @brief These are the quark services
      *
      */
-    void (*commit_framebuffer)(void *data) = nullptr;
-    void (*reboot)() = nullptr;
-    void (*shutdown)() = nullptr;
-    void (*randseed)() = nullptr;
+    void (*commit_framebuffer)(void *data) = [](void *data) {};
+    void (*reboot)() = []() {};
+    void (*shutdown)() = []() {};
+    void (*randseed)() = []() {};
 };
 
 class Quark_Collection : public Array<Quark *, 0xff>
