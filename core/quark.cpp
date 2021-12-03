@@ -14,6 +14,7 @@ bool Quark_Collection::add_quark(Quark &quark)
     return false;
 }
 
+// Fixme: This is super super inefficient
 bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<void *, MAX_QUARK_ARG_COUNT> args)
 {
     const auto quark_arg_count_for_call = quark_arg_counts[static_cast<uint8_t>(quark_service)];
@@ -35,7 +36,7 @@ bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<vo
         if (current_quark != nullptr)
         {
             // Call the quarks init
-            if (!current_quark->has_been_initialized && current_quark->init != nullptr)
+            if ((!current_quark->has_been_initialized) && current_quark->init != nullptr)
             {
                 current_quark->init();
             }
