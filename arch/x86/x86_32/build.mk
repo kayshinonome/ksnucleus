@@ -1,6 +1,6 @@
 CPPFLAGS 		+=								\
 -target i386-unknown-unknown-elf				\
--march=i386										\
+-march=i486										\
 -m32											\
 -mno-sse
 
