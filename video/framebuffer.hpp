@@ -3,6 +3,8 @@
 #include <video/point.hpp>
 #include <video/rect.hpp>
 
+// FIXME: Franebuffers sizes are calculated at runtime!  Templates are calculated at compile time!
+
 /**
  * @brief Framebuffer type to be used internally
  *
@@ -29,6 +31,7 @@ class Framebuffer : public Array2D<COLOR_TYPE, WIDTH, HEIGHT>
         }
     }
 
+    // FIXME: Actually implement this, and then specialize it to optimized functions
     void draw_character(COLOR_TYPE color, Array2D<uint8_t, 256, 8> &font, const Point &p, char c)
     {
         for (size_t x = p.x, lenx = font.width(); x < lenx; x++)

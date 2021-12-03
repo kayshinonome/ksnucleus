@@ -93,7 +93,7 @@ template <typename T> constexpr T min(T x, T y)
 template <typename T> constexpr uint32_t crc32(T obj)
 {
 
-    // (Hopefully) Calculated at compile time
+    // Calculated at compile time (Most of the time, usually even g optimizations is enough to do this)
     constexpr auto crc32_table = ([]() {
         uint32_t rem = 0;
         uint8_t octet = 0;

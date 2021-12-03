@@ -1,11 +1,11 @@
-#include <utils.hpp>
 #include <core/ksnucleus.hpp>
+#include <types.hpp>
 
 extern "C"
 {
     __attribute__((noreturn)) void __stack_chk_fail()
     {
-	ks_fission("Stack smashing detected!");
+        ks_fission("Stack smashing detected!");
     }
 
     __attribute__((noreturn)) void __stack_chk_fail_local()

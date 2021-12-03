@@ -2,15 +2,7 @@
 
 __attribute__((used, constructor)) void nucleus_init()
 {
-    if (!ksinit::arch())
-    {
-    }
-
-    if (!ksinit::platform())
-    {
-    }
-
-    if (!ksinit::boot())
-    {
-    }
+    ksinit::arch();
+    ksinit::boot();
+    ksinit::boot();
 }

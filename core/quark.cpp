@@ -2,7 +2,6 @@
 
 bool Quark_Collection::add_quark(Quark &quark)
 {
-
     for (size_t x = 0, len = length(); x < len; x++)
     {
         if ((*this)[x] == nullptr)
@@ -53,6 +52,7 @@ bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<vo
                     }
                     case Quark_Services::REBOOT:
                     {
+
                         current_quark->reboot();
                         return true;
                     }

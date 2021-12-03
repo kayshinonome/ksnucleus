@@ -5,11 +5,12 @@ endif
 LDFLAGS 	+= 								\
 -Tplatform/pc/link.ld
 
-NUCLEUS_SRCS += 							\
-platform/pc/crt0.S							\
-platform/pc/init_platform.cpp				\
-platform/pc/8042.cpp						\
-platform/pc/vesa.cpp
+NUCLEUS_SRCS += 								\
+platform/pc/crt0.S								\
+platform/pc/init_platform.cpp							\
+platform/pc/8042.cpp								\
+platform/pc/vesa.cpp                                			 	\
+platform/pc/at_keyboard.cpp
 
 CPPFLAGS	+=								\
 -D__CONFIG_KSNUCLEUS_PLATFORM_PC__

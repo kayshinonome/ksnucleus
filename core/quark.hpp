@@ -1,6 +1,7 @@
 #pragma once
 #include <array.hpp>
 #include <atomic.hpp>
+#include <future.hpp>
 #include <types.hpp>
 
 constexpr auto MAX_QUARK_ARG_COUNT = 1;
@@ -35,6 +36,7 @@ class Quark
     void (*reboot)() = []() {};
     void (*shutdown)() = []() {};
     void (*randseed)() = []() {};
+    void (*getkeycode)(Future<uint16_t> &key) = [](Future<uint16_t> &key) {};
 };
 
 class Quark_Collection : public Array<Quark *, 0xff>

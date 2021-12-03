@@ -3,6 +3,9 @@
 #include <array.hpp>
 #include <math.hpp>
 
+
+// NOTE: Please, Please, this class's operations are fairly intensive. Only use it when you need it.
+
 /**
  * @brief A hash based table (crc32)
  *

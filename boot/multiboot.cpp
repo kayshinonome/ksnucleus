@@ -24,7 +24,7 @@ __attribute__((used, section(".multiboot"))) const multiboot_header ksnucleus_mu
 volatile uint32_t passed_in_multiboot_magic;
 volatile uint32_t passed_in_multiboot_info;
 
-bool ksinit::boot()
+void ksinit::boot()
 {
     if (passed_in_multiboot_magic != MULTIBOOT_BOOTLOADER_MAGIC)
     {
@@ -36,5 +36,4 @@ bool ksinit::boot()
     global_registry.screen_width = info->framebuffer_width;
     global_registry.screen_height = info->framebuffer_height;
     global_registry.screen_depth = info->framebuffer_bpp;
-    return true;
 }

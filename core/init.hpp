@@ -2,7 +2,7 @@
 
 namespace ksinit
 {
-    [[nodiscard]] bool arch();
-    [[nodiscard]] bool boot();
-    [[nodiscard]] bool platform();
+    void arch();
+    void boot();
+    void platform();
 } // namespace ksinit

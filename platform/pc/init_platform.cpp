@@ -5,8 +5,7 @@
 extern Quark pc_vesa;
 extern Quark pc_8042;
 
-bool ksinit::platform()
+void ksinit::platform()
 {
     quark_collection.add_quark(pc_vesa, pc_8042);
-    return true;
 }

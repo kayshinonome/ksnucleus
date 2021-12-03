@@ -1,5 +1,5 @@
-#include <utils.hpp>
 #include <types.hpp>
+#include <utils.hpp>
 
 extern "C"
 {

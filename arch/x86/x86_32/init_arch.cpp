@@ -6,7 +6,7 @@
 #include <core/ksnucleus.hpp>
 #include <string.hpp>
 
-bool ksinit::arch()
+void ksinit::arch()
 {
     if (!GDT::init())
     {
@@ -32,6 +32,4 @@ bool ksinit::arch()
     {
         ks_fission("Only INTEL CPUs are supported for now");
     }
-
-    return true;
 }
