@@ -27,6 +27,10 @@ void cpuid::get_vendor_id(Array<char, 12> &buffer)
 cpuid::CPU_Vendor cpuid::get_vendor()
 {
 
+    // NOTE: DO NOT, for any reason implement this with Table. You will inflate the binary by a lot as the compiler
+    // decides to unroll the entire damn thing. I could work around this but also the effort of generating hashes for
+    // these strings isnt work it because its only likely to be read a few time by the os
+
     class CPU_String_Couple
     {
       public:

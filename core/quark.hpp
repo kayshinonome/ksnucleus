@@ -41,6 +41,11 @@ class Quark_Collection : public Array<Quark *, 0xff>
   public:
     bool add_quark(Quark &quark);
 
+    template <typename T, typename... Ts> bool add_quark(T quark, Ts... quarks)
+    {
+        return add_quark(quarks...) && add_quark(quark);
+    }
+
     /**
      * @brief This is a bit like mk_syscall, except to call drivers
      *

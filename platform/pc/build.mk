@@ -8,6 +8,7 @@ LDFLAGS 	+= 								\
 NUCLEUS_SRCS += 							\
 platform/pc/crt0.S							\
 platform/pc/init_platform.cpp				\
+platform/pc/8042.cpp						\
 platform/pc/vesa.cpp
 
 CPPFLAGS	+=								\

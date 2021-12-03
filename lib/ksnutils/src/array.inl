@@ -101,7 +101,8 @@ Array<ARRAY_TYPE, SIZE> &Array<ARRAY_TYPE, SIZE>::copy_into(const ARRAY_TYPE dat
     return *this;
 }
 
-template <typename ARRAY_TYPE, uint32_t SIZE> Answer<uint32_t> Array<ARRAY_TYPE, SIZE>::pos_of(ARRAY_TYPE search) const
+template <typename ARRAY_TYPE, uint32_t SIZE>
+constexpr Answer<uint32_t> Array<ARRAY_TYPE, SIZE>::pos_of(ARRAY_TYPE search) const
 {
     Answer<uint32_t> answer = {.valid = false, .data = 0};
     for (size_t i = 0, len = length(); i < len; i++)

@@ -1,53 +1,74 @@
 #pragma once
 #include <answer.hpp>
 #include <array.hpp>
+#include <math.hpp>
 
+/**
+ * @brief A hash based table (crc32)
+ *
+ * @tparam KEY_TYPE
+ * @tparam DATA_TYPE
+ * @tparam SIZE
+ */
 template <typename KEY_TYPE, typename DATA_TYPE, uint32_t SIZE> class Table
 {
   private:
-    class Key_Data_Pair
-    {
-      public:
-        bool been_set = false;
-        KEY_TYPE key;
-        DATA_TYPE data;
-    };
+    Array<uint32_t, SIZE> _internal_keys;
+    Array<DATA_TYPE, SIZE> _internal_data;
+    uint32_t pos_in_table = 0;
 
   public:
-    Array<Key_Data_Pair, SIZE> _internal_data;
-
-    Answer<DATA_TYPE> get(KEY_TYPE key)
+    /**
+     * @brief Get a value, if it exists
+     *
+     * @param key
+     * @return Answer<DATA_TYPE>
+     */
+    constexpr Answer<DATA_TYPE> get(KEY_TYPE key)
     {
-        for (uint32_t x = 0; x < _internal_data.length(); x++)
+        // Check if the crc has been seen before
+        auto answer = _internal_keys.pos_of(crc32(key));
+
+        if (!answer.valid)
         {
-            if (_internal_data[x].been_set && _internal_data[x].key == key)
-            {
-                return {.data = _internal_data[x].data, .valid = true};
-            }
+            // Return nothing.
+            return {};
         }
-        return {};
+
+        return {.valid = true, .data = _internal_data[answer.data]};
     }
 
-    bool set(KEY_TYPE key, DATA_TYPE data)
+    /**
+     * @brief Set a value
+     *
+     * @param key
+     * @param data
+     * @return true
+     * @return false
+     */
+    constexpr bool set(KEY_TYPE key, DATA_TYPE data)
     {
-        for (uint32_t x = 0; x < _internal_data.length(); x++)
+        // Check if the crc has been seen before
+        auto crc = crc32(key);
+        auto answer = _internal_keys.pos_of(crc);
+
+        if (!answer.valid)
         {
-            if (_internal_data[x].been_set && _internal_data[x].key == key)
+            // Key was not seen before
+
+            // If the table is already full, leave
+            if (pos_in_table >= _internal_keys.length())
             {
-                _internal_data[x].data = data;
-                return true;
+                return false;
             }
+
+            // Set the data and add to the counter
+            _internal_keys[pos_in_table] = crc;
+            _internal_data[pos_in_table++] = data;
+            return true;
         }
-        for (uint32_t x = 0; x < _internal_data.length(); x++)
-        {
-            if (!_internal_data[x].been_set)
-            {
-                _internal_data[x].data = data;
-                _internal_data[x].been_set = true;
-                _internal_data[x].key = key;
-                return true;
-            }
-        }
-        return false;
+
+        _internal_data[answer.data] = data;
+        return true;
     }
 };

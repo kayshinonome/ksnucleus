@@ -3,9 +3,10 @@
 #include <utils.hpp>
 
 extern Quark pc_vesa;
+extern Quark pc_8042;
 
 bool ksinit::platform()
 {
-    quark_collection.add_quark(pc_vesa);
+    quark_collection.add_quark(pc_vesa, pc_8042);
     return true;
 }

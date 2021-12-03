@@ -94,9 +94,9 @@ template <typename ARRAY_TYPE, uint32_t SIZE> class Array
      * @brief Get the position of the first element matching search
      *
      * @param search Element to search for
-     * @return Answer<uint32_t>
+     * @return constexpr Answer<uint32_t>
      */
-    Answer<uint32_t> pos_of(ARRAY_TYPE search) const;
+    constexpr Answer<uint32_t> pos_of(ARRAY_TYPE search) const;
 };
 
 #include <lib/ksnutils/src/array.inl>

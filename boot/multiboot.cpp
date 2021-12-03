@@ -21,8 +21,8 @@ __attribute__((used, section(".multiboot"))) const multiboot_header ksnucleus_mu
                                                                                                .height = 200,
                                                                                                .depth = 8};
 
-uint32_t passed_in_multiboot_magic;
-uint32_t passed_in_multiboot_info;
+volatile uint32_t passed_in_multiboot_magic;
+volatile uint32_t passed_in_multiboot_info;
 
 bool ksinit::boot()
 {
@@ -31,9 +31,10 @@ bool ksinit::boot()
         ks_fission("Invalid multiboot magic");
     }
 
+    // NOLINTNEXTLINE(performance-no-int-to-ptr)
     auto *info = reinterpret_cast<multiboot_info *>(passed_in_multiboot_info);
-    global_registry.set(Registry_Keys::SCREEN_WIDTH, info->framebuffer_width);
-    global_registry.set(Registry_Keys::SCREEN_HEIGHT, info->framebuffer_height);
-    global_registry.set(Registry_Keys::SCREEN_DEPTH, info->framebuffer_bpp);
+    global_registry.screen_width = info->framebuffer_width;
+    global_registry.screen_height = info->framebuffer_height;
+    global_registry.screen_depth = info->framebuffer_bpp;
     return true;
 }
