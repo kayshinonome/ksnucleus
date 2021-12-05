@@ -24,19 +24,18 @@ class Quark
   public:
     Atomic<bool> has_been_initialized = false;
 
-    bool (*is_viable)(Quark_Services quark_service) = [](Quark_Services quark_service) { return false; };
     void (*init)() = []() {};
     void (*fini)() = []() {};
 
     /**
      * @brief These are the quark services
-     *
+     * Every service returns false if it wasn't able to complete its job and another has to be found
      */
-    void (*commit_framebuffer)(void *data) = [](void *data) {};
-    void (*reboot)() = []() {};
-    void (*shutdown)() = []() {};
-    void (*randseed)() = []() {};
-    void (*getkeycode)(Future<uint16_t> &key) = [](Future<uint16_t> &key) {};
+    bool (*commitframebuffer)(void *data) = [](void *data) { return false; };
+    bool (*reboot)() = []() { return false; };
+    bool (*shutdown)() = []() { return false; };
+    bool (*randseed)() = []() { return false; };
+    bool (*getkeycode)(Future<uint16_t> &key) = [](Future<uint16_t> &key) { return false; };
 };
 
 class Quark_Collection : public Array<Quark *, 0xff>

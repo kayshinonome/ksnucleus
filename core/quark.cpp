@@ -40,31 +40,36 @@ bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<vo
                 current_quark->init();
             }
 
-            if (current_quark->is_viable(quark_service))
+            switch (quark_service)
             {
-                switch (quark_service)
+                case Quark_Services::COMMIT_FRAMEBUFFER:
                 {
-                    case Quark_Services::COMMIT_FRAMEBUFFER:
+                    if (current_quark->commitframebuffer(args[0]))
                     {
-
-                        current_quark->commit_framebuffer(args[0]);
                         return true;
                     }
-                    case Quark_Services::REBOOT:
+                    break;
+                }
+                case Quark_Services::REBOOT:
+                {
+                    if (current_quark->reboot())
                     {
-
-                        current_quark->reboot();
                         return true;
                     }
-                    case Quark_Services::SHUTDOWN:
-                    {
+                    break;
+                }
+                case Quark_Services::SHUTDOWN:
+                {
 
-                        current_quark->shutdown();
+                    if (current_quark->shutdown())
+                    {
                         return true;
                     }
+                    break;
                 }
             }
         }
     }
+
     return false;
 }
