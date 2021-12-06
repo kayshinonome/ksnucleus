@@ -35,7 +35,7 @@ bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<vo
         if (current_quark != nullptr)
         {
             // Call the quarks init
-            if (!current_quark->has_been_initialized)
+            if ((!current_quark->has_been_initialized) && current_quark->init != nullptr)
             {
                 current_quark->init();
             }
@@ -44,7 +44,7 @@ bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<vo
             {
                 case Quark_Services::COMMIT_FRAMEBUFFER:
                 {
-                    if (current_quark->commitframebuffer(args[0]))
+                    if (current_quark->commitframebuffer != nullptr && current_quark->commitframebuffer(args[0]))
                     {
                         return true;
                     }
@@ -52,7 +52,7 @@ bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<vo
                 }
                 case Quark_Services::REBOOT:
                 {
-                    if (current_quark->reboot())
+                    if (current_quark->reboot != nullptr && current_quark->reboot())
                     {
                         return true;
                     }
@@ -61,7 +61,7 @@ bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<vo
                 case Quark_Services::SHUTDOWN:
                 {
 
-                    if (current_quark->shutdown())
+                    if (current_quark->shutdown != nullptr && current_quark->shutdown())
                     {
                         return true;
                     }

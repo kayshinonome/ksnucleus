@@ -56,7 +56,10 @@ CPPFLAGS      		+=									\
 -Wno-gnu-anonymous-struct									\
 -Wno-writable-strings										\
 -fstack-protector-strong				            				\
--fno-builtin
+-fno-builtin												\
+-fno-delete-null-pointer-checks
+
+# The previous check is needed because clang is being annoying
 
 CXXFLAGS      		+=									\
 -std=c++20											\

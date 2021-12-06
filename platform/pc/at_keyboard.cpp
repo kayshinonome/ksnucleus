@@ -10,4 +10,3 @@ Quark pc_at_keyboard{.getkeycode = [](Future<uint16_t> &data) {
     };
     return false;
 }};
-

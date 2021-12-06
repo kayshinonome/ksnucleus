@@ -19,7 +19,7 @@ namespace __cxxabiv1
             *reinterpret_cast<char *>(g) = 1;
         }
 
-	void __cxa_guard_abort(__guard *)
+        void __cxa_guard_abort(__guard *)
         {
             ks_fission("Static initialization aborted!");
         }
@@ -77,4 +77,18 @@ extern "C"
             }
         }
     }
+
+    int __cxa_atexit(void (*f)(void *), void *objptr, void *dso)
+    {
+        if (__atexit_func_count >= ATEXIT_MAX_FUNCS)
+        {
+            return -1;
+        };
+
+        __atexit_funcs[__atexit_func_count].destructor_func = f;
+        __atexit_funcs[__atexit_func_count].obj_ptr = objptr;
+        __atexit_funcs[__atexit_func_count].dso_handle = dso;
+        __atexit_func_count++;
+        return 0;
+    };
 }

@@ -1,8 +1,11 @@
 #include <core/init.hpp>
 
-__attribute__((used, constructor)) void nucleus_init()
+extern "C"
 {
-    ksinit::arch();
-    ksinit::boot();
-    ksinit::boot();
+    void nucleus_init()
+    {
+        ksinit::arch();
+        ksinit::boot();
+        ksinit::platform();
+    }
 }

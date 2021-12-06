@@ -29,6 +29,7 @@ _start:
   popf
 
   call _init
+  call nucleus_init
   call nucleus_entry
   call _fini
 
