@@ -24,7 +24,7 @@ template <typename EVENT_DATA_TYPE, uint16_t EVENT_COUNT> class Event_Engine
         // Get the handlers that care about this interrupt
         auto event_handler_slice = event_handlers[id];
 
-        for (uint16_t i = 0, len = event_handler_slice.length(); i < len; i++)
+        for (uint16_t i = 0, len = event_handler_slice.size(); i < len; i++)
         {
             if (event_handler_slice[i] != nullptr)
             {
@@ -45,7 +45,7 @@ template <typename EVENT_DATA_TYPE, uint16_t EVENT_COUNT> class Event_Engine
 
         auto event_handler_slice = event_handlers[id];
 
-        for (uint16_t i = 0, len = event_handler_slice.length(); i < len; i++)
+        for (uint16_t i = 0, len = event_handler_slice.size(); i < len; i++)
         {
             if (event_handler_slice[i] == nullptr)
             {
@@ -66,7 +66,7 @@ template <typename EVENT_DATA_TYPE, uint16_t EVENT_COUNT> class Event_Engine
 
         auto event_handler_slice = event_handlers[id];
 
-        for (uint16_t i = 0, len = event_handler_slice.length(); i < len; i++)
+        for (uint16_t i = 0, len = event_handler_slice.size(); i < len; i++)
         {
             if (event_handler_slice[i] == event_handler)
             {

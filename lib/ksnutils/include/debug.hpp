@@ -15,7 +15,7 @@ template <> inline void debug<const char *>(const char *msg)
 {
     String message(msg);
 
-    for (uint32_t i = 0, len = message.length(); i < len; i++)
+    for (uint32_t i = 0, len = message.size(); i < len; i++)
     {
     }
 }

@@ -36,7 +36,7 @@ template <typename ARRAY_TYPE, uint32_t SIZE> class Array
      *
      * @return constexpr size_t
      */
-    [[nodiscard]] constexpr static uint32_t length();
+    [[nodiscard]] constexpr static uint32_t size();
 
     /**
      * @brief Get the raw, underlying array

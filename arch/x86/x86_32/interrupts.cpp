@@ -10,7 +10,7 @@ class IDT_Register
 {
   public:
     // IDT length + size of each gate minus 1
-    const uint16_t limit = IDT::length() * IDT::sizeof_type() - 1;
+    const uint16_t limit = IDT::size() * IDT::sizeof_type() - 1;
     const IDT *base;
 
     explicit IDT_Register(const IDT &idt) : base(&idt)

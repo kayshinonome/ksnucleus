@@ -4,7 +4,7 @@
 #include <core/quark.hpp>
 #include <types.hpp>
 
-SUBSYSCALL ks_commitframebuffer(void *buffer, size_t width, size_t height, uint8_t depth)
+SUBSYSCALL ks_commitframebuffer(const void *buffer, uint16_t width, uint16_t height, uint8_t depth)
 {
-    quark_collection.call_quark_service(Quark_Services::COMMIT_FRAMEBUFFER, {&buffer});
+    quark_collection.call_quark_service(Quark_Services::COMMITFRAMEBUFFER, {&buffer});
 }

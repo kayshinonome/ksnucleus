@@ -5,22 +5,25 @@
 // trying to convert non-type safe to type safe here... watch out
 SYSCALL mk_syscall(void **args, KsSyscallID syscall_id)
 {
-    constexpr Array<uint8_t, 5> syscall_arg_count{2, 1, 1, 1, 4};
+    constexpr Array<uint8_t, 6> syscall_arg_count{2, 1, 1, 1, 4, 2};
 
     /**
      * @brief A array to hold the intermediate of the syscalls
      *
      */
-    Array<void *, syscall_arg_count.length()> arg_array{};
+    Array<void *, syscall_arg_count.size()> arg_array{};
+
+    /**
+     * @brief Copy the args
+     *
+     */
+    arg_array = args;
 
     // Ensure than the syscall id is within range
-    if (static_cast<size_t>(syscall_id) > syscall_arg_count.length())
+    if (static_cast<uint32_t>(syscall_id) > syscall_arg_count.size())
     {
         ks_fission("Invalid syscall called");
     }
-
-    // Copy the args over
-    arg_array = args;
 
     // Verify that the array contains no nullptrs where valid pointers should be
     for (uint8_t x = 0, len = syscall_arg_count[static_cast<size_t>(syscall_id)]; x < len; x++)
@@ -59,8 +62,15 @@ SYSCALL mk_syscall(void **args, KsSyscallID syscall_id)
 
         case KsSyscallID::COMMITFRAMEBUFFER:
         {
-            ks_commitframebuffer(arg_array[0], *reinterpret_cast<size_t *>(arg_array[1]),
-                                 *reinterpret_cast<size_t *>(arg_array[2]), *reinterpret_cast<uint8_t *>(arg_array[3]));
+            ks_commitframebuffer(arg_array[0], *reinterpret_cast<uint16_t *>(arg_array[1]),
+                                 *reinterpret_cast<uint16_t *>(arg_array[2]),
+                                 *reinterpret_cast<uint8_t *>(arg_array[3]));
+            break;
+        }
+
+        case KsSyscallID::ALLOCATEMEMORY:
+        {
+            ks_allocatememory(reinterpret_cast<void **>(arg_array[0]), *reinterpret_cast<uint32_t *>(arg_array[1]));
             break;
         }
     }

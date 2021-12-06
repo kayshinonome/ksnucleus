@@ -9,9 +9,10 @@ constexpr auto QUARK_SERVICE_COUNT = 5;
 
 enum class Quark_Services : uint8_t
 {
-    COMMIT_FRAMEBUFFER,
+    COMMITFRAMEBUFFER,
     REBOOT,
-    SHUTDOWN
+    SHUTDOWN,
+    RANDSEED
 };
 
 /**
@@ -35,7 +36,6 @@ class Quark
     bool (*reboot)() = nullptr;
     bool (*shutdown)() = nullptr;
     bool (*randseed)() = nullptr;
-    bool (*getkeycode)(Future<uint16_t> &key) = nullptr;
 };
 
 class Quark_Collection : public Array<Quark *, 0xff>

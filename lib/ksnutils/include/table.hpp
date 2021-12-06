@@ -3,7 +3,6 @@
 #include <array.hpp>
 #include <math.hpp>
 
-
 // NOTE: Please, Please, this class's operations are fairly intensive. Only use it when you need it.
 
 /**
@@ -60,7 +59,7 @@ template <typename KEY_TYPE, typename DATA_TYPE, uint32_t SIZE> class Table
             // Key was not seen before
 
             // If the table is already full, leave
-            if (pos_in_table >= _internal_keys.length())
+            if (pos_in_table >= _internal_keys.size())
             {
                 return false;
             }

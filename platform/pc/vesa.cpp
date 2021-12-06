@@ -25,7 +25,7 @@ Quark pc_vesa{.commitframebuffer = [](void *data) {
 
     auto *vesa_video_memory = reinterpret_cast<volatile uint8_t *>(get_vesa_framebuffer_location());
     auto *framebuffer = reinterpret_cast<volatile uint8_t *>(data);
-    auto length = get_vesa_framebuffer_size();
-    copy_memory(framebuffer, vesa_video_memory, length);
+    auto size = get_vesa_framebuffer_size();
+    copy_memory(framebuffer, vesa_video_memory, size);
     return true;
 }};

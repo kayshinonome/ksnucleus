@@ -21,5 +21,5 @@ class String
         return _internal_string;
     }
 
-    [[nodiscard]] uint16_t length() const;
+    [[nodiscard]] uint16_t size() const;
 };

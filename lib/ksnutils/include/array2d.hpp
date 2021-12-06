@@ -3,7 +3,7 @@
 #include <array.hpp>
 #include <types.hpp>
 
-template <typename ARRAY_TYPE, size_t WIDTH, size_t HEIGHT>
+template <typename ARRAY_TYPE, uint32_t WIDTH, uint32_t HEIGHT>
 class Array2D : public Array<Array<ARRAY_TYPE, HEIGHT>, WIDTH>
 {
   public:
@@ -30,9 +30,9 @@ class Array2D : public Array<Array<ARRAY_TYPE, HEIGHT>, WIDTH>
     /**
      * @brief Get the width of the array, calculated at compile time
      *
-     * @return constexpr int
+     * @return constexpr uint32_t
      */
-    [[nodiscard]] constexpr static size_t width()
+    [[nodiscard]] constexpr static uint32_t width()
     {
         return WIDTH;
     }
@@ -40,10 +40,20 @@ class Array2D : public Array<Array<ARRAY_TYPE, HEIGHT>, WIDTH>
     /**
      * @brief Get the height of the array, calculated at compile time
      *
-     * @return constexpr int
+     * @return constexpr uint32_t
      */
-    [[nodiscard]] constexpr static size_t height()
+    [[nodiscard]] constexpr static uint32_t height()
     {
         return HEIGHT;
+    }
+
+    /**
+     * @brief Get the size of the entire thing, as if you called as_flat_array().size()
+     *
+     * @return constexpr uint32_t
+     */
+    [[nodiscard]] constexpr static uint32_t size()
+    {
+        return WIDTH * HEIGHT;
     }
 };

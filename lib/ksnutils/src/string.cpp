@@ -2,9 +2,9 @@
 #include <core/ksnucleus.hpp>
 #include <string.hpp>
 
-[[nodiscard]] uint16_t String::length() const
+[[nodiscard]] uint16_t String::size() const
 {
-    // Cast this as a array, of the max string length
+    // Cast this as a array, of the max string size
     const auto *string = reinterpret_cast<const Array<char, MAX_STRING_LENGTH> *>(raw());
 
     // Attempt to get the position of the null character

@@ -58,10 +58,11 @@ cpuid::CPU_Vendor cpuid::get_vendor()
     Array<char, 12> buffer{};
     get_vendor_id(buffer);
 
-    for (uint32_t x = 0, len = cpu_vendor_string_table.length(); x < len; x++)
+    for (uint32_t x = 0, len = cpu_vendor_string_table.size(); x < len; x++)
     {
         // Get the vendor string as an array, cutting off that final byte
-        const auto *array_tmp = reinterpret_cast<const Array<char, 12> *>(cpu_vendor_string_table[x].cpu_vendor_string.raw());
+        const auto *array_tmp =
+            reinterpret_cast<const Array<char, 12> *>(cpu_vendor_string_table[x].cpu_vendor_string.raw());
         if ((*array_tmp) == buffer)
         {
             return cpu_vendor_string_table[x].cpu_vendor;

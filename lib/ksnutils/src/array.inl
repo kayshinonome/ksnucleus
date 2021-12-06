@@ -9,7 +9,7 @@ constexpr ARRAY_TYPE Array<ARRAY_TYPE, SIZE>::operator[](uint32_t index) const
 {
 
 #if defined(__CONFIG_KSNUCLEUS_DEBUG__)
-    if (index >= length())
+    if (index >= size())
     {
         ks_fission("Buffer overflow detected");
     }
@@ -21,7 +21,7 @@ constexpr ARRAY_TYPE Array<ARRAY_TYPE, SIZE>::operator[](uint32_t index) const
 template <typename ARRAY_TYPE, uint32_t SIZE> constexpr ARRAY_TYPE &Array<ARRAY_TYPE, SIZE>::operator[](uint32_t index)
 {
 #if defined(__CONFIG_KSNUCLEUS_DEBUG__)
-    if (index >= length())
+    if (index >= size())
     {
         ks_fission("Buffer overflow detected");
     }
@@ -30,7 +30,7 @@ template <typename ARRAY_TYPE, uint32_t SIZE> constexpr ARRAY_TYPE &Array<ARRAY_
     return raw()[index];
 }
 
-template <typename ARRAY_TYPE, uint32_t SIZE> [[nodiscard]] constexpr uint32_t Array<ARRAY_TYPE, SIZE>::length()
+template <typename ARRAY_TYPE, uint32_t SIZE> [[nodiscard]] constexpr uint32_t Array<ARRAY_TYPE, SIZE>::size()
 {
     return SIZE;
 }
@@ -51,7 +51,7 @@ Array<ARRAY_TYPE, SIZE> &Array<ARRAY_TYPE, SIZE>::sort(bool (*cmp)(const ARRAY_T
     auto swapped = false;
     auto &array = (*this);
 
-    for (size_t x = 0, len = length(); x < len - 1; x++)
+    for (size_t x = 0, len = size(); x < len - 1; x++)
     {
         swapped = false;
         for (size_t y = 0; y < len - x - 2; y++)
@@ -96,7 +96,7 @@ Array<ARRAY_TYPE, SIZE> &Array<ARRAY_TYPE, SIZE>::copy_into(const ARRAY_TYPE dat
 {
     if (this != reinterpret_cast<const Array<ARRAY_TYPE, SIZE> *>(data))
     {
-        copy_memory(data, raw(), length());
+        copy_memory(data, raw(), size());
     }
     return *this;
 }
@@ -105,7 +105,7 @@ template <typename ARRAY_TYPE, uint32_t SIZE>
 constexpr Answer<uint32_t> Array<ARRAY_TYPE, SIZE>::pos_of(ARRAY_TYPE search) const
 {
     Answer<uint32_t> answer = {.valid = false, .data = 0};
-    for (size_t i = 0, len = length(); i < len; i++)
+    for (size_t i = 0, len = size(); i < len; i++)
     {
         if ((*this)[i] == search)
         {

@@ -2,6 +2,7 @@
 #include <core/init.hpp>
 #include <core/ksnucleus.hpp>
 #include <core/registry.hpp>
+#include <debug.hpp>
 #include <types.hpp>
 
 constexpr uint32_t magic = MULTIBOOT_HEADER_MAGIC;
@@ -28,7 +29,7 @@ void ksinit::boot()
 {
     if (passed_in_multiboot_magic != MULTIBOOT_BOOTLOADER_MAGIC)
     {
-        ks_fission("Invalid multiboot magic");
+        debug("Invalid multiboot magic");
     }
 
     // NOLINTNEXTLINE(performance-no-int-to-ptr)

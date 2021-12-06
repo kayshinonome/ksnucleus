@@ -2,7 +2,7 @@
 
 bool Quark_Collection::add_quark(Quark &quark)
 {
-    for (size_t x = 0, len = length(); x < len; x++)
+    for (size_t x = 0, len = size(); x < len; x++)
     {
         if ((*this)[x] == nullptr)
         {
@@ -28,7 +28,7 @@ bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<vo
     }
 
     // Search for a viable quark and call it
-    for (uint32_t x = 0, len = length(); x < len; x++)
+    for (uint32_t x = 0, len = size(); x < len; x++)
     {
         auto *current_quark = (*this)[x];
 
@@ -42,7 +42,7 @@ bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<vo
 
             switch (quark_service)
             {
-                case Quark_Services::COMMIT_FRAMEBUFFER:
+                case Quark_Services::COMMITFRAMEBUFFER:
                 {
                     if (current_quark->commitframebuffer != nullptr && current_quark->commitframebuffer(args[0]))
                     {
@@ -60,8 +60,15 @@ bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<vo
                 }
                 case Quark_Services::SHUTDOWN:
                 {
-
                     if (current_quark->shutdown != nullptr && current_quark->shutdown())
+                    {
+                        return true;
+                    }
+                    break;
+                }
+                case Quark_Services::RANDSEED:
+                {
+                    if (current_quark->randseed != nullptr && current_quark->randseed())
                     {
                         return true;
                     }
