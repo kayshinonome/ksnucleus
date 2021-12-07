@@ -91,7 +91,7 @@ ifeq ($(CONFIG_KSNUCLEUS_DEBUG),true)
 
 CPPFLAGS		  	+=								\
 -D__CONFIG_KSNUCLEUS_DEBUG__									\
--O0												\
+-Og												\
 -g
 else
 
