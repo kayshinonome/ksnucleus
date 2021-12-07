@@ -102,12 +102,13 @@ Array<ARRAY_TYPE, SIZE> &Array<ARRAY_TYPE, SIZE>::copy_into(const ARRAY_TYPE dat
 }
 
 template <typename ARRAY_TYPE, uint32_t SIZE>
-constexpr Answer<uint32_t> Array<ARRAY_TYPE, SIZE>::pos_of(ARRAY_TYPE search) const
+template <typename T>
+constexpr Answer<uint32_t> Array<ARRAY_TYPE, SIZE>::search(T search_func) const
 {
     Answer<uint32_t> answer = {.valid = false, .data = 0};
     for (size_t i = 0, len = size(); i < len; i++)
     {
-        if ((*this)[i] == search)
+        if (search_func((*this)[i]))
         {
             answer.valid = true;
             answer.data = i;

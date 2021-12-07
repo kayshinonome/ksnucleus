@@ -17,4 +17,14 @@ SUBSYSCALL ks_allocatememory(void **buffer, uint32_t size)
         *buffer = nullptr;
         return;
     }
+    // FIXME: Make a quark call to make a actual memory table
+    Memory_Table<10> hardware_memory_table{};
+    hardware_memory_table[0] = {.memory = nullptr, .block_length = 1024, .is_reserved = false};
+    auto result = hardware_memory_table.search(
+        [size](auto search_term) { return (search_term.block_length <= size) && search_term.is_reserved; });
+
+    if (!result.valid)
+    {
+        *buffer = nullptr;
+    }
 }

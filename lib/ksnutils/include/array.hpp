@@ -90,13 +90,8 @@ template <typename ARRAY_TYPE, uint32_t SIZE> class Array
      */
     Array &copy_into(const ARRAY_TYPE data[]);
 
-    /**
-     * @brief Get the position of the first element matching search
-     *
-     * @param search Element to search for
-     * @return constexpr Answer<uint32_t>
-     */
-    constexpr Answer<uint32_t> pos_of(ARRAY_TYPE search) const;
+    template<typename T>
+    constexpr Answer<uint32_t> search(T search_func) const;
 };
 
 #include <lib/ksnutils/src/array.inl>

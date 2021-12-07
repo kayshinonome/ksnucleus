@@ -8,7 +8,7 @@
     const auto *string = reinterpret_cast<const Array<char, MAX_STRING_LENGTH> *>(raw());
 
     // Attempt to get the position of the null character
-    auto answer = string->pos_of('\0');
+    auto answer = string->search([](auto search_term) { return search_term == '\0'; });
 
     // Check if the null character was actually found
     if (!answer.valid)

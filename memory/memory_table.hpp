@@ -23,8 +23,10 @@ class Memory_Table_Entry
     bool is_reserved;
 };
 
-class Memory_Table : public Array<Memory_Table_Entry, 0xff>
+template<uint32_t SIZE>
+class Memory_Table : public Array<Memory_Table_Entry, SIZE>
 {
 };
 
-inline Memory_Table memory_table;
+
+inline Memory_Table<0xff> allocated_memory_table;

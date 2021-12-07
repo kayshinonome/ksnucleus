@@ -5,7 +5,7 @@
 #include <types.hpp>
 
 constexpr auto MAX_QUARK_ARG_COUNT = 1;
-constexpr auto QUARK_SERVICE_COUNT = 5;
+constexpr auto QUARK_SERVICE_COUNT = 4;
 
 enum class Quark_Services : uint8_t
 {
@@ -42,7 +42,7 @@ class Quark_Collection : public Array<Quark *, 0xff>
 {
 
   private:
-    constexpr static Array<uint8_t, QUARK_SERVICE_COUNT> quark_arg_counts{1, 0, 0};
+    constexpr static Array<uint8_t, QUARK_SERVICE_COUNT> quark_arg_counts{1, 0, 0, 4};
 
   public:
     bool add_quark(Quark &quark);
