@@ -104,6 +104,7 @@ include 											\
 arch/build.mk											\
 boot/build.mk											\
 core/build.mk											\
+filesystem/build.mk										\
 lib/build.mk											\
 platform/build.mk										\
 video/build.mk
