@@ -4,7 +4,7 @@
 .section .bss
 .align ALIGNMENT
 stack_bottom:
-.skip 1024 * 1024  // Stack
+.skip 200 * 1024  // Stack
 stack_top:
 
 // The kernel entry point.

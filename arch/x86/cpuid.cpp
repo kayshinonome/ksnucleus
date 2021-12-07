@@ -31,8 +31,8 @@ cpuid::CPU_Vendor cpuid::get_vendor()
     // decides to unroll the entire damn thing. I could work around this but also the effort of generating hashes for
     // these strings isnt work it because its only likely to be read a few time by the os
 
-    static Atomic<bool> been_checked_before;
-    static Atomic<CPU_Vendor> cached_cpu_vendor;
+    constinit static Atomic<bool> been_checked_before{};
+    constinit static Atomic<CPU_Vendor> cached_cpu_vendor{};
 
     if (been_checked_before)
     {
