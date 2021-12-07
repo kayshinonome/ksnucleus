@@ -105,6 +105,11 @@ template <typename ARRAY_TYPE, uint32_t SIZE>
 template <typename T>
 constexpr Answer<uint32_t> Array<ARRAY_TYPE, SIZE>::search(T search_func) const
 {
+    // NOTE: I cannot specify the possible type on function so I will ensure that the program writer can figure out that
+    // you need to pass a pointer to a function that takes one argument of ARRAY_TYPE. The reason this is done like this
+    // is so you can pass in pointers to capturing lambdas, which is needed for most pratical uses of this function
+    // Please note that type safety is still enforced at compile time however
+
     Answer<uint32_t> answer = {.valid = false, .data = 0};
     for (size_t i = 0, len = size(); i < len; i++)
     {

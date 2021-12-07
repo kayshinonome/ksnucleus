@@ -44,15 +44,14 @@ template <typename EVENT_DATA_TYPE, uint16_t EVENT_COUNT> class Event_Engine
         }
 
         auto event_handler_slice = event_handlers[id];
+        auto result = event_handler_slice.search([](auto search_term) { return search_term == nullptr; });
 
-        for (uint16_t i = 0, len = event_handler_slice.size(); i < len; i++)
+        if (result.valid)
         {
-            if (event_handler_slice[i] == nullptr)
-            {
-                event_handler_slice[i] = event_handler;
-                return true;
-            }
+            event_handler_slice[result.data] = event_handler;
+            return true;
         }
+
         return false;
     }
 
@@ -64,13 +63,21 @@ template <typename EVENT_DATA_TYPE, uint16_t EVENT_COUNT> class Event_Engine
             return false;
         }
 
+        // Get the slice of the handlers that match
         auto event_handler_slice = event_handlers[id];
-        auto result = event_handler_slice.pos_of(event_handler);
+
+        // Do a search in the slice of events for the search term
+        auto result =
+            event_handler_slice.search([event_handler](auto search_term) { return event_handler == search_term; });
+
+        // If was found, null out that function
         if (result.valid)
         {
             event_handler_slice[result.data] = nullptr;
             return true;
         }
+
+        // The result was not found
         return false;
     }
 };

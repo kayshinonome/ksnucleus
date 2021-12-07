@@ -13,7 +13,8 @@ bool Quark_Collection::add_quark(Quark &quark)
     return false;
 }
 
-// Fixme: This is super super inefficient
+// FIXME: This is super super inefficient
+// FIXME: This is too complicated to actually comphrehend all at once. Simplify it.
 bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<void *, MAX_QUARK_ARG_COUNT> args)
 {
     const auto quark_arg_count_for_call = quark_arg_counts[static_cast<uint8_t>(quark_service)];
