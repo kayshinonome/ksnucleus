@@ -3,7 +3,6 @@ ifeq ($(CONFIG_KSNUCLEUS_WORD_WIDTH),16)
 else ifeq ($(CONFIG_KSNUCLEUS_WORD_WIDTH),32)
 	include arch/arm/aarch32/build.mk
 else ifeq ($(CONFIG_KSNUCLEUS_WORD_WIDTH),64)
-    $(error "ksnucleus does not support 64 bit mode (for now)")
 	include arch/arm/aarch64/build.mk
 else
 	$(error "Unsupported word width")

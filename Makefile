@@ -56,8 +56,9 @@ CPPFLAGS      		+=									\
 -Wno-gnu-anonymous-struct									\
 -Wno-writable-strings										\
 -fstack-protector-strong				            				\
--fno-builtin												\
--fno-delete-null-pointer-checks
+-fno-builtin											\
+-fno-delete-null-pointer-checks                                                                 \
+-integrated-as
 
 # The previous check is needed because clang is being annoying
 
@@ -76,8 +77,9 @@ LDFLAGS      		+=									\
 -nodefaultlibs						                			\
 -static                 									\
 -nostartfiles											\
--fuse-ld=lld
-
+-fuse-ld=lld 											\
+-v 	
+	
 ASFLAGS       		+=
 ARFLAGS       		+=									\
 -crs

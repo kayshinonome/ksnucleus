@@ -13,25 +13,11 @@
 
 constexpr auto M_PI = 3.14159265358979323846;
 
-/**
- * @brief Get the absolute value of a value
- *
- * @tparam T
- * @param x
- * @return T
- */
 template <typename T> T constexpr abs(T x)
 {
     return (x < 0) ? (-x) : (x);
 }
 
-/**
- * @brief Get a approximate for sin
- *
- * @tparam T
- * @param x
- * @return T
- */
 template <typename T> constexpr T sin(T x)
 {
     constexpr auto B = 4 / M_PI;
@@ -57,39 +43,16 @@ template <typename T> constexpr T sqrt(T x)
     return 0;
 }
 
-/**
- * @brief Return the max value
- *
- * @tparam T
- * @param x
- * @param y
- * @return constexpr T
- */
-template <typename T> constexpr T max(T x, T y)
+template <typename T1, typename T2> constexpr auto max(T1 x, T2 y)
 {
     return (x > y) ? x : y;
 }
 
-/**
- * @brief Return the min value
- *
- * @tparam T
- * @param x
- * @param y
- * @return constexpr T
- */
-template <typename T> constexpr T min(T x, T y)
+template <typename T1, typename T2> constexpr auto min(T1 x, T2 y)
 {
     return (x < y) ? x : y;
 }
 
-/**
- * @brief Perform a crc32 of the data passed in
- *
- * @tparam T
- * @param obj
- * @return constexpr uint32_t
- */
 template <typename T> constexpr uint32_t crc32(T obj)
 {
 
@@ -130,6 +93,7 @@ template <typename T> constexpr uint32_t crc32(T obj)
 
     // Idk why I'm allowed to reinterpret_cast here, maybe rules are relaxed for templates? Or maybe this is a clang
     // glitch. Either way, I'm not complaining
+
     q = reinterpret_cast<const uint8_t *>(&obj) + total_length;
     for (const auto *p = reinterpret_cast<const uint8_t *>(&obj); p < q; p++)
     {

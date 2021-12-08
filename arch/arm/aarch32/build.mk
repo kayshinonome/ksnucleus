@@ -1,4 +1,4 @@
 CPPFLAGS += 						\
--target arm-unknown-unknown-elf		\
+-target arm-elf				\
 -mfloat-abi=hard					\
 -m32
