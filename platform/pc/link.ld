@@ -4,11 +4,14 @@ SECTIONS
 {
     . = 1M;
 
+    .multiboot ALIGN(8) : 
+    {
+        *(.multiboot)
+    }
+
+
     .text ALIGN(4K) : 
     {
-        . = ALIGN(8);
-        KEEP(*(.multiboot))
-        . = ALIGN(4K);
         *(.text*)
     }
 

@@ -46,7 +46,7 @@ cpuid::CPU_Vendor cpuid::get_vendor()
         CPU_Vendor cpu_vendor;
     };
 
-    const Array<CPU_String_Couple, 29> cpu_vendor_string_table{
+    constexpr Array<CPU_String_Couple, 29> cpu_vendor_string_table{
         {{"GenuineIntel", CPU_Vendor::INTEL},      {"AMDisbetter!", CPU_Vendor::AMD},
          {"AuthenticAMD", CPU_Vendor::AMD},        {"VIA VIA VIA ", CPU_Vendor::VIA},
          {"TransmetaCPU", CPU_Vendor::TRANSMETA},  {"GenuineTMx86", CPU_Vendor::TRANSMETA},
