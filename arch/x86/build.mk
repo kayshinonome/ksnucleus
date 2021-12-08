@@ -8,6 +8,7 @@ else ifeq ($(CONFIG_KSNUCLEUS_WORD_WIDTH),32)
 	include arch/x86/x86_16/build.mk
 	include arch/x86/x86_32/build.mk
 else ifeq ($(CONFIG_KSNUCLEUS_WORD_WIDTH),64)
+    $(error "ksnucleus does not support 64 bit mode (for now)")
 	include arch/x86/x86_64/build.mk
 else
 	$(error "Unsupported word width")
