@@ -7,7 +7,7 @@
 
 SUBSYSCALL ks_allocatememory(void **buffer, uint32_t size)
 {
-    
+
     if (buffer == nullptr)
     {
         ks_fission("Attempt to allocate with nullptr");
@@ -28,8 +28,6 @@ SUBSYSCALL ks_allocatememory(void **buffer, uint32_t size)
     if (!result.valid)
     {
         *buffer = nullptr;
-    	return;
+        return;
     }
-
-
 }

@@ -12,48 +12,35 @@ class Array2D : public Array<Array<ARRAY_TYPE, HEIGHT>, WIDTH>
      *
      * @return Array<ARRAY_TYPE, WIDTH * HEIGHT>&
      */
-    Array<ARRAY_TYPE, WIDTH * HEIGHT> &as_flat_array()
-    {
-        return reinterpret_cast<Array<ARRAY_TYPE, WIDTH * HEIGHT> &>(*this);
-    }
+    Array<ARRAY_TYPE, WIDTH * HEIGHT> &as_flat_array();
 
     /**
      * @brief Return this as a flat const array
      *
      * @return const Array<ARRAY_TYPE, WIDTH * HEIGHT>&
      */
-    const Array<ARRAY_TYPE, WIDTH * HEIGHT> &as_flat_array() const
-    {
-        return reinterpret_cast<const Array<ARRAY_TYPE, WIDTH * HEIGHT> &>(*this);
-    }
+    const Array<ARRAY_TYPE, WIDTH * HEIGHT> &as_flat_array() const;
 
     /**
      * @brief Get the width of the array, calculated at compile time
      *
      * @return constexpr uint32_t
      */
-    [[nodiscard]] constexpr static uint32_t width()
-    {
-        return WIDTH;
-    }
+    [[nodiscard]] constexpr static uint32_t width();
 
     /**
      * @brief Get the height of the array, calculated at compile time
      *
      * @return constexpr uint32_t
      */
-    [[nodiscard]] constexpr static uint32_t height()
-    {
-        return HEIGHT;
-    }
+    [[nodiscard]] constexpr static uint32_t height();
 
     /**
      * @brief Get the size of the entire thing, as if you called as_flat_array().size()
      *
      * @return constexpr uint32_t
      */
-    [[nodiscard]] constexpr static uint32_t size()
-    {
-        return WIDTH * HEIGHT;
-    }
+    [[nodiscard]] constexpr static uint32_t size();
 };
+
+#include <lib/ksnutils/src/array2d.inl>

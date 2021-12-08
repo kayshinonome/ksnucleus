@@ -90,8 +90,15 @@ template <typename ARRAY_TYPE, uint32_t SIZE> class Array
      */
     Array &copy_into(const ARRAY_TYPE data[]);
 
-    template<typename T>
-    constexpr Answer<uint32_t> search(T search_func) const;
+    /**
+     * @brief
+     *
+     * @tparam T Function type to be passed in, recommended that you don't specify this
+     * @param search_func The function to search with (only requirement is that it has one argument, and it is
+     * (ARRAY_TYPE))
+     * @return constexpr Answer<uint32_t> The answer
+     */
+    template <typename T> constexpr Answer<uint32_t> search(T search_func) const;
 };
 
 #include <lib/ksnutils/src/array.inl>

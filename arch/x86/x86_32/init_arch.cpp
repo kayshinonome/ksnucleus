@@ -4,7 +4,6 @@
 #include <arch/x86/x86_32/interrupts.hpp>
 #include <core/init.hpp>
 #include <core/ksnucleus.hpp>
-#include <string.hpp>
 
 void ksinit::arch()
 {

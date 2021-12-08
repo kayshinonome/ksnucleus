@@ -1,3 +1,11 @@
+/**
+ * @file memcpy.cpp
+ * @author Kay Shinonome (kayshinonome@protonmail.com)
+ * @brief Function needed for variable initialization.
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include <types.hpp>
 #include <utils.hpp>
 
