@@ -1,5 +1,5 @@
 CPPFLAGS 		+=								\
---target=i386-elf									\
+--target=i386-none-none-elf						\
 -march=i486										\
 -m32											\
 -mno-sse

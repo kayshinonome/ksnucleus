@@ -57,10 +57,9 @@ CPPFLAGS      		+=									\
 -Wno-writable-strings										\
 -fstack-protector-strong				            				\
 -fno-builtin											\
--fno-delete-null-pointer-checks                                                                 \
--integrated-as
-
-# The previous check is needed because clang is being annoying
+-fno-delete-null-pointer-checks   						\
+-integrated-as											\
+-flto
 
 CXXFLAGS      		+=									\
 -std=c++20											\
@@ -77,9 +76,8 @@ LDFLAGS      		+=									\
 -nodefaultlibs						                			\
 -static                 									\
 -nostartfiles											\
--fuse-ld=lld 											\
--v 	
-	
+-fuse-ld=lld
+
 ASFLAGS       		+=
 ARFLAGS       		+=									\
 -crs
@@ -87,7 +85,7 @@ ARFLAGS       		+=									\
 QEMUFLAGS			+=								\
 -d int,in_asm											\
 -no-reboot 											\
--no-shutdown 
+-no-shutdown
 
 ifeq ($(CONFIG_KSNUCLEUS_DEBUG),true)
 
@@ -98,15 +96,13 @@ CPPFLAGS		  	+=								\
 else
 
 CPPFLAGS		  	+=								\
--O2												\
--flto
+-O2
 endif
 
 include 											\
 arch/build.mk											\
 boot/build.mk											\
 core/build.mk											\
-filesystem/build.mk										\
 lib/build.mk											\
 platform/build.mk										\
 video/build.mk
@@ -130,14 +126,14 @@ help:
 
 $(BUILD_DIR)/nucleus: $(NUCLEUS_OBJS) $(LIBS)
 >	mkdir -pv $(dir $@)
->	$(LD) -o $@ $(NUCLEUS_OBJS) $(LDFLAGS) $(CPPFLAGS) 
+>	$(LD) -o $@ $(NUCLEUS_OBJS) $(LDFLAGS) $(CPPFLAGS)
 
 all: $(BUILD_DIR)/nucleus inspect
 > @echo "Compiling complete"
 
 $(BUILD_DIR)/%.cpp.o: %.cpp
 >	mkdir -pv $(dir $@)
->	$(CXX) -c $< -o $@ $(INCLUDE_FLAGS) $(CPPFLAGS) $(CXXFLAGS) 
+>	$(CXX) -c $< -o $@ $(INCLUDE_FLAGS) $(CPPFLAGS) $(CXXFLAGS)
 
 $(BUILD_DIR)/%.S.o: %.S
 >	mkdir -pv $(dir $@)
