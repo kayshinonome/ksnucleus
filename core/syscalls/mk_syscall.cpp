@@ -3,7 +3,7 @@
 #include <types.hpp>
 
 // trying to convert non-type safe to type safe here... watch out
-SYSCALL mk_syscall(void **args, KsSyscallID syscall_id)
+SYSCALL mk_syscall(KsSyscallID syscall_id, void **args)
 {
     constexpr Array<uint8_t, 6> syscall_arg_count{2, 1, 1, 1, 4, 2};
 

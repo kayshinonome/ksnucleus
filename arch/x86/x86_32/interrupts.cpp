@@ -140,6 +140,18 @@ bool IDT::init()
     // Load the IDT
     flush_idt(&idt_reg);
 
+    // FIXME: This is only what a interrupt handler should look like
+    x86_interrupt_event_engine.add_event_handler(0x80, [](uint16_t num, auto data) {
+        // Get pos of data structure
+        // NOLINTNEXTLINE(performance-no-int-to-ptr)
+        auto *stack_pos = reinterpret_cast<void *>(data.esp + sizeof(uintptr_t));
+        auto id = static_cast<KsSyscallID>(*reinterpret_cast<uint8_t *>(stack_pos));
+
+        // Pointer to a array of void pointers, yes this is hideous
+        auto *syscall_data = *(reinterpret_cast<void ***>(stack_pos) + 1);
+        mk_syscall(id, syscall_data);
+    });
+
     // Enable interrupts
     asm volatile("sti");
 

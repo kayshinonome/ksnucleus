@@ -90,7 +90,7 @@ QEMUFLAGS			+=								\
 ifeq ($(CONFIG_KSNUCLEUS_DEBUG),true)
 
 CPPFLAGS		  	+=								\
--D__CONFIG_KSNUCLEUS_DEBUG__									\
+-DCONFIG_KSNUCLEUS_DEBUG									\
 -Og												\
 -g
 else
@@ -101,7 +101,6 @@ endif
 
 include 											\
 arch/build.mk											\
-boot/build.mk											\
 core/build.mk											\
 lib/build.mk											\
 platform/build.mk										\

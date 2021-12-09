@@ -3,7 +3,7 @@
 #include <string.hpp>
 #include <types.hpp>
 
-#if defined(__CONFIG_KSNUCLEUS_DEBUG__)
+#if defined(CONFIG_KSNUCLEUS_DEBUG)
 
 template <typename T, typename... Ts> inline void debug(T msg, Ts... msgs)
 {
@@ -26,6 +26,7 @@ template <> inline void debug<uint32_t>(uint32_t msg)
 
 #else
 
+// NOLINTNEXTLINE(cert-dcl50-cpp)
 inline void debug(...)
 {
 }

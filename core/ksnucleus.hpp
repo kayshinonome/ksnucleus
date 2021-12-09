@@ -15,10 +15,10 @@
 #include <types.hpp>
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
-#define SYSCALL extern "C" __attribute__((used, noinline)) void
+#define SYSCALL extern "C" __attribute__((hot)) void
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
-#define SUBSYSCALL extern "C" __attribute__((used, noinline)) void
+#define SUBSYSCALL extern "C" __attribute__((hot)) void
 
 enum class KsSyscallID : uint8_t
 {
@@ -39,7 +39,7 @@ enum class KsSyscallID : uint8_t
  * @param syscall_id
  * @return void
  */
-SYSCALL mk_syscall(void **args, KsSyscallID syscall_id);
+SYSCALL mk_syscall(KsSyscallID syscall_id, void **args);
 
 /**
  * @brief Fill a buffer with random bytes

@@ -14,7 +14,7 @@ else
 endif
 
 CPPFLAGS	+=							\
--D__CONFIG_KSNUCLEUS_ARCH_X86__
+-DCONFIG_KSNUCLEUS_ARCH_X86
 
 QEMUFLAGS	+=							\
 -M smm=off

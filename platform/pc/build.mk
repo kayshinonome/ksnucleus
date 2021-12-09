@@ -2,17 +2,18 @@ ifneq  ($(CONFIG_KSNUCLEUS_ARCH),x86)
 	$(error "Non x86 archs not supported")
 endif
 
+include \
+platform/pc/multiboot/build.mk
+
 LDFLAGS 	+= 								\
 -Tplatform/pc/link.ld
 
 NUCLEUS_SRCS += 								\
 platform/pc/crt0.S								\
-platform/pc/init_platform.cpp							\
-platform/pc/8042.cpp								\
-platform/pc/vesa.cpp                          
+platform/pc/init_platform.cpp					\
 
 CPPFLAGS	+=								\
--D__CONFIG_KSNUCLEUS_PLATFORM_PC__
+-DCONFIG_KSNUCLEUS_PLATFORM_PC
 
 QEMUFLAGS	+=								\
 -vga cirrus
@@ -26,10 +27,10 @@ inspect: $(BUILD_DIR)/nucleus
 $(BUILD_DIR)/ksnucleus.iso: inspect $(BUILD_DIR)/nucleus
 >	mkdir -pv $(BUILD_DIR)/_tmp/root/boot/grub
 > 	cp -v $(BUILD_DIR)/nucleus $(BUILD_DIR)/_tmp/root
->	if ! grub-script-check $(PWD)/boot/grub.cfg; then
+>	if ! grub-script-check $(PWD)/platform/pc/grub.cfg; then
 >		exit 1
 > 	fi
-> 	cp -v $(PWD)/boot/grub.cfg $(BUILD_DIR)/_tmp/root/boot/grub
+> 	cp -v $(PWD)/platform/pc/grub.cfg $(BUILD_DIR)/_tmp/root/boot/grub
 > 	grub-mkrescue -o $@ $(BUILD_DIR)/_tmp/root
 > 	rm -rfv $(BUILD_DIR)/_tmp/root/
 
@@ -40,3 +41,17 @@ package_run: package
 
 package_debug: package	
 >	$(QEMU) $(QEMUFLAGS) -s -S $(BUILD_DIR)/ksnucleus.iso
+
+ifeq ($(CONFIG_KSNUCLEUS_8042_SUPPORT), true)
+	NUCLEUS_SRCS +=  \
+	platform/pc/8042.cpp
+	CPPFLAGS	 +=  \
+	-DCONFIG_KSNUCLEUS_8042_SUPPORT
+endif
+
+ifeq ($(CONFIG_KSNUCLEUS_VESA_SUPPORT), true)
+	NUCLEUS_SRCS +=  \
+	platform/pc/vesa.cpp
+	CPPFLAGS	 +=  \
+	-DCONFIG_KSNUCLEUS_VESA_SUPPORT
+endif
