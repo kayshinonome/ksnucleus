@@ -5,7 +5,7 @@
 // trying to convert non-type safe to type safe here... watch out
 SYSCALL mk_syscall(KsSyscallID syscall_id, void **args)
 {
-    constexpr Array<uint8_t, 6> syscall_arg_count{2, 1, 1, 1, 4, 2};
+    constexpr Array<uint8_t, 7> syscall_arg_count{2, 1, 1, 1, 4, 2, 1};
 
     /**
      * @brief A array to hold the intermediate of the syscalls
@@ -71,6 +71,12 @@ SYSCALL mk_syscall(KsSyscallID syscall_id, void **args)
         case KsSyscallID::ALLOCATEMEMORY:
         {
             ks_allocatememory(reinterpret_cast<void **>(arg_array[0]), *reinterpret_cast<uint32_t *>(arg_array[1]));
+            break;
+        }
+
+        case KsSyscallID::DEALLOCATEMEMORY:
+        {
+            ks_deallocatememory(reinterpret_cast<void **>(arg_array[0]));
             break;
         }
     }

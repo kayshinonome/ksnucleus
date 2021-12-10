@@ -27,7 +27,8 @@ enum class KsSyscallID : uint8_t
     FISSION = 2,
     SETSYSTEMSTATE = 3,
     COMMITFRAMEBUFFER = 4,
-    ALLOCATEMEMORY = 5
+    ALLOCATEMEMORY = 5,
+    DEALLOCATEMEMORY = 6
 };
 
 /**
@@ -68,3 +69,4 @@ SUBSYSCALL ks_gettime(uint64_t *time);
 SUBSYSCALL ks_setsystemstate(SystemState system_state);
 SUBSYSCALL ks_commitframebuffer(const void *buffer, uint16_t width, uint16_t height, uint8_t depth);
 SUBSYSCALL ks_allocatememory(void **buffer, uint32_t size);
+SUBSYSCALL ks_deallocatememory(void **buffer);
