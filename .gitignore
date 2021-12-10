@@ -5,3 +5,6 @@ build/
 .cache
 *compile_commands.json
 docs/
+.vscode/configurationCache.log
+.vscode/dryrun.log
+.vscode/targets.log
