@@ -1,4 +1,5 @@
 #include <core/ksnucleus.hpp>
+#include <math.hpp>
 #include <types.hpp>
 
 extern "C"

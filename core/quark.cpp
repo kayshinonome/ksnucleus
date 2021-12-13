@@ -1,4 +1,5 @@
 #include <core/quark.hpp>
+#include <debug.hpp>
 
 bool Quark_Collection::add_quark(Quark &quark)
 {
@@ -17,15 +18,11 @@ bool Quark_Collection::add_quark(Quark &quark)
 // FIXME: This is too complicated to actually comphrehend all at once. Simplify it.
 bool Quark_Collection::call_quark_service(Quark_Services quark_service, Array<void *, MAX_QUARK_ARG_COUNT> args)
 {
-    const auto quark_arg_count_for_call = quark_arg_counts[static_cast<uint8_t>(quark_service)];
+    auto answer = args.search([](auto search_term) { return search_term == nullptr; });
 
-    // Ensure that the args isn't null in its spot where it shouldn't
-    for (uint8_t x = 0; x < quark_arg_count_for_call; x++)
+    if (answer.valid && answer.data < quark_arg_counts[static_cast<size_t>(quark_service)])
     {
-        if (args[x] == nullptr)
-        {
-            ks_fission("Nullptr detected in quark call where actual data should have been");
-        }
+        ks_fission("Nullptr detected in quark args where actual data should have been");
     }
 
     // Search for a viable quark and call it

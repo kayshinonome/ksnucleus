@@ -1,5 +1,6 @@
 #include <array.hpp>
 #include <core/ksnucleus.hpp>
+#include <debug.hpp>
 #include <string.hpp>
 
 [[nodiscard]] uint16_t String::size() const
@@ -13,8 +14,6 @@
     // Check if the null character was actually found
     if (!answer.valid)
     {
-        // FIXME: What was I thinking?
-        // Kill the system, we don't want invalid strings to be inserted
         ks_fission("Invalid string detected");
     }
 

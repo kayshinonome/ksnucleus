@@ -3,7 +3,7 @@
 #include <video/point.hpp>
 #include <video/rect.hpp>
 
-// FIXME: Franebuffers sizes are calculated at runtime!  Templates are calculated at compile time!
+// FIXME: Framebuffers sizes are calculated at runtime!  Templates are calculated at compile time!
 
 /**
  * @brief Framebuffer type to be used internally

@@ -91,8 +91,7 @@ template <typename T> constexpr uint32_t crc32(T obj)
     constexpr auto total_length = sizeof(T);
     uint32_t crc = 0xffffffff;
 
-    // Idk why I'm allowed to reinterpret_cast here, maybe rules are relaxed for templates? Or maybe this is a clang
-    // glitch. Either way, I'm not complaining
+    // For certain types this reinterpret_cast is allowed in constexpr so I'll leave it here
 
     q = reinterpret_cast<const uint8_t *>(&obj) + total_length;
     for (const auto *p = reinterpret_cast<const uint8_t *>(&obj); p < q; p++)

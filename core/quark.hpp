@@ -5,7 +5,6 @@
 #include <types.hpp>
 
 constexpr auto MAX_QUARK_ARG_COUNT = 1;
-constexpr auto QUARK_SERVICE_COUNT = 4;
 
 enum class Quark_Services : uint8_t
 {
@@ -14,6 +13,8 @@ enum class Quark_Services : uint8_t
     SHUTDOWN,
     RANDSEED
 };
+
+constexpr auto QUARK_SERVICE_COUNT = 4;
 
 /**
  * @brief The base class that all quarks come from

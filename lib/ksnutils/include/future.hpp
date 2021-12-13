@@ -25,7 +25,7 @@ template <typename WRAPPED_TYPE> class Future
   public:
     WRAPPED_TYPE (*callback)() = nullptr;
 
-    operator const WRAPPED_TYPE() const
+    operator WRAPPED_TYPE() const
     {
         return fetch_data();
     }

@@ -31,14 +31,6 @@ cpuid::CPU_Vendor cpuid::get_vendor()
     // decides to unroll the entire damn thing. I could work around this but also the effort of generating hashes for
     // these strings isnt work it because its only likely to be read a few time by the os
 
-    constinit static Atomic<bool> been_checked_before{};
-    constinit static Atomic<CPU_Vendor> cached_cpu_vendor{};
-
-    if (been_checked_before)
-    {
-        return cached_cpu_vendor;
-    }
-
     class CPU_String_Couple
     {
       public:
@@ -65,20 +57,11 @@ cpuid::CPU_Vendor cpuid::get_vendor()
 
     Array<char, 12> buffer{};
     get_vendor_id(buffer);
-    for (uint32_t x = 0, len = cpu_vendor_string_table.size(); x < len; x++)
-    {
-        // Get the vendor string as an array, cutting off that final byte
-        const auto *array_tmp =
-            reinterpret_cast<const Array<char, 12> *>(cpu_vendor_string_table[x].cpu_vendor_string.raw());
-        if ((*array_tmp) == buffer)
-        {
-            been_checked_before = true;
-            cached_cpu_vendor = cpu_vendor_string_table[x].cpu_vendor;
-            return cached_cpu_vendor;
-        }
-    }
 
-    been_checked_before = true;
-    cached_cpu_vendor = CPU_Vendor::UNKNOWN;
-    return cached_cpu_vendor;
+    auto answer = cpu_vendor_string_table.search([buffer](CPU_String_Couple search_term) {
+        const auto *array_tmp = reinterpret_cast<const Array<char, 12> *>(search_term.cpu_vendor_string.raw());
+        return *array_tmp == buffer;
+    });
+
+    return (answer.valid) ? cpu_vendor_string_table[answer.data].cpu_vendor : CPU_Vendor::UNKNOWN;
 }

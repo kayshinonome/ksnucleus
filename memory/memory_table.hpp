@@ -1,4 +1,5 @@
 #include <array.hpp>
+#include <permission.hpp>
 #include <types.hpp>
 
 class Memory_Table_Entry
@@ -21,6 +22,12 @@ class Memory_Table_Entry
      *
      */
     bool is_reserved;
+
+    /**
+     * @brief Permissions for the memory
+     *
+     */
+    Permissions permissions;
 };
 
 template <uint32_t SIZE> class Memory_Table : public Array<Memory_Table_Entry, SIZE>

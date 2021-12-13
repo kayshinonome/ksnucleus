@@ -25,13 +25,11 @@ SYSCALL mk_syscall(KsSyscallID syscall_id, void **args)
         ks_fission("Invalid syscall called");
     }
 
-    // Verify that the array contains no nullptrs where valid pointers should be
-    for (uint8_t x = 0, len = syscall_arg_count[static_cast<size_t>(syscall_id)]; x < len; x++)
+    auto answer = arg_array.search([](auto search_term) { return search_term == nullptr; });
+
+    if (answer.valid && answer.data < syscall_arg_count[static_cast<size_t>(syscall_id)])
     {
-        if (arg_array[x] == nullptr)
-        {
-            ks_fission("Nullptr detected in syscall where actual data should have been");
-        }
+        ks_fission("Nullptr detected in syscall args where actual data should have been");
     }
 
     switch (syscall_id)

@@ -2,7 +2,7 @@ ENTRY(_start)
 
 SECTIONS
 {
-    . = 1M;
+    . = 100K;
 
     .multiboot ALIGN(8) : 
     {
