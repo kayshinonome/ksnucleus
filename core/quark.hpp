@@ -27,7 +27,7 @@ class Quark
     Atomic<bool> has_been_initialized = false;
 
     void (*init)() = nullptr;
-    void (*fini)();
+    void (*fini)() = nullptr;
 
     /**
      * @brief These are the quark services

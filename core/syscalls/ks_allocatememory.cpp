@@ -3,9 +3,10 @@
 #include <core/ksnucleus.hpp>
 #include <core/quark.hpp>
 #include <memory/memory_table.hpp>
+#include <permission.hpp>
 #include <types.hpp>
 
-SUBSYSCALL ks_allocatememory(void **buffer, uint32_t size)
+SUBSYSCALL ks_allocatememory(void **buffer, Permissions permissions, uint32_t size)
 {
 
     if (buffer == nullptr)

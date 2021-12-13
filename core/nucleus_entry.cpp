@@ -11,7 +11,7 @@ extern "C"
         // Create a framebuffer
         Array<uint8_t, 1024> *buffer = nullptr;
 
-        ks_allocatememory(reinterpret_cast<void **>(&buffer), buffer->size());
+        ks_allocatememory(reinterpret_cast<void **>(&buffer), {}, buffer->size());
 
         // Fill that framebuffer with random data
         ks_random(reinterpret_cast<void *>(buffer->raw()), buffer->size());

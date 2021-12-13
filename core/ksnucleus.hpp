@@ -11,6 +11,7 @@
 #pragma once
 
 #include <core/runtime.hpp>
+#include <permission.hpp>
 #include <string.hpp>
 #include <types.hpp>
 
@@ -65,8 +66,40 @@ SUBSYSCALL ks_gettime(uint64_t *time);
  * @param error_string The error string, 127 bytes, not including the null terminator
  * @return void
  */
-[[noreturn]] SUBSYSCALL ks_fission(const char error_string[128]);
+[[noreturn]] SUBSYSCALL ks_fission(const char *error_string);
+
+/**
+ * @brief Set the system state
+ *
+ * @param system_state
+ * @return SUBSYSCALL
+ */
 SUBSYSCALL ks_setsystemstate(SystemState system_state);
+
+/**
+ * @brief Commit a framebuffer (Don't expect this one to last long)
+ *
+ * @param buffer
+ * @param width
+ * @param height
+ * @param depth
+ * @return SUBSYSCALL
+ */
 SUBSYSCALL ks_commitframebuffer(const void *buffer, uint16_t width, uint16_t height, uint8_t depth);
-SUBSYSCALL ks_allocatememory(void **buffer, uint32_t size);
+
+/**
+ * @brief Allocate memory
+ *
+ * @param buffer
+ * @param size
+ * @return SUBSYSCALL
+ */
+SUBSYSCALL ks_allocatememory(void **buffer, Permissions permissions, uint32_t size);
+
+/**
+ * @brief Deallocate memory
+ *
+ * @param buffer
+ * @return SUBSYSCALL
+ */
 SUBSYSCALL ks_deallocatememory(void **buffer);

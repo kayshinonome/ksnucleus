@@ -5,7 +5,17 @@
 // trying to convert non-type safe to type safe here... watch out
 SYSCALL mk_syscall(KsSyscallID syscall_id, void **args)
 {
-    constexpr Array<uint8_t, 7> syscall_arg_count{2, 1, 1, 1, 4, 2, 1};
+    /**
+     * @brief Numbers of args in the syscall
+     *
+     */
+    constexpr Array<uint8_t, 7> syscall_arg_count{2, 1, 1, 1, 4, 3, 1};
+
+    /**
+     * @brief If that requires a arg
+     *
+     */
+    constexpr Array<bool, syscall_arg_count.size()> syscall_requires_admin{};
 
     /**
      * @brief A array to hold the intermediate of the syscalls
@@ -68,7 +78,8 @@ SYSCALL mk_syscall(KsSyscallID syscall_id, void **args)
 
         case KsSyscallID::ALLOCATEMEMORY:
         {
-            ks_allocatememory(reinterpret_cast<void **>(arg_array[0]), *reinterpret_cast<uint32_t *>(arg_array[1]));
+            ks_allocatememory(reinterpret_cast<void **>(arg_array[0]), *reinterpret_cast<Permissions *>(arg_array[1]),
+                              *reinterpret_cast<uint32_t *>(arg_array[2]));
             break;
         }
 

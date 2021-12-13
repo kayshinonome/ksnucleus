@@ -17,6 +17,9 @@
 
 class Permissions
 {
+  private:
+    uint8_t unused : 2;
+
   public:
     uint8_t system_read : 1;
     uint8_t system_write : 1;

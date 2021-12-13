@@ -7,6 +7,7 @@ template <typename WRAPPED_TYPE> class Future
 {
   private:
     WRAPPED_TYPE data;
+    WRAPPED_TYPE (*callback)() = nullptr;
     bool has_been_called_yet = false;
 
     WRAPPED_TYPE &fetch_data()
@@ -23,7 +24,9 @@ template <typename WRAPPED_TYPE> class Future
     }
 
   public:
-    WRAPPED_TYPE (*callback)() = nullptr;
+    explicit Future(WRAPPED_TYPE (*func)()) : callback(func)
+    {
+    }
 
     operator WRAPPED_TYPE() const
     {
