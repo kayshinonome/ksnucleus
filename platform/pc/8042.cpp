@@ -1,7 +1,7 @@
 #include <arch/x86/io.hpp>
-#include <core/quark.hpp>
+#include <core/driver.hpp>
 
-Quark pc_8042{.reboot = []() {
+Driver pc_8042{.reboot = []() {
     uint8_t good = 0x02;
     while ((good & 0x02) != 0)
     {

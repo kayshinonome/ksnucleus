@@ -1,5 +1,6 @@
 #include <core/ksnucleus.hpp>
 #include <math.hpp>
+#include <table.hpp>
 #include <types.hpp>
 #include <video/fonts.hpp>
 #include <video/framebuffer.hpp>

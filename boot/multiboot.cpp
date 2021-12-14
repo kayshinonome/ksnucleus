@@ -1,8 +1,8 @@
+#include <boot/multiboot.hpp>
 #include <core/init.hpp>
 #include <core/ksnucleus.hpp>
 #include <core/registry.hpp>
 #include <debug.hpp>
-#include <platform/pc/multiboot/multiboot.hpp>
 #include <types.hpp>
 
 constexpr uint32_t magic = MULTIBOOT_HEADER_MAGIC;

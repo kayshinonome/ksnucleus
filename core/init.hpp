@@ -19,4 +19,10 @@ namespace ksinit
      *
      */
     void platform();
+
+    /**
+     * @brief Filesystem
+     *
+     */
+    void filesystem();
 } // namespace ksinit

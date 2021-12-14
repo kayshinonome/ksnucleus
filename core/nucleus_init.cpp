@@ -7,5 +7,6 @@ extern "C"
         ksinit::arch();
         ksinit::boot();
         ksinit::platform();
+        ksinit::filesystem();
     }
 }

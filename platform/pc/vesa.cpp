@@ -1,5 +1,5 @@
 #include <arch/x86/x86_32/v86.hpp>
-#include <core/quark.hpp>
+#include <core/driver.hpp>
 #include <core/registry.hpp>
 #include <platform/pc/bios.hpp>
 #include <utils.hpp>
@@ -17,7 +17,7 @@ inline size_t get_vesa_framebuffer_size()
     return global_registry.screen_width * global_registry.screen_height * global_registry.screen_depth;
 }
 
-Quark pc_vesa{.commitframebuffer = [](void *data) {
+Driver pc_vesa{.commitframebuffer = [](void *data) {
     if (bios_data_area->CURRENT_VIDEO_MODE != 0)
     {
         return false;

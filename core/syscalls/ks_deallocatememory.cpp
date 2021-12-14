@@ -1,8 +1,8 @@
 #include <array.hpp>
 #include <atomic.hpp>
 #include <core/ksnucleus.hpp>
-#include <core/quark.hpp>
 #include <memory/memory_table.hpp>
+#include <quark.hpp>
 #include <types.hpp>
 
 SUBSYSCALL ks_deallocatememory(void **buffer)

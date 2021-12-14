@@ -1,3 +1,5 @@
+Bytecode
 cpuid
 MULTIBOOT
+Syscall
 VESA

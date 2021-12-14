@@ -17,14 +17,14 @@
 
 class Permissions
 {
-  private:
-    uint8_t unused : 2;
-
   public:
-    uint8_t system_read : 1;
-    uint8_t system_write : 1;
-    uint8_t system_execute : 1;
-    uint8_t user_read : 1;
-    uint8_t user_write : 1;
-    uint8_t user_execute : 1;
+    bool unused : 2;
+    bool system_read : 1;
+    bool system_write : 1;
+    bool system_execute : 1;
+    bool user_read : 1;
+    bool user_write : 1;
+    bool user_execute : 1;
 };
+
+static_assert(sizeof(Permissions) == sizeof(uint8_t));

@@ -4,7 +4,7 @@
 #include <math.hpp>
 #include <types.hpp>
 
-SUBSYSCALL ks_random(void *buffer, size_t length)
+SUBSYSCALL ks_random(void *buffer, uint32_t length)
 {
     constexpr auto rand_buffer_size = 10;
     constexpr auto gen =
@@ -20,6 +20,6 @@ SUBSYSCALL ks_random(void *buffer, size_t length)
         rand_buffer[max(pos, i) % rand_buffer_size] += sin(gen + i);
         rand_buffer[min(pos, i) % rand_buffer_size] ^= sin(gen + i);
 
-        reinterpret_cast<Atomic<uint8_t> *>(buffer)[i] = rand_buffer[pos];
+        reinterpret_cast<Atomic<uint8_t> *>(buffer)[i] = rand_buffer[pos] ^ crc32(i);
     }
 }

@@ -1,9 +1,9 @@
 #include <array.hpp>
 #include <atomic.hpp>
 #include <core/ksnucleus.hpp>
-#include <core/quark.hpp>
 #include <memory/memory_table.hpp>
 #include <permission.hpp>
+#include <quark.hpp>
 #include <types.hpp>
 
 SUBSYSCALL ks_allocatememory(void **buffer, Permissions permissions, uint32_t size)

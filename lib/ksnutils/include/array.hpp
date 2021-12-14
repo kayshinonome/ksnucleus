@@ -1,3 +1,9 @@
+/**
+ * @file array.hpp
+ * @author Kay Shinonome (kayshinonome@protonmail.com)
+ * @brief A raw array wrapper
+ *
+ */
 #pragma once
 
 #include <answer.hpp>

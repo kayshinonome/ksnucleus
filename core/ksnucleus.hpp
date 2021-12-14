@@ -50,7 +50,7 @@ SYSCALL mk_syscall(KsSyscallID syscall_id, void **args);
  * @param length
  * @return void
  */
-SUBSYSCALL ks_random(void *buffer, size_t length);
+SUBSYSCALL ks_random(void *buffer, uint32_t length);
 
 /**
  * @brief Get the current time in seconds

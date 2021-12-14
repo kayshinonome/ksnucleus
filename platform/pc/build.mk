@@ -2,9 +2,6 @@ ifneq  ($(CONFIG_KSNUCLEUS_ARCH),x86)
 	$(error "Non x86 archs not supported")
 endif
 
-include \
-platform/pc/multiboot/build.mk
-
 LDFLAGS 	+= 								\
 -Tplatform/pc/link.ld
 

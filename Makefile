@@ -104,7 +104,9 @@ arch/build.mk											\
 core/build.mk											\
 lib/build.mk											\
 platform/build.mk										\
-video/build.mk
+video/build.mk											\
+filesystem/build.mk										\
+boot/build.mk
 
 NUCLEUS_OBJS			=  $(NUCLEUS_SRCS:%=$(BUILD_DIR)/%.o)
 OBJS 				+= $(NUCLEUS_OBJS)
