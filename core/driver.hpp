@@ -21,7 +21,7 @@ enum class Driver_Services : uint8_t
     SHUTDOWN
 };
 
-class Driver_Collection : public Quark_Collection<Driver, Driver_Services, 0xff>
+class Driver_Collection : public Quark_Collection<Driver, Driver_Services, 0x10>
 {
   public:
     bool call_quark_service(Driver_Services driver_service, Array<void *, MAX_QUARK_ARG_COUNT> args) override

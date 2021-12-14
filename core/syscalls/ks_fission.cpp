@@ -4,7 +4,7 @@
 #include <debug.hpp>
 #include <types.hpp>
 
-[[noreturn]] SUBSYSCALL ks_fission(const char *error_code)
+SUBSYSCALL ks_fission(const char *error_code)
 {
     constinit static Atomic<uint16_t> fisson_level{};
     constinit static Atomic<bool> fission_called_before{};

@@ -7,11 +7,17 @@ extern "C"
     __attribute__((noreturn)) void __stack_chk_fail()
     {
         ks_fission("Stack smashing detected!");
+        while (true)
+        {
+        }
     }
 
     __attribute__((noreturn)) void __stack_chk_fail_local()
     {
         __stack_chk_fail();
+        while (true)
+        {
+        }
     }
 }
 

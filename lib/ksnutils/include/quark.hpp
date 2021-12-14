@@ -32,7 +32,7 @@ class Quark_Collection : protected Array<QUARK_TYPE *, QUARK_COUNT>
         {
             return true;
         }
-        return answer.data < MAX_QUARK_ARG_COUNT;
+        return answer.data <= arg_count;
     }
 
     void init_quark_if_needed(GenericQuark *quark)

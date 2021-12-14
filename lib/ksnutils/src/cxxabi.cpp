@@ -51,6 +51,9 @@ extern "C"
     __attribute__((noreturn)) void __cxa_pure_virtual()
     {
         ks_fission("Pure virtual called!");
+        while (true)
+        {
+        }
     }
 
     void __cxa_finalize(void *f)

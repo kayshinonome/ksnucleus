@@ -66,7 +66,7 @@ SUBSYSCALL ks_gettime(uint64_t *time);
  * @param error_string The error string, 127 bytes, not including the null terminator
  * @return void
  */
-[[noreturn]] SUBSYSCALL ks_fission(const char *error_string);
+SUBSYSCALL ks_fission(const char *error_string);
 
 /**
  * @brief Set the system state
