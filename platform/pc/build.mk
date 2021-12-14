@@ -13,7 +13,8 @@ CPPFLAGS	+=								\
 -DCONFIG_KSNUCLEUS_PLATFORM_PC
 
 QEMUFLAGS	+=								\
--vga cirrus
+-vga cirrus									\
+-m 256
 
 inspect: $(BUILD_DIR)/nucleus
 > 	if ! grub-file --is-x86-multiboot $^; then

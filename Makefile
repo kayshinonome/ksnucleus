@@ -58,6 +58,7 @@ CPPFLAGS      		+=									\
 -fstack-protector-strong				            				\
 -fno-builtin											\
 -fno-delete-null-pointer-checks   						\
+-fno-strict-aliasing								\
 -integrated-as											\
 -flto
 

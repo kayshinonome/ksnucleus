@@ -36,40 +36,39 @@ class Driver_Collection : public Quark_Collection<Driver, Driver_Services, 0x10>
         for (uint32_t x = 0; x < size(); x++)
         {
             auto *driver = (*this)[x];
-            if (driver == nullptr)
+            if (driver != nullptr)
             {
-                continue;
-            }
 
-            init_quark_if_needed(driver);
+                init_quark_if_needed(driver);
 
-            switch (driver_service)
-            {
-                case Driver_Services::COMMITFRAMEBUFFER:
+                switch (driver_service)
                 {
-                    if (driver->commitframebuffer != nullptr && driver->commitframebuffer(args[0]))
+                    case Driver_Services::COMMITFRAMEBUFFER:
                     {
-                        return true;
+                        if (driver->commitframebuffer != nullptr && driver->commitframebuffer(args[0]))
+                        {
+                            return true;
+                        }
+                        break;
                     }
-                    break;
-                }
 
-                case Driver_Services::REBOOT:
-                {
-                    if (driver->reboot != nullptr && driver->reboot())
+                    case Driver_Services::REBOOT:
                     {
-                        return true;
+                        if (driver->reboot != nullptr && driver->reboot())
+                        {
+                            return true;
+                        }
+                        break;
                     }
-                    break;
-                }
 
-                case Driver_Services::SHUTDOWN:
-                {
-                    if (driver->shutdown != nullptr && driver->shutdown())
+                    case Driver_Services::SHUTDOWN:
                     {
-                        return true;
+                        if (driver->shutdown != nullptr && driver->shutdown())
+                        {
+                            return true;
+                        }
+                        break;
                     }
-                    break;
                 }
             }
         }
@@ -77,4 +76,4 @@ class Driver_Collection : public Quark_Collection<Driver, Driver_Services, 0x10>
     }
 };
 
-inline Driver_Collection driver_collection;
+constinit inline Driver_Collection driver_collection{};
